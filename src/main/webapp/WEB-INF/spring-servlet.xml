@@ -46,6 +46,8 @@
 	<bean id="userDao" class="com.bridgeit.springToDoApp.dao.UserDaoImpl" />
 
 	<bean id="userService" class="com.bridgeit.springToDoApp.service.UserServiceImpl" />
+	
+	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
 
 
 </beans>

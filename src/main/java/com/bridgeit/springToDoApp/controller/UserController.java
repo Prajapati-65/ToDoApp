@@ -14,12 +14,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.UserService;
+import com.bridgeit.springToDoApp.validation.Validator;
 
 @RestController
 public class UserController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	Validator validator;
+
+	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	public ResponseEntity<String> saveUser(@RequestBody User user) {
+		String isValidator = validator.validateSaveUser(user);
+		if (isValidator.equals("Success")) {
+			userService.saveUser(user); 
+			System.out.println("Registration seccessful");
+		}
+		return new ResponseEntity<String>(isValidator,HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> loginUser(@RequestBody User user, HttpSession session) {
+		user = userService.loginUser(user);
+		session.setAttribute("user", user);
+		System.out.println("Login seccessful");
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ResponseEntity<Void> logout(HttpSession session) {
+		session.removeAttribute("user");
+		session.invalidate();
+		System.out.println("Logout seccessful");
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/adduser/id/{id}", method = RequestMethod.GET)
 	public ResponseEntity<User> findById(@PathVariable("id") int id) {
@@ -41,29 +71,4 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-	public ResponseEntity<Void> saveUser(@RequestBody User user) {
-		userService.saveUser(user);
-		System.out.println("Registration seccessful");
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> loginUser(@RequestBody User user) {
-		userService.loginUser(user);
-		System.out.println("Login seccessful");
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}	
-	
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public ResponseEntity<Void> logout(HttpSession session) {
-		session.removeAttribute("user");
-		session.invalidate();
-		System.out.println("Logout seccessful");
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
-
 }
-
-
