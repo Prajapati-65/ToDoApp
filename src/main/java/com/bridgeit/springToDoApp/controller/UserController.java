@@ -36,11 +36,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Void> loginUser(@RequestBody User user, HttpSession session) {
+	public ResponseEntity<String> loginUser(@RequestBody User user, HttpSession session) {
 		user = userService.loginUser(user);
 		session.setAttribute("user", user);
 		System.out.println("Login seccessful");
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
