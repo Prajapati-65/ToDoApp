@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.springToDoApp.model.ErrorMessage;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.UserService;
 import com.bridgeit.springToDoApp.validation.Validator;
@@ -24,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	Validator validator;
+	
+	@Autowired
+	ErrorMessage message;
 
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
@@ -31,24 +35,43 @@ public class UserController {
 		if (isValidator.equals("Success")) {
 			userService.saveUser(user); 
 			System.out.println("Registration seccessful");
+			return new ResponseEntity<String>(isValidator,HttpStatus.OK);
 		}
-		return new ResponseEntity<String>(isValidator,HttpStatus.OK);
+		System.out.println("Validation failed");
+		return new ResponseEntity<String>(isValidator,HttpStatus.CONFLICT);
 	}
-
+	
+	/*
+	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	public ResponseEntity<ErrorMessage> saveUser(@RequestBody User user) {
+		String isValidator = validator.validateSaveUser(user);
+		if (isValidator.equals("Success")) {
+			userService.saveUser(user); 
+			message.setMessage("Registration seccessful");
+			return new ResponseEntity<ErrorMessage>(message,HttpStatus.OK);
+		}
+		message.setMessage("Validation failed");
+		return new ResponseEntity<ErrorMessage>(message,HttpStatus.CONFLICT);
+	}
+	*/
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> loginUser(@RequestBody User user, HttpSession session) {
+	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
 		user = userService.loginUser(user);
 		session.setAttribute("user", user);
-		System.out.println("Login seccessful");
-		return new ResponseEntity<String>(HttpStatus.OK);
+		message.setMessage("Login seccessful");
+		//System.out.println("Login seccessful");
+		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public ResponseEntity<Void> logout(HttpSession session) {
+	public ResponseEntity<ErrorMessage> logout(HttpSession session) {
 		session.removeAttribute("user");
 		session.invalidate();
-		System.out.println("Logout seccessful");
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		message.setMessage("Logout seccessful");
+		//System.out.println("Logout seccessful");
+		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/adduser/id/{id}", method = RequestMethod.GET)

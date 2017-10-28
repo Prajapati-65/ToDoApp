@@ -10,24 +10,28 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="gen")
-	@GenericGenerator(name="gen", strategy="native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "gen")
+	@GenericGenerator(name = "gen", strategy = "native")
+	@Column(name="User_Id")
 	private int id;
+
+	@Column(name="First_Name")
+	private String firstName;
 	
-	@Column
-	private String name;
-	
-	@Column(unique=true)
+	@Column(name="Last_Name")
+	private String lastName;
+
+	@Column(unique = true,name="User_Email")
 	private String email;
-	
-	@Column
+
+	@Column(name="Mobile_Number")
 	private long mobileNumber;
-	
-	@Column
+
+	@Column(name="Password")
 	private String password;
 
 	public int getId() {
@@ -38,12 +42,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -70,5 +82,11 @@ public class User {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", mobileNumber=" + mobileNumber + ", password=" + password + "]";
+	}
 
+	
 }

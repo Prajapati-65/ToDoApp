@@ -35,9 +35,11 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmail(String email) {
 		Session session = factory.openSession();
 
+		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("email", email));
 
+		@SuppressWarnings("unchecked")
 		List<User> user = (List<User>) criteria.list();
 		return user.get(0);
 	}
@@ -60,6 +62,7 @@ public class UserDaoImpl implements UserDao {
 
 	public User loginUser(User user) {
 		Session session = factory.openSession();
+		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("email", user.getEmail()));
 		criteria.add(Restrictions.eq("password", user.getPassword()));
@@ -75,6 +78,7 @@ public class UserDaoImpl implements UserDao {
 
 	public User logoutUser(User user) {
 		Session session = factory.openSession();
+		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("email", user.getEmail()));
 		criteria.add(Restrictions.eq("password", user.getPassword()));

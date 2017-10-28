@@ -31,6 +31,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.bridgeit.springToDoApp.model.User</value>
+				<value>com.bridgeit.springToDoApp.model.Note</value>
 			</list>
 		</property>
 
@@ -47,7 +48,12 @@
 
 	<bean id="userService" class="com.bridgeit.springToDoApp.service.UserServiceImpl" />
 	
+	<bean id="noteDao" class="com.bridgeit.springToDoApp.dao.NoteDaoImpl" />
+	
+	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
+	
 	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
-
+	
+	<bean id="message" class="com.bridgeit.springToDoApp.model.ErrorMessage" scope="prototype"></bean>
 
 </beans>
