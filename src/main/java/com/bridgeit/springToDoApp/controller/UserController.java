@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.model.ErrorMessage;
 import com.bridgeit.springToDoApp.model.User;
+import com.bridgeit.springToDoApp.service.MailService;
 import com.bridgeit.springToDoApp.service.UserService;
 import com.bridgeit.springToDoApp.validation.Validator;
 
@@ -28,12 +29,16 @@ public class UserController {
 	
 	@Autowired
 	ErrorMessage message;
+	
+	@Autowired
+	MailService mailService;
 
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			userService.saveUser(user); 
+			mailService.sendMail(user.getEmail());
 			System.out.println("Registration seccessful");
 			return new ResponseEntity<String>(isValidator,HttpStatus.OK);
 		}

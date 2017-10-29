@@ -12,4 +12,6 @@ public interface UserDao {
 
 	User findByEmail(String email);
 	
+	User emailValidation(String email);
+	
 }

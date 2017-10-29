@@ -76,6 +76,7 @@ public class UserDaoImpl implements UserDao {
 		return finalUser;
 	}
 
+	
 	public User logoutUser(User user) {
 		Session session = factory.openSession();
 		@SuppressWarnings("deprecation")
@@ -90,6 +91,16 @@ public class UserDaoImpl implements UserDao {
 		}
 		session.close();
 		return finalUser;
+	}
+	
+	@Override
+	public User emailValidation(String email) {
+		Session session =this.factory.openSession();
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email", email));
+		User user=(User) criteria.uniqueResult();
+		session.close();
+		return user;
 	}
 
 }

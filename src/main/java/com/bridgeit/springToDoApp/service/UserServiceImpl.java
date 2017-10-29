@@ -28,4 +28,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.loginUser(user);
 	}
 
+	public User emailValidate(String email) {
+		User user = userDao.emailValidation(email);
+		if(user!=null){
+			return user;
+		}
+		return null;
+	}
+
 }
