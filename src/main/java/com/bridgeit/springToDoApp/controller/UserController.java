@@ -46,21 +46,6 @@ public class UserController {
 		return new ResponseEntity<String>(isValidator,HttpStatus.CONFLICT);
 	}
 	
-	/*
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-	public ResponseEntity<ErrorMessage> saveUser(@RequestBody User user) {
-		String isValidator = validator.validateSaveUser(user);
-		if (isValidator.equals("Success")) {
-			userService.saveUser(user); 
-			message.setMessage("Registration seccessful");
-			return new ResponseEntity<ErrorMessage>(message,HttpStatus.OK);
-		}
-		message.setMessage("Validation failed");
-		return new ResponseEntity<ErrorMessage>(message,HttpStatus.CONFLICT);
-	}
-	*/
-	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
 		user = userService.loginUser(user);

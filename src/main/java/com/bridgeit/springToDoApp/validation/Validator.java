@@ -10,8 +10,8 @@ public class Validator {
 
 	@Autowired
 	UserService userServive;
-
-	public static final Pattern EMAIL_ID_REGEX = Pattern.compile("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{3,}$",Pattern.CASE_INSENSITIVE);
+	
+	public static final Pattern EMAIL_ID_REGEX = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",Pattern.CASE_INSENSITIVE);
 	public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,}$");
 	public static final Pattern MOBILE_REGEX = Pattern.compile("[0-9]{10}");
 	public static final Pattern PASSWORD_REGEX = Pattern.compile("^[a-zA-Z0-9]{8,}$");
