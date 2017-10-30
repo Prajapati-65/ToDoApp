@@ -20,10 +20,10 @@ import com.bridgeit.springToDoApp.validation.Validator;
 
 @RestController
 public class UserController {
-
+	
 	@Autowired
 	UserService userService;
-
+	
 	@Autowired
 	Validator validator;
 	
@@ -32,7 +32,7 @@ public class UserController {
 	
 	@Autowired
 	MailService mailService;
-
+	
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		String isValidator = validator.validateSaveUser(user);
