@@ -64,14 +64,14 @@ public class NoteController {
 
 		Note noteById = noteService.getNoteById(note.getNoteId());
 
-	//	Date createDate = noteById.getCreatedDate();
-	//	note.setCreatedDate(createDate);
+		Date createDate = noteById.getCreatedDate();
+		note.setCreatedDate(createDate);
 
 		User user = noteById.getUser();
 		note.setUser(user);
 
-	//	Date modifiedDate = new Date();
-	//	note.setModifiedDate(modifiedDate);
+		Date modifiedDate = new Date();
+		note.setModifiedDate(modifiedDate);
 
 		boolean isUpdated = noteService.updateNote(note);
 
