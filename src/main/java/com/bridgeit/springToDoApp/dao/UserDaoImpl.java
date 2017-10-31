@@ -76,7 +76,6 @@ public class UserDaoImpl implements UserDao {
 		return finalUser;
 	}
 
-	
 	public User logoutUser(User user) {
 		Session session = factory.openSession();
 		@SuppressWarnings("deprecation")

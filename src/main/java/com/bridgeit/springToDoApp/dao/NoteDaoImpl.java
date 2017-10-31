@@ -23,7 +23,6 @@ public class NoteDaoImpl implements NoteDao {
 		int noteId = 0;
 		Session session = factory.openSession();
 		Transaction transaction = null;
-
 		try {
 			transaction = session.beginTransaction();
 			noteId = (Integer) session.save(note);

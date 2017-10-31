@@ -20,6 +20,7 @@ import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.NoteService;
 
 @RestController
+@RequestMapping(value = "/user")
 public class NoteController {
 
 	@Autowired
@@ -32,12 +33,16 @@ public class NoteController {
 	public ResponseEntity<ErrorMessage> createNote(@RequestBody Note note, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		note.setUser(user);
-		Date date = new Date();
-		note.setCreatedDate(date);
-		note.setModifiedDate(date);
-		noteService.createNote(note);
-		message.setMessage("Note Creation is seccessful");
-		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+		if (user != null) {
+			Date date = new Date();
+			note.setCreatedDate(date);
+			note.setModifiedDate(date);
+			noteService.createNote(note);
+			message.setMessage("Note create successfully");
+			return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+		}
+		message.setMessage("Please login first");
+		return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
@@ -70,7 +75,7 @@ public class NoteController {
 		note.setModifiedDate(modifiedDate);
 
 		boolean isUpdated = noteService.updateNote(note);
-		
+
 		if (isUpdated != true) {
 			message.setMessage("Note could not be updated...");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
@@ -79,7 +84,7 @@ public class NoteController {
 			return ResponseEntity.ok(message);
 		}
 	}
-	
+
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
 	public List<Note> getAllNotes(HttpSession session) {
 		User user = (User) session.getAttribute("user");

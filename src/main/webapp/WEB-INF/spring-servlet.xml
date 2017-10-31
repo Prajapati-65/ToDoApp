@@ -16,14 +16,16 @@
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 
-		<property name="url" value="jdbc:mysql://localhost:3306/ToDoApp?createDatabaseIfNotExist=true" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/ToDoApp?createDatabaseIfNotExist=true" />
 
 		<property name="username" value="root" />
 
 		<property name="password" value="password" />
 	</bean>
 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
@@ -39,7 +41,7 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
@@ -53,21 +55,28 @@
 		</property>
 	</bean>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**"/>
+			<bean class="com.bridgeit.springToDoApp.Filter.TokenInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<bean id="mailService" class="com.bridgeit.springToDoApp.service.MailServiceImpl">
 		<property name="email" ref="mail" />
 	</bean>
-	
+
 	<bean id="userDao" class="com.bridgeit.springToDoApp.dao.UserDaoImpl" />
 
 	<bean id="userService" class="com.bridgeit.springToDoApp.service.UserServiceImpl" />
-	
+
 	<bean id="noteDao" class="com.bridgeit.springToDoApp.dao.NoteDaoImpl" />
-	
+
 	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
-	
+
 	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
-	
-	<bean id="message" class="com.bridgeit.springToDoApp.model.ErrorMessage" scope="prototype" />
-	
+
+	<bean id="message" class="com.bridgeit.springToDoApp.model.ErrorMessage"
+		scope="prototype" />
 
 </beans>

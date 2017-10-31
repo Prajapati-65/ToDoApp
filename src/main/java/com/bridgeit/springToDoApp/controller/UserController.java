@@ -16,6 +16,7 @@ import com.bridgeit.springToDoApp.model.ErrorMessage;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.MailService;
 import com.bridgeit.springToDoApp.service.UserService;
+import com.bridgeit.springToDoApp.token.GenerateJWT;
 import com.bridgeit.springToDoApp.validation.Validator;
 
 @RestController
@@ -33,34 +34,35 @@ public class UserController {
 	@Autowired
 	MailService mailService;
 	
+	
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			userService.saveUser(user); 
 			mailService.sendMail(user.getEmail());
-			System.out.println("Registration seccessful");
 			return new ResponseEntity<String>(isValidator,HttpStatus.OK);
 		}
-		System.out.println("Validation failed");
 		return new ResponseEntity<String>(isValidator,HttpStatus.CONFLICT);
 	}
 	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
+		
 		user = userService.loginUser(user);
+		String generatetoken = GenerateJWT.generate(user.getId());
+		
 		session.setAttribute("user", user);
-		message.setMessage("Login seccessful");
-		//System.out.println("Login seccessful");
+		message.setMessage(generatetoken);
 		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
-
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<ErrorMessage> logout(HttpSession session) {
 		session.removeAttribute("user");
 		session.invalidate();
 		message.setMessage("Logout seccessful");
-		//System.out.println("Logout seccessful");
 		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
 
