@@ -62,7 +62,8 @@ public class NoteController {
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public ResponseEntity<ErrorMessage> update(@RequestBody Note note) {
 
-		Note noteById = noteService.getNoteById(note.getNoteId());
+		int noteid =note.getNoteId();
+		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
 		note.setCreatedDate(createDate);
