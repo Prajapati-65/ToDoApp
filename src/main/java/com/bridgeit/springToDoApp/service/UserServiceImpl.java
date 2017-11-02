@@ -10,15 +10,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
 
-	public User findById(int id) {
-		return userDao.findById(id);
-	}
-
-	public User findByEmail(String email) {
-
-		return userDao.findByEmail(email);
-	}
-
 	public void saveUser(User user) {
 
 		userDao.saveUser(user);

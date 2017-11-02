@@ -8,10 +8,6 @@ public interface UserDao {
 		
 	User loginUser(User user);
 
-	User findById(int id);
-
-	User findByEmail(String email);
-	
 	User emailValidation(String email);
 	
 }

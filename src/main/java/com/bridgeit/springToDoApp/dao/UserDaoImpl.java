@@ -1,6 +1,5 @@
 package com.bridgeit.springToDoApp.dao;
 
-import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -24,25 +23,6 @@ public class UserDaoImpl implements UserDao {
 		this.factory = factory;
 	}
 
-	public User findById(int id) {
-		Session session = factory.openSession();
-		User user = session.get(User.class, id);
-		System.out.println("User id" + user.getId());
-		session.close();
-		return user;
-	}
-
-	public User findByEmail(String email) {
-		Session session = factory.openSession();
-
-		@SuppressWarnings("deprecation")
-		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.eq("email", email));
-
-		@SuppressWarnings("unchecked")
-		List<User> user = (List<User>) criteria.list();
-		return user.get(0);
-	}
 
 	public void saveUser(User user) {
 		Session session = factory.openSession();

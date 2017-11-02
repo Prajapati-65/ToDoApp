@@ -66,24 +66,5 @@ public class UserController {
 		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/adduser/id/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> findById(@PathVariable("id") int id) {
-		User user = userService.findById(id);
-		if (user == null) {
-			return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<User>(user, HttpStatus.OK);
-		}
-	}
-
-	@RequestMapping(value = "/adduser/email/{email}", method = RequestMethod.GET)
-	public ResponseEntity<User> findByEmail(@PathVariable("email") String email) {
-		User user = userService.findByEmail(email);
-		if (user == null) {
-			return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-		} else {
-			return new ResponseEntity<User>(user, HttpStatus.OK);
-		}
-	}
-
+	
 }
