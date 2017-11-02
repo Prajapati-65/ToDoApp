@@ -35,7 +35,7 @@ public class UserController {
 	MailService mailService;
 	
 	
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {

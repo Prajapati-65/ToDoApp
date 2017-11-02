@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+
+form {
+	margin: 0px 10px;
+}
+
+body {
+	 background: cyan; 
+}
+
+h2 {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.p {
+	border: 1px dashed red;
+	padding: 10px;
+}
+
+.container {
+	max-width: 360px;
+}
+
+.divider {
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}

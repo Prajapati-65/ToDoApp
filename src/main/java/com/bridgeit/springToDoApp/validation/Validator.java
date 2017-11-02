@@ -25,13 +25,13 @@ public class Validator {
 			return "your last name is short...";
 		} 
 		else if (!validateRegEx(user.getEmail(), EMAIL_ID_REGEX)) {
-			return "Please enter a valid email address";
+			return "Please enter a valid email address !!";
 		} 
 		else if (!validateRegEx(String.valueOf(user.getMobileNumber()), MOBILE_REGEX)) {
-			return "Contact number must be 10 digits";
+			return "Contact number must be 10 digits !!";
 		} 
 		else if (!validateRegEx(user.getPassword(), PASSWORD_REGEX)) {
-			return "Your password too short!!";
+			return "Your password is short !!";
 		} 
 		else {
 			User newUser = userServive.emailValidate(user.getEmail());

@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="row"">
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				<form method="post" action="Registration" name="submit">
+					<div class="form-group">
+						<h2>Create an Account</h2>
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="firstName">Enter the
+							First name</label> <input id="firstName" name="firstName" type="text"
+							class="form-control" placeholder="Enter the first name" ng-model="user.firstName">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="lastName">Enter the
+							Last name</label> <input id="lastName" name="lastName" type="text"
+							class="form-control" placeholder="Enter the last name" ng-model="user.lastName">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="email">Enter the email</label> <input
+							id="email" name="email" type="email"
+							placeholder="Enter the email" class="form-control" ng-model="user.email">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="password">Enter the
+							password</label> <input id="password" name="password" type="password"
+							placeholder="Enter the password" class="form-control" ng-model="user.password">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="number">Enter mobile
+							number</label> <input id="mobileNumber" name="mobileNumber" type="text"
+							placeholder="Enter mobile number" class="form-control" ng-model="user.mobileNumber">
+					</div>
+
+					<div class="form-group">
+						<button id="submit" type="submit"
+							class="btn btn-success btn-block">Create my Account</button>
+					</div>
+					<p class="form-group">
+						By clicking on the "Create my Account button "bellow you certify
+						that you have read and agree to our <a href="#">Terms of Use</a>
+						and our <a href="#">Privacy Policy</a>.
+					</p>
+					Create an account? <a href="login.jsp">Sign in</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
