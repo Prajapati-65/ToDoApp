@@ -1,11 +1,11 @@
 <div class="container">
-	<div class="row"">
+	<div class="row">
 		<div class="panel panel-primary">
 			<div class="panel-body">
-				<form method="post" action="Registration" name="submit">
 					<div class="form-group">
 						<h2>Create an Account</h2>
 					</div>
+					
 					<div class="form-group">
 						<label class="control-label" for="firstName">Enter the
 							First name</label> <input id="firstName" name="firstName" type="text"
@@ -35,16 +35,15 @@
 					</div>
 
 					<div class="form-group">
-						<button id="submit" type="submit"
-							class="btn btn-success btn-block">Create my Account</button>
+						<button id="submit" type="submit" ng-click="registerUser()" class="btn btn-success btn-block">Create my Account</button>
 					</div>
+					
 					<p class="form-group">
 						By clicking on the "Create my Account button "bellow you certify
 						that you have read and agree to our <a href="#">Terms of Use</a>
 						and our <a href="#">Privacy Policy</a>.
 					</p>
-					Create an account? <a href="login.jsp">Sign in</a>
-				</form>
+					Create an account? <a href="#!/login">Sign in</a>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,3 @@
-@CHARSET "UTF-8";
 
 .btn-label {
 	position: relative;
@@ -22,7 +21,7 @@
 	border-right: 1px solid #dfdfe0;
 }
 
-.facebook, .twitter {
+.facebook, .google {
 	min-width: 250px;
 }
 
@@ -31,7 +30,7 @@
 	color: #fff;
 }
 
-.twitter {
+.google {
 	background-color: #00A5E3;
 	color: #fff;
-}
+} 

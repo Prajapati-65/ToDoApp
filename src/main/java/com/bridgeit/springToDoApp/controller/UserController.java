@@ -34,7 +34,6 @@ public class UserController {
 	@Autowired
 	MailService mailService;
 	
-	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		String isValidator = validator.validateSaveUser(user);
@@ -46,13 +45,10 @@ public class UserController {
 		return new ResponseEntity<String>(isValidator,HttpStatus.CONFLICT);
 	}
 	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
-		
 		user = userService.loginUser(user);
 		String generatetoken = GenerateJWT.generate(user.getId());
-		
 		session.setAttribute("user", user);
 		message.setMessage(generatetoken);
 		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
@@ -66,5 +62,4 @@ public class UserController {
 		return new ResponseEntity<ErrorMessage>(message ,HttpStatus.OK);
 	}
 
-	
 }
