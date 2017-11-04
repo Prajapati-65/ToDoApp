@@ -15,7 +15,7 @@ private static final String KEY = "application";
 		Date issueDate = new Date();
 		System.out.println("Issue date -->"+issueDate);
 		
-		Date expireDate = new Date(issueDate.getTime()+1000*60*30);
+		Date expireDate = new Date(issueDate.getTime()+1000*60*60);
 		System.out.println("Expire date -->"+expireDate);
 
 		

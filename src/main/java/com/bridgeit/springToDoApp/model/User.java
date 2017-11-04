@@ -33,6 +33,17 @@ public class User {
 
 	@Column(name="Password")
 	private String password;
+	
+	@Column(name="isActive")
+	private boolean isActive;
+	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	public int getId() {
 		return id;
@@ -85,9 +96,10 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", mobileNumber=" + mobileNumber + ", password=" + password + "]";
+				+ ", mobileNumber=" + mobileNumber + ", password=" + password + ", isActive=" + isActive + "]";
 	}
 
+	
 	
 	
 }

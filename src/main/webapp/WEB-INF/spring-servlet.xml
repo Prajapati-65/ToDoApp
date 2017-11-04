@@ -17,7 +17,6 @@
 	<mvc:resources location="/Controller/" mapping="/Controller/**" />
 	<mvc:resources location="/Style/" mapping="/Style/**" />
 	
-	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 

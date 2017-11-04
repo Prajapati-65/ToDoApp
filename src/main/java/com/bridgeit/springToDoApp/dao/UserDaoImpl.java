@@ -23,7 +23,6 @@ public class UserDaoImpl implements UserDao {
 		this.factory = factory;
 	}
 
-
 	public void saveUser(User user) {
 		Session session = factory.openSession();
 		Transaction transaction = null;
@@ -62,7 +61,6 @@ public class UserDaoImpl implements UserDao {
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("email", user.getEmail()));
 		criteria.add(Restrictions.eq("password", user.getPassword()));
-
 		User finalUser = (User) criteria.uniqueResult();
 		if (finalUser == null) {
 			session.close();
@@ -74,12 +72,45 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public User emailValidation(String email) {
-		Session session =this.factory.openSession();
+		Session session =factory.openSession();
 		@SuppressWarnings("deprecation")
-		Criteria criteria = session.createCriteria(User.class).add(Restrictions.eq("email", email));
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("email", email));
 		User user=(User) criteria.uniqueResult();
+		System.out.println("woah "+user);
 		session.close();
 		return user;
 	}
+
+	@Override
+	public User getUserById(int id) {
+		Session session = factory.openSession();
+		User user = session.get(User.class, id);
+		System.out.println("User is: " + user);
+		session.close();
+		return user;
+	}
+
+	@Override
+	public boolean updateUser(User user) {
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(user);
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+				return false;
+			}
+		}
+		session.close();
+		return true;
+	}
+
+	
 
 }
