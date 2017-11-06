@@ -42,7 +42,8 @@ public class UserController {
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			userService.saveUser(user);
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to Bridgelabz", "Registration successful");
+			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to Bridgelabz",
+					"Registration successful");
 			return new ResponseEntity<String>(isValidator, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(isValidator, HttpStatus.CONFLICT);
@@ -66,16 +67,16 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
-	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request ,HttpSession session) {
-		
+	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
+
 		String url = request.getRequestURL().toString();
 		int lastIndex = url.lastIndexOf("/");
-		String urlofForgotPassword = url.substring(0, lastIndex)+"/resetpassword";
-		
+		String urlofForgotPassword = url.substring(0, lastIndex) + "/resetpassword";
+
 		user = userService.emailValidate(user.getEmail());
-		
+
 		System.out.println("valid user with emailID : " + user);
-		
+
 		if (user == null) {
 			message.setMessage("Please enter valid emailID");
 			message.setStatus(500);
@@ -85,64 +86,55 @@ public class UserController {
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
 			session.setAttribute("Token", generateOTP);
-			
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "OTP is :", urlofForgotPassword + "?token="+generateOTP);
+
+			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "OTP is :",
+					urlofForgotPassword + "?token=" + generateOTP);
 		} catch (Exception e) {
 			e.printStackTrace();
 			message.setStatus(400);
 			return message;
 		}
-		
+
 		message.setMessage("Forget Success");
 		message.setStatus(200);
 		return message;
 	}
-	
-	
+
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
-	public ErrorMessage resetPassword(@RequestBody User user , HttpSession  session) {
-		
+	public ErrorMessage resetPassword(@RequestBody User user, HttpSession session) {
+
 		String email = user.getEmail();
 		String password = user.getPassword();
-		System.out.println("Email is : "+email);
-		System.out.println("Password is : "+password);
+		
 		System.out.println("Inside reset");
-
+		
 		int userId = VerifiedJWT.verify((String) session.getAttribute("Token"));
-
 		if (userId == 0) {
-			message.setMessage("Invalid OTP");
-			message.setStatus(-5);
+			message.setMessage("Invalid OTP : ");
+			message.setStatus(500);
 			return message;
 		}
-
 		user = userService.emailValidate(email);
-		
 		if (user == null) {
-			message.setMessage("No user found on this email id");
-			message.setStatus(-5);
+			message.setMessage("User not found :");
+			message.setStatus(500);
 			return message;
 		}
-
 		if (userId != user.getId()) {
-			message.setMessage("Invalid OTP");
-			message.setStatus(-5);
+			message.setMessage("Invalid OTP :");
+			message.setStatus(500);
 			return message;
 		}
-		
 		user.setPassword(password);
-		
 		if (userService.updateUser(user)) {
-			message.setMessage("Success");
-			message.setStatus(1);
+			message.setMessage("Reset password is success :");
+			message.setStatus(200);
 			return message;
 		} else {
 			message.setMessage("Password could not be changed");
-			message.setStatus(-1);
+			message.setStatus(-200);
 			return message;
 		}
 	}
-	
-	
 
 }
