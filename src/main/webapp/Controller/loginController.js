@@ -1,6 +1,7 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('loginController', function($scope, loginService, $location) {
+toDoApp.controller('loginController',
+		function($scope, loginService, $location) {
 
 			$scope.user = {};
 
@@ -11,6 +12,6 @@ toDoApp.controller('loginController', function($scope, loginService, $location) 
 				loginVariable.then(function(responce) {
 					$location.path('/login')
 				});
-
 			}
+			a
 		});

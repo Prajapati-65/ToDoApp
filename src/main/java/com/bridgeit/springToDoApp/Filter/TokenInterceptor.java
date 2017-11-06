@@ -8,33 +8,32 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bridgeit.springToDoApp.token.VerifiedJWT;
 
-public class TokenInterceptor implements HandlerInterceptor{
+public class TokenInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-		
+
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
 			throws Exception {
-		
+
 	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-		
+
 		System.out.println("intercepted");
 		int userId = VerifiedJWT.verify(request.getHeader("token"));
-		if(userId==0)
-		{
+		if (userId == 0) {
+			
 			response.setStatus(511);
 			return false;
 		}
-		
-		
+
 		return true;
 	}
-	
+
 }

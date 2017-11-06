@@ -18,7 +18,6 @@ private static final String KEY = "application";
 		Date expireDate = new Date(issueDate.getTime()+1000*60*60);
 		System.out.println("Expire date -->"+expireDate);
 
-		
 		JwtBuilder builder = Jwts.builder();
 		builder.setSubject("accessToken");
 	

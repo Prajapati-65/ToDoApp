@@ -39,9 +39,11 @@ public class UserController {
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
+		
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			userService.saveUser(user);
+			
 			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to Bridgelabz",
 					"Registration successful");
 			return new ResponseEntity<String>(isValidator, HttpStatus.OK);
@@ -74,9 +76,6 @@ public class UserController {
 		String urlofForgotPassword = url.substring(0, lastIndex) + "/resetpassword";
 
 		user = userService.emailValidate(user.getEmail());
-
-		System.out.println("valid user with emailID : " + user);
-
 		if (user == null) {
 			message.setMessage("Please enter valid emailID");
 			message.setStatus(500);
@@ -86,7 +85,6 @@ public class UserController {
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
 			session.setAttribute("Token", generateOTP);
-
 			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "OTP is :",
 					urlofForgotPassword + "?token=" + generateOTP);
 		} catch (Exception e) {
@@ -102,29 +100,26 @@ public class UserController {
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public ErrorMessage resetPassword(@RequestBody User user, HttpSession session) {
-
+		
 		String email = user.getEmail();
 		String password = user.getPassword();
-		
 		System.out.println("Inside reset");
 		
 		int userId = VerifiedJWT.verify((String) session.getAttribute("Token"));
+	
 		if (userId == 0) {
 			message.setMessage("Invalid OTP : ");
 			message.setStatus(500);
 			return message;
 		}
+		
 		user = userService.emailValidate(email);
 		if (user == null) {
 			message.setMessage("User not found :");
 			message.setStatus(500);
 			return message;
 		}
-		if (userId != user.getId()) {
-			message.setMessage("Invalid OTP :");
-			message.setStatus(500);
-			return message;
-		}
+		
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			message.setMessage("Reset password is success :");
