@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.model.ErrorMessage;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.MailService;
@@ -40,20 +41,24 @@ public class UserController {
 
 	@Autowired
 	MailService mailService;
+	
+	@Autowired
+	Encryption encryption;
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public ResponseEntity<String> saveUser(@RequestBody User user ,HttpServletRequest request) {
-		
+	public ResponseEntity<String> saveUser(@RequestBody User user, HttpServletRequest request) {
+
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
-			
+
 			user.setActive(false);
-			int id = userService.saveUser(user);
 			
+			int id = userService.saveUser(user);
+
 			if (id != 0) {
-				
+
 				String activeToken = GenerateJWT.generate(id);
-				
+
 				String url = request.getRequestURL().toString();
 				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
 
@@ -61,22 +66,22 @@ public class UserController {
 					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz", url);
 					return new ResponseEntity<String>(isValidator, HttpStatus.OK);
 				} catch (MailException e) {
-		
+
 					e.printStackTrace();
 				}
 			}
 		}
 		return new ResponseEntity<String>(isValidator, HttpStatus.CONFLICT);
 	}
-	
+
 	@RequestMapping(value = "/verifyMail/{activeToken:.+}", method = RequestMethod.GET)
-	public ResponseEntity<ErrorMessage> verifyMail(@PathVariable("activeToken") String activeToken ,HttpServletResponse response) throws IOException
-	{
-		User user=null;
+	public ResponseEntity<ErrorMessage> verifyMail(@PathVariable("activeToken") String activeToken,
+			HttpServletResponse response) throws IOException {
+		User user = null;
 		int id = VerifiedJWT.verify(activeToken);
 		try {
-			user =userService.getUserById(id);
-			System.out.println("User details : "+user);
+			user = userService.getUserById(id);
+			System.out.println("User details : " + user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +94,7 @@ public class UserController {
 		message.setStatus(200);
 		message.setMessage("user Email id verified successfully now plzz login....");
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
-		return new ResponseEntity<ErrorMessage>(message,HttpStatus.OK);
+		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -101,7 +106,6 @@ public class UserController {
 		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
 	}
 
-	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<ErrorMessage> logout(HttpSession session) {
 		session.removeAttribute("user");
@@ -109,8 +113,6 @@ public class UserController {
 		message.setMessage("Logout seccessful");
 		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
 	}
-
-	
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
@@ -127,8 +129,7 @@ public class UserController {
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
 			session.setAttribute("Token", generateOTP);
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "",
-					urlofForgotPassword + "");
+			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", urlofForgotPassword + "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			message.setStatus(400);
@@ -141,26 +142,26 @@ public class UserController {
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public ErrorMessage resetPassword(@RequestBody User user, HttpSession session) {
-		
+
 		String email = user.getEmail();
-		String password = user.getPassword();
+		String password = encryption.encryptPassword(user.getPassword());
 		System.out.println("Inside reset");
-		
+
 		int userId = VerifiedJWT.verify((String) session.getAttribute("Token"));
-	
+
 		if (userId == 0) {
 			message.setMessage("Invalid OTP : ");
 			message.setStatus(500);
 			return message;
 		}
-		
+
 		user = userService.emailValidate(email);
 		if (user == null) {
 			message.setMessage("User not found :");
 			message.setStatus(500);
 			return message;
 		}
-		
+
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			message.setMessage("Reset password is success :");

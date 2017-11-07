@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.model.Token;
 import com.bridgeit.springToDoApp.model.User;
 
@@ -17,8 +18,10 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	SessionFactory factory;
 	
-	private static final String key = "Token";
-
+	@Autowired
+	Encryption encryption;
+	
+	
 /*	
 
 	@Autowired
@@ -41,6 +44,9 @@ public class UserDaoImpl implements UserDao {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
+			if (user.getPassword() != null) {
+				user.setPassword(encryption.encryptPassword(user.getPassword()));
+			}
 			int id =(int) session.save(user);
 			transaction.commit();
 			return id;
@@ -60,24 +66,8 @@ public class UserDaoImpl implements UserDao {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("email", user.getEmail()));
-		criteria.add(Restrictions.eq("password", user.getPassword()));
-		//criteria.add(Restrictions.eq("isActive", true));
-		User finalUser = (User) criteria.uniqueResult();
-		
-		if (finalUser == null) {
-			session.close();
-			return null;
-		}
-		session.close();
-		return finalUser;
-	}
-
-	public User logoutUser(User user) {
-		Session session = factory.openSession();
-		@SuppressWarnings("deprecation")
-		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.eq("email", user.getEmail()));
-		criteria.add(Restrictions.eq("password", user.getPassword()));
+		criteria.add(Restrictions.eq("password", encryption.encryptPassword(user.getPassword())));
+		criteria.add(Restrictions.eq("isActive", true));
 		User finalUser = (User) criteria.uniqueResult();
 		if (finalUser == null) {
 			session.close();
