@@ -1,10 +1,11 @@
 package com.bridgeit.springToDoApp.dao;
 
+import com.bridgeit.springToDoApp.model.Token;
 import com.bridgeit.springToDoApp.model.User;
 
 public interface UserDao {
 
-	void saveUser(User user);
+	int saveUser(User user);
 
 	User loginUser(User user);
 
@@ -15,5 +16,8 @@ public interface UserDao {
 	boolean updateUser(User user);
 
 	
+	//public void addToken(Token token);
+	
+	//public Token getToken(String accessToken);
 
 }

@@ -17,7 +17,7 @@ public class NoteServiceImpl implements NoteService {
 
 	public int createNote(Note note) {
 		
-		return noteDao.createNote(note);
+		 return noteDao.createNote(note);
 	}
 
 	public boolean updateNote(Note note) {

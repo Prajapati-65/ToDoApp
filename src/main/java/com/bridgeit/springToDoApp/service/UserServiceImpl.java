@@ -3,6 +3,7 @@ package com.bridgeit.springToDoApp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.springToDoApp.dao.UserDao;
+import com.bridgeit.springToDoApp.model.Token;
 import com.bridgeit.springToDoApp.model.User;
 
 public class UserServiceImpl implements UserService {
@@ -10,9 +11,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
 
-	public void saveUser(User user) {
+	public int saveUser(User user) {
 
-		userDao.saveUser(user);
+		return userDao.saveUser(user);
 	}
 
 	public User loginUser(User user) {
@@ -38,5 +39,19 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.updateUser(user);
 	}
+	
+/*
+	@Override
+	public void addToken(Token token) {
+		 userDao.addToken(token);
+	}
+
+	@Override
+	public Token getToken(String AccessToken) {
+		
+		return userDao.getToken(AccessToken);
+	}
+
+	*/
 
 }

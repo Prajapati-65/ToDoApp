@@ -1,5 +1,6 @@
 package com.bridgeit.springToDoApp.token;
 
+
 import java.util.Date;
 
 import io.jsonwebtoken.JwtBuilder;

@@ -14,7 +14,7 @@ toDoApp.controller('resetController', function($scope, forgotpasswordService,
 			} else if (response.data.status == -200) {
 				$scope.response = 'Mail could not be sent';
 			} else if (response.data.status == 200) {
-				$location.path('resetpassword');
+				$location.path('');
 			}
 		});
 	}

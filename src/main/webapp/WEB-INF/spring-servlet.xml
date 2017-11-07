@@ -10,13 +10,13 @@
 
 	<context:component-scan base-package="com.bridgeit.springToDoApp" />
 	<mvc:annotation-driven />
-	
+
 	<mvc:resources location="/Template/" mapping="/Template/**" />
 	<mvc:resources location="/Service/" mapping="/Service/**" />
 	<mvc:resources location="/Script/" mapping="/Script/**" />
 	<mvc:resources location="/Controller/" mapping="/Controller/**" />
 	<mvc:resources location="/Style/" mapping="/Style/**" />
-	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
@@ -29,7 +29,7 @@
 
 		<property name="password" value="password" />
 	</bean>
-	
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -63,7 +63,7 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/user/**" />
 			<bean class="com.bridgeit.springToDoApp.Filter.TokenInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -78,7 +78,7 @@
 
 	<bean id="noteDao" class="com.bridgeit.springToDoApp.dao.NoteDaoImpl" />
 
-	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" /> 
+	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
 
 	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
 
