@@ -53,6 +53,7 @@ public class UserController {
 			if (id != 0) {
 				
 				String activeToken = GenerateJWT.generate(id);
+				
 				String url = request.getRequestURL().toString();
 				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
 
@@ -87,7 +88,6 @@ public class UserController {
 		}
 		message.setStatus(200);
 		message.setMessage("user Email id verified successfully now plzz login....");
-		
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		return new ResponseEntity<ErrorMessage>(message,HttpStatus.OK);
 	}
@@ -95,9 +95,7 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
 		user = userService.loginUser(user);
-		
 		String generatetoken = GenerateJWT.generate(user.getId());
-		
 		session.setAttribute("user", user);
 		message.setMessage(generatetoken);
 		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
@@ -111,6 +109,8 @@ public class UserController {
 		message.setMessage("Logout seccessful");
 		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
 	}
+
+	
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
