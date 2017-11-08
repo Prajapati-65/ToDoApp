@@ -163,7 +163,6 @@ public class UserController {
 			message.setStatus(500);
 			return message;
 		}
-
 		user = userService.emailValidate(email);
 		if (user == null) {
 			logger.error("User email is null "+user);
@@ -171,7 +170,6 @@ public class UserController {
 			message.setStatus(500);
 			return message;
 		}
-
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			logger.info("Password update is successful ");

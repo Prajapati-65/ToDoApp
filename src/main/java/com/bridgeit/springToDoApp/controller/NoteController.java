@@ -91,5 +91,8 @@ public class NoteController {
 		List<Note> notes = noteService.getAllNotes(user);
 		return notes;
 	}
+	
+
+	
 
 }

@@ -78,14 +78,13 @@ public class NoteDaoImpl implements NoteDao {
 
 	public List<Note> getAllNotes(User user) {
 		Session session = factory.openSession();
-	
+		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(Note.class);
 		criteria.add(Restrictions.eq("user", user));
-		
 		criteria.addOrder(Order.desc("modifiedDate"));
-		
+		@SuppressWarnings("unchecked")
 		List<Note> notes = criteria.list();
 		return notes;
 	}
-
+	
 }
