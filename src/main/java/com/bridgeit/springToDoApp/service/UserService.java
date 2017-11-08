@@ -1,6 +1,5 @@
 package com.bridgeit.springToDoApp.service;
 
-import com.bridgeit.springToDoApp.model.Token;
 import com.bridgeit.springToDoApp.model.User;
 
 public interface UserService {
@@ -15,7 +14,4 @@ public interface UserService {
 
 	boolean updateUser(User user);
 
-	//public void addToken(Token token);
-	
-	//public Token getToken(String AccessToken);
 }

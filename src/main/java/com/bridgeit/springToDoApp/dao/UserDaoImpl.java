@@ -21,16 +21,6 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	Encryption encryption;
 	
-	
-/*	
-
-	@Autowired
-	private RedisTemplate<String, Object> template;
-	private HashOperations<String, String, Token> hashOperations;
-	
-*/
-
-	
 	public SessionFactory getFactory() {
 		return factory;
 	}
@@ -116,24 +106,5 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return true;
 	}
-
-	
-	
-	
-	/*@Override
-	public void addToken(Token token) {
-		hashOperations = template.opsForHash();
-		hashOperations.put(key, token.getAccessToken(), token);
-	}
-
-	@Override
-	public Token getToken(String accessToken) {
-
-		hashOperations = template.opsForHash();
-		Token token = hashOperations.get(key, accessToken);
-		return token;
-	}
-*/
-
 	
 }

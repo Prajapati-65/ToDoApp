@@ -39,19 +39,5 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.updateUser(user);
 	}
-	
-/*
-	@Override
-	public void addToken(Token token) {
-		 userDao.addToken(token);
-	}
-
-	@Override
-	public Token getToken(String AccessToken) {
-		
-		return userDao.getToken(AccessToken);
-	}
-
-	*/
 
 }

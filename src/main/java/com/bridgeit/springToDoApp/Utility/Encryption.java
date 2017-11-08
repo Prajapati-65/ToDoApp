@@ -2,7 +2,6 @@ package com.bridgeit.springToDoApp.Utility;
 
 import java.security.MessageDigest;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component

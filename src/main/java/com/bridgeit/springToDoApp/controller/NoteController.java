@@ -63,19 +63,19 @@ public class NoteController {
 	public ResponseEntity<ErrorMessage> update(@RequestBody Note note) {
 
 		int noteid =note.getNoteId();
+		System.out.println("noteid: " + noteid);
 		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
 		note.setCreatedDate(createDate);
-
+		
 		User user = noteById.getUser();
 		note.setUser(user);
-
+		
 		Date modifiedDate = new Date();
 		note.setModifiedDate(modifiedDate);
-
+		
 		boolean isUpdated = noteService.updateNote(note);
-
 		if (isUpdated != true) {
 			message.setMessage("Note could not be updated...");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
@@ -87,7 +87,6 @@ public class NoteController {
 
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
 	public List<Note> getAllNotes(HttpSession session) {
-		
 		User user = (User) session.getAttribute("user");
 		List<Note> notes = noteService.getAllNotes(user);
 		return notes;

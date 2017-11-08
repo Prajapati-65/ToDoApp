@@ -84,5 +84,6 @@
 
 	<bean id="message" class="com.bridgeit.springToDoApp.model.ErrorMessage"
 		scope="prototype" />
+	<bean id="encryption" class="com.bridgeit.springToDoApp.Utility.Encryption" />
 
 </beans>
