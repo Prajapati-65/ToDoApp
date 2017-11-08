@@ -22,7 +22,7 @@ import com.bridgeit.springToDoApp.service.NoteService;
 @RestController
 @RequestMapping(value = "/user")
 public class NoteController {
-
+	
 	@Autowired
 	NoteService noteService;
 

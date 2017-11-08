@@ -5,7 +5,9 @@ import com.bridgeit.springToDoApp.model.User;
 
 public interface RedisToken {
 
-	void saveUserToken(User user, Token Token);
+	void saveUserToken(User user ,Token Token);
 
-	Token getTokenFromUser(User user);
+	Token getToken(User user);
+	
+	
 }
