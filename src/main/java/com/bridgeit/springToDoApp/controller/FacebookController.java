@@ -35,14 +35,22 @@ public class FacebookController {
 
 		String code;
 		code = request.getParameter("code");
+		System.out.println("Code : ---> "+code);
+		
 		String fbAccessToken = FbLogin.getFbAccessToken(code);
+		
+		System.out.println("FBAccess token : "+fbAccessToken);
+		
 		String profileData = FbLogin.getProfileData(fbAccessToken);
+		System.out.println("profile is : "+profileData);
+		
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String email = objectMapper.readTree(profileData).get("email").asText();
 		User user = userService.emailValidate(email);
 		
 		if (user == null) {
+			
 			user = new User();
 			String firstName = objectMapper.readTree(profileData).get("first_name").asText();
 			user.setFirstName(firstName);
@@ -65,4 +73,8 @@ public class FacebookController {
 			session.setAttribute("todoAppAccessToken", accessToken);
 		}
 	}
+	
+	
+	
+	
 }

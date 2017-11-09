@@ -136,7 +136,6 @@ public class UserController {
 		}
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
-			session.setAttribute("Token", generateOTP);
 			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", urlofForgotPassword + "  //Token= "+generateOTP);
 		} catch (Exception e) {
 			logger.error("email don't match");
@@ -156,14 +155,6 @@ public class UserController {
 		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
 		
-		int userId = VerifiedJWT.verify((String) session.getAttribute("Token"));
-		logger.info("UserId is "+userId);
-		if (userId == 0) {
-			logger.error("UserId is null "+userId);
-			message.setMessage("Invalid OTP : ");
-			message.setStatus(500);
-			return message;
-		}
 		user = userService.emailValidate(email);
 		if (user == null) {
 			logger.error("User email is null "+user);
