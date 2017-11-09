@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return user;
 	}
-
+	
 	@Override
 	public User getUserById(int id) {
 		Session session = factory.openSession();

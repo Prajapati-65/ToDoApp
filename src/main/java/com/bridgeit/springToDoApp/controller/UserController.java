@@ -137,7 +137,7 @@ public class UserController {
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
 			session.setAttribute("Token", generateOTP);
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", urlofForgotPassword + "");
+			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", urlofForgotPassword + "  //Token= "+generateOTP);
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
@@ -155,6 +155,7 @@ public class UserController {
 
 		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
+		
 		int userId = VerifiedJWT.verify((String) session.getAttribute("Token"));
 		logger.info("UserId is "+userId);
 		if (userId == 0) {
