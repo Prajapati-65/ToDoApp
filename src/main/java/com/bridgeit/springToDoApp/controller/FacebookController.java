@@ -47,6 +47,7 @@ public class FacebookController {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String email = objectMapper.readTree(profileData).get("email").asText();
+		
 		User user = userService.emailValidate(email);
 		
 		if (user == null) {
