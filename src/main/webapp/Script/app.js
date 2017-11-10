@@ -18,6 +18,10 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		url:'/resetpassword',
 		templateUrl : 'Template/resetpassword.html',
 		controller : 'resetController'
+	}).state('home',{
+		url:'/home',
+		templateUrl : 'Template/home.html',
+		controller : 'homeController'
 	});
 	$urlRouterProvider.otherwise('login');
 });

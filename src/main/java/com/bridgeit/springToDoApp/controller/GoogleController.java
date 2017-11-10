@@ -61,6 +61,10 @@ public class GoogleController {
 				user.setFirstName(firstName);
 				String lastName = objectMapper.readTree(profileData).get("family_name").asText();
 				user.setLastName(lastName);
+				
+				String profileImage = objectMapper.readTree(profileData).get("picture").asText();
+				user.setProfileImage(profileImage);
+				
 				user.setActive(true);
 				int userId = userService.saveUser(user);
 				if (userId == 0) {

@@ -13,9 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FbLogin {
 
 	private static final String APP_ID = "1845582508804612";
-	//private static final String APP_ID = "129892814380911";
 	private static final String APP_SECRET = "3e8b7173d07b4ce5857a466c3ba86b3b";
-	//private static final String APP_SECRET = "27c80b7e7dfd9a35b13adfe094958aa9";
 	private static final String REDIRECT_URI = "http://localhost:8080/ToDoApp/facebookLogin";
 
 	private static final String BINDING = "&fields=id,name,email,first_name,last_name,picture";

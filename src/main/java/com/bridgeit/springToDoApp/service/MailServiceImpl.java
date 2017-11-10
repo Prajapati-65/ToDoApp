@@ -3,6 +3,7 @@ package com.bridgeit.springToDoApp.service;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 
 public class MailServiceImpl implements MailService {
 
@@ -15,9 +16,10 @@ public class MailServiceImpl implements MailService {
 	public void setEmail(MailSender email) {
 		this.email = email;
 	}
-
+	
+	@Async
 	public void sendEmail(String from, String to, String subject, String text) throws MailException {
-
+		
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(from);
 		message.setTo(to);

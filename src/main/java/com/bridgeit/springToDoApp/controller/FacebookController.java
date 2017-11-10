@@ -59,6 +59,9 @@ public class FacebookController {
 			String lastName = objectMapper.readTree(profileData).get("last_name").asText();
 			user.setLastName(lastName);
 			
+			String profileImage = objectMapper.readTree(profileData).get("picture").asText();
+			user.setProfileImage(profileImage);
+			
 			user.setEmail(email);
 			user.setActive(true);
 			

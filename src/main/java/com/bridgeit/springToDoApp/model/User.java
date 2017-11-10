@@ -37,6 +37,9 @@ public class User {
 	@Column(name="isActive")
 	private boolean isActive;
 	
+	@Column(name="Profile_Image")
+	private String profileImage;
+	
 	public boolean isActive() {
 		return isActive;
 	}
@@ -93,11 +96,22 @@ public class User {
 		this.password = password;
 	}
 
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", mobileNumber=" + mobileNumber + ", password=" + password + ", isActive=" + isActive + "]";
+				+ ", mobileNumber=" + mobileNumber + ", password=" + password + ", isActive=" + isActive
+				+ ", profileImage=" + profileImage + "]";
 	}
+
+	
 
 	
 	

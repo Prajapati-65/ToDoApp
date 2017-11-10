@@ -10,8 +10,9 @@ toDoApp.controller('loginController',
 				var loginVariable = loginService.loginuser($scope.user);
 
 				loginVariable.then(function(responce) {
-					$location.path('/login')
+					console.log(responce.data);
+					$location.path('/home')
 				});
 			}
-			a
+
 		});
