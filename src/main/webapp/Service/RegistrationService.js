@@ -4,7 +4,7 @@ toDoApp.factory('registrationService', function($http, $location) {
 	var register = {};
 	
 	register.registeruser = function(user) {
-		$http({
+		return $http({
 			method : "POST",
 			url : 'registerUser',
 			data : user

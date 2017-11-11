@@ -33,23 +33,24 @@
 	background-color: #00A5E3;
 	color: #fff;
 }
-.or-box
-{
-    position: relative;
-    border-top: 1px solid #dfdfdf;
-    padding-top: 20px;
-    margin-top:20px;
-}
-.or
-{
-    color: #666666;
-    background-color: #ffffff;
-    position: absolute;
-    text-align: center;
-    top: -8px;
-    width: 40px;
-    left: 90px;
+
+.or-box {
+	position: relative;
+	border-top: 1px solid #dfdfdf;
+	padding-top: 20px;
+	margin-top: 20px;
 }
 
+.or {
+	color: #666666;
+	background-color: #ffffff;
+	position: absolute;
+	text-align: center;
+	top: -8px;
+	width: 40px;
+	left: 90px;
+}
 
- 
+.ng-invalid {
+	border: 1px solid=red;
+}

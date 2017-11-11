@@ -38,51 +38,56 @@ public class UserController {
 	Validator validator;
 
 	@Autowired
-	ErrorMessage message;
-
-	@Autowired
 	MailService mailService;
 
 	@Autowired
 	Encryption encryption;
 
-	
 	private Logger logger = (Logger) LogManager.getLogger(UserController.class);
-	
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public ResponseEntity<String> saveUser(@RequestBody User user, HttpServletRequest request) {
+	public ResponseEntity<ErrorMessage> saveUser(@RequestBody User user, HttpServletRequest request) {
 
+		ErrorMessage errorMessage = new ErrorMessage();
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			user.setActive(false);
 			int id = userService.saveUser(user);
 			logger.info("Registration successful");
 			if (id != 0) {
+				
 				String activeToken = GenerateJWT.generate(id);
 				String url = request.getRequestURL().toString();
 				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
+				
 				try {
-					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz", url);
+					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz ",
+							"Please click on this link within 1hours otherwise your account is not activated --> "
+									+ url);
 					logger.info("Please login email");
-					return new ResponseEntity<String>(isValidator, HttpStatus.OK);
+					errorMessage.setMessage("Please login email");
+					return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 				} catch (MailException e) {
 					logger.error("Mail don't send");
 					e.printStackTrace();
 				}
 			}
 		}
-		return new ResponseEntity<String>(isValidator, HttpStatus.CONFLICT);
+		errorMessage.setMessage("Email is already exit");
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.CONFLICT);
 	}
 
 	@RequestMapping(value = "/verifyMail/{activeToken:.+}", method = RequestMethod.GET)
 	public ResponseEntity<ErrorMessage> verifyMail(@PathVariable("activeToken") String activeToken,
 			HttpServletResponse response) throws IOException {
+
+		ErrorMessage errorMessage = new ErrorMessage();
+
 		User user = null;
 		int id = VerifiedJWT.verify(activeToken);
 		try {
 			user = userService.getUserById(id);
-			logger.info("User details "+user);
+			logger.info("User details " + user);
 		} catch (Exception e) {
 			logger.error("user not found ");
 			e.printStackTrace();
@@ -95,84 +100,90 @@ public class UserController {
 			logger.error("Account is not activated");
 			e.printStackTrace();
 		}
-		message.setStatus(200);
+		errorMessage.setStatus(200);
 		logger.info("user Email id verified successfully now plzz login....");
-		message.setMessage("user Email id verified successfully now plzz login....");
+		errorMessage.setMessage("user Email id verified successfully now plzz login....");
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
-		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
+		ErrorMessage errorMessage = new ErrorMessage();
 		user = userService.loginUser(user);
-		logger.info("Login successful "+user);
+		logger.info("Login successful " + user);
 		String generatetoken = GenerateJWT.generate(user.getId());
 		session.setAttribute("user", user);
-		message.setMessage(generatetoken);
-		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+		errorMessage.setMessage(generatetoken);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<ErrorMessage> logout(HttpSession session) {
+		ErrorMessage errorMessage = new ErrorMessage();
 		session.removeAttribute("user");
 		session.invalidate();
-		message.setMessage("Logout seccessful");
+		errorMessage.setMessage("Logout seccessful");
 		logger.info("Logout seccessful ");
-		return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
 
+		ErrorMessage errorMessage = new ErrorMessage();
 		String url = request.getRequestURL().toString();
 		int lastIndex = url.lastIndexOf("/");
 		String urlofForgotPassword = url.substring(0, lastIndex) + "#!/resetpassword";
 		user = userService.emailValidate(user.getEmail());
 		if (user == null) {
-			message.setMessage("Please enter valid emailID");
-			message.setStatus(500);
+			errorMessage.setMessage("Please enter valid emailID");
+			errorMessage.setStatus(500);
 			logger.debug("Please enter valid emailID");
-			return message;
+			return errorMessage;
 		}
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", urlofForgotPassword + "  //Token= "+generateOTP);
+			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "",
+					urlofForgotPassword + "  //Token= " + generateOTP);
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
-			message.setStatus(400);
-			return message;
+			errorMessage.setStatus(400);
+			return errorMessage;
 		}
 		logger.info("Forgot password seccessful");
-		message.setMessage("Forget Success");
-		message.setStatus(200);
-		return message;
+		errorMessage.setMessage("Forget Success");
+		errorMessage.setStatus(200);
+		return errorMessage;
 	}
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public ErrorMessage resetPassword(@RequestBody User user, HttpSession session) {
 
+		ErrorMessage errorMessage = new ErrorMessage();
+
 		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
-		
+
 		user = userService.emailValidate(email);
 		if (user == null) {
-			logger.error("User email is null "+user);
-			message.setMessage("User not found :");
-			message.setStatus(500);
-			return message;
+			logger.error("User email is null " + user);
+			errorMessage.setMessage("User not found :");
+			errorMessage.setStatus(500);
+			return errorMessage;
 		}
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			logger.info("Password update is successful ");
-			message.setMessage("Reset password is success :");
-			message.setStatus(200);
-			return message;
+			errorMessage.setMessage("Reset password is success :");
+			errorMessage.setStatus(200);
+			return errorMessage;
 		} else {
 			logger.error("Reset password unseccessful");
-			message.setMessage("Password could not be changed");
-			message.setStatus(-200);
-			return message;
+			errorMessage.setMessage("Password could not be changed");
+			errorMessage.setStatus(-200);
+			return errorMessage;
 		}
 	}
 

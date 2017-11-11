@@ -5,16 +5,18 @@
 		
 			<center>Using your account</center>
 			<div>
+				<form name="loginForm">
+				<h3 ng-bind="errorMessage" id="errorInfo"> </h3>
+				
 				<div class="form-group">
-					<label class="control-label" for="email"></label> <input id="email"
-						type="email" name="email" ng-model="user.email"
-						placeholder="Enter your email" class="form-control">
+					<label class="control-label" for="email"></label> 
+					<input id="email" name="email" type="email" placeholder="Enter the email" class="form-control" ng-model="user.email" required >
+					<span ng-show="loginForm.email.$dirty && loginForm.email.$error.required">Please Enter a valid email</span>				
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="password"></label> <input
-						id="password" type="password" name="password"
-						ng-model="user.password" placeholder="Enter your password"
-						class="form-control">
+					<label class="control-label" for="password"></label> 
+					<input id="password" type="password" name="password" ng-model="user.password" required placeholder="Enter your password" class="form-control">
+					<span ng-show="loginForm.password.$dirty && loginForm.password.$error.required">Please Enter a valid password</span>				
 				</div>
 				<div class="form-group">
 					<button id="submit" type="submit" ng-click="loginUser()"
@@ -24,7 +26,9 @@
 					<a href="#!/forgetpassword">Forget your password?</a>
 				</p>
 				Don't have an account? <a href="#!/registerUser">Signup here</a>
+				</form>
 			</div>
+	
 			
 				<div>You can also sign in using Facebook account and Google
 					account</div>

@@ -7,8 +7,11 @@ toDoApp.controller('registerController', function($scope, registrationService,
 	$scope.registerUser = function() {
 		
 		var regVariable = registrationService.registeruser($scope.user);
-		regVariable.then(function(responce) {
-			$location.path('/registerUser')
+
+		regVariable.then(function(response) {
+			$location.path('/info')
+		},function(response){
+			$scope.errorMessage=response.data.message;
 		});
 	}
 });

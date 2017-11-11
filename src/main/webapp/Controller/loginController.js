@@ -1,7 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('loginController',
-		function($scope, loginService, $location) {
+toDoApp.controller('loginController', function($scope, loginService, $location) {
 
 			$scope.user = {};
 
@@ -9,10 +8,13 @@ toDoApp.controller('loginController',
 
 				var loginVariable = loginService.loginuser($scope.user);
 
-				loginVariable.then(function(responce) {
-					console.log(responce.data);
+				loginVariable.then(function(response) {
+					console.log(response.data);
 					$location.path('/home')
+				},function(response){
+					$scope.errorMessage=response.data.message;
 				});
 			}
 
 		});
+
