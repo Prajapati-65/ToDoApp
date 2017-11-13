@@ -18,6 +18,7 @@
 	<mvc:resources location="/Script/" mapping="/Script/**" />
 	<mvc:resources location="/Controller/" mapping="/Controller/**" />
 	<mvc:resources location="/Style/" mapping="/Style/**" />
+	<mvc:resources location="/directives/" mapping="/directives/**" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

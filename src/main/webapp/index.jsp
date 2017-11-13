@@ -24,6 +24,9 @@
 <link rel="stylesheet" href="Style/registration.css">
 <link rel="stylesheet" href="Style/login.css">
 
+<script type="text/javascript" src="directives/SideNavigationBar.js"></script>
+<script type="text/javascript" src="directives/TopNavigationBar.js"></script>
+
 </head>
 <body ng-app="toDoApp">
 	<div ui-view></div>

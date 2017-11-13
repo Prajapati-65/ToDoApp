@@ -137,13 +137,13 @@
 			<artifactId>spring-data-redis</artifactId>
 			<version>1.6.2.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -156,7 +156,11 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.jms/jms -->
 		
+
+
 	</dependencies>
 	<build>
 		<finalName>ToDoApp</finalName>

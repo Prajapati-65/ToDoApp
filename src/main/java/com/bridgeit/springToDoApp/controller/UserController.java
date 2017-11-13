@@ -51,20 +51,23 @@ public class UserController {
 	public ResponseEntity<Response> saveUser(@RequestBody User user, HttpServletRequest request) {
 
 		CustomResponse customResponse = new CustomResponse();
+		
+		//check the validation for user
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			user.setActive(false);
 			int id = userService.saveUser(user);
 			logger.info("Registration successful");
 			if (id != 0) {
-
+				
+				//create a template and send to the mail
 				String activeToken = GenerateJWT.generate(id);
 				String url = request.getRequestURL().toString();
 				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
 
 				try {
 					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz ",
-							"Please click on this link within 1hours otherwise your account is not activated --> "
+							"Please click on this link within 1-hours otherwise your account is not activated--> "
 									+ url);
 					logger.info("Please login email");
 					customResponse.setMessage("Registration successful..!");
@@ -146,7 +149,7 @@ public class UserController {
 		user = userService.emailValidate(user.getEmail());
 		if (user == null) {
 			customResponse.setMessage("Please enter valid emailID");
-			customResponse.setStatus(500);
+			customResponse.setStatus(1);
 			logger.debug("Please enter valid emailID");
 			return customResponse;
 		}
@@ -157,12 +160,12 @@ public class UserController {
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
-			customResponse.setStatus(400);
+			customResponse.setStatus(0);
 			return customResponse;
 		}
 		logger.info("Forgot password seccessful");
 		customResponse.setMessage("Forget Success");
-		customResponse.setStatus(200);
+		customResponse.setStatus(2);
 		return customResponse;
 	}
 
@@ -178,19 +181,19 @@ public class UserController {
 		if (user == null) {
 			logger.error("User email is null " + user);
 			customResponse.setMessage("User not found :");
-			customResponse.setStatus(500);
+			customResponse.setStatus(1);
 			return customResponse;
 		}
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			logger.info("Password update is successful ");
 			customResponse.setMessage("Reset password is success :");
-			customResponse.setStatus(200);
+			customResponse.setStatus(2);
 			return customResponse;
 		} else {
 			logger.error("Reset password unseccessful");
 			customResponse.setMessage("Password could not be changed");
-			customResponse.setStatus(-200);
+			customResponse.setStatus(-1);
 			return customResponse;
 		}
 	}

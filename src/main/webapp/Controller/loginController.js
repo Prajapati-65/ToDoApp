@@ -6,7 +6,7 @@ toDoApp.controller('loginController', function($scope, loginService, $location) 
 
 			$scope.loginUser = function() {
 
-				var loginVariable = loginService.loginuser($scope.user);
+				var loginVariable = loginService.xyz($scope.user);
 
 				loginVariable.then(function(response) {
 					console.log(response.data);

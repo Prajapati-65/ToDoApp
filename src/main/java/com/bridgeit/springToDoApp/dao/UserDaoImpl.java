@@ -6,11 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import com.bridgeit.springToDoApp.Utility.Encryption;
-import com.bridgeit.springToDoApp.model.Token;
 import com.bridgeit.springToDoApp.model.User;
 
 public class UserDaoImpl implements UserDao {
