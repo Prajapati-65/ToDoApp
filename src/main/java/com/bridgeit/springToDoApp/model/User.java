@@ -10,34 +10,34 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "user")
+@Table(name = "USER_TABLE")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "gen")
 	@GenericGenerator(name = "gen", strategy = "native")
-	@Column(name="User_Id")
+	@Column(name="USER_ID")
 	private int id;
 
-	@Column(name="First_Name")
+	@Column(name="FIRST_NAME")
 	private String firstName;
 	
-	@Column(name="Last_Name")
+	@Column(name="LAST_NAME")
 	private String lastName;
 
-	@Column(unique = true,name="User_Email")
+	@Column(unique = true,name="USER_EMAIL")
 	private String email;
 
-	@Column(name="Mobile_Number")
+	@Column(name="MOBILE_NUMBER")
 	private long mobileNumber;
 
-	@Column(name="Password")
+	@Column(name="PASSWORD")
 	private String password;
 	
-	@Column(name="isActive")
+	@Column(name="IS_ACTIVE")
 	private boolean isActive;
 	
-	@Column(name="Profile_Image")
+	@Column(name="PROFILE_IMAGE")
 	private String profileImage;
 	
 	public boolean isActive() {

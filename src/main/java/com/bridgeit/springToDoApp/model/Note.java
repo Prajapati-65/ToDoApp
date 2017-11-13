@@ -16,26 +16,30 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "note")
+@Table(name = "NOTE_TABLE")
 public class Note {
 
 	@Id
 	@GenericGenerator(strategy = "native", name = "noteGen")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "noteGen")
-	@Column(name = "note_Id")
+	@Column(name = "NOTE_ID")
 	private int noteId;
 
+	@Column(name="TITLE")
 	private String title;
 
+	@Column(name="DESCRIPTION")
 	private String description;
 
+	@Column(name="CREATE_DATE")
 	private Date createdDate;
 
+	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
 
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "user_Id")
+	@JoinColumn(name = "USER_ID")
 	private User user;
 
 	public int getNoteId() {
