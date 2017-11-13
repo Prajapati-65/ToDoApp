@@ -20,14 +20,6 @@ public class UserServiceImpl implements UserService {
 		return userDao.loginUser(user);
 	}
 
-	public User emailValidate(String email) {
-		User user = userDao.emailValidation(email);
-		if(user!=null){
-			return user;
-		}
-		return null;
-	}
-
 	@Override
 	public User getUserById(int id) {
 		
@@ -38,6 +30,14 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUser(User user) {
 		
 		return userDao.updateUser(user);
+	}
+	
+	public User emailValidate(String email) {
+		User user = userDao.emailValidation(email);
+		if(user!=null){
+			return user;
+		}
+		return null;
 	}
 
 }

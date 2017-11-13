@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
-import com.bridgeit.springToDoApp.model.ErrorMessage;
+import com.bridgeit.springToDoApp.Utility.ErrorResponse;
+import com.bridgeit.springToDoApp.Utility.Response;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.MailService;
 import com.bridgeit.springToDoApp.service.UserService;
@@ -46,45 +48,47 @@ public class UserController {
 	private Logger logger = (Logger) LogManager.getLogger(UserController.class);
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public ResponseEntity<ErrorMessage> saveUser(@RequestBody User user, HttpServletRequest request) {
+	public ResponseEntity<Response> saveUser(@RequestBody User user, HttpServletRequest request) {
 
-		ErrorMessage errorMessage = new ErrorMessage();
+		CustomResponse customResponse = new CustomResponse();
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Success")) {
 			user.setActive(false);
 			int id = userService.saveUser(user);
 			logger.info("Registration successful");
 			if (id != 0) {
-				
+
 				String activeToken = GenerateJWT.generate(id);
 				String url = request.getRequestURL().toString();
 				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
-				
+
 				try {
 					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz ",
 							"Please click on this link within 1hours otherwise your account is not activated --> "
 									+ url);
 					logger.info("Please login email");
-					errorMessage.setMessage("Please login email");
-					return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
+					customResponse.setMessage("Registration successful..!");
+					return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 				} catch (MailException e) {
 					logger.error("Mail don't send");
 					e.printStackTrace();
 				}
 			}
 		}
-		errorMessage.setMessage("Email is already exit");
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.CONFLICT);
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.setMessage("Email is already exit");
+		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
+
 	}
 
 	@RequestMapping(value = "/verifyMail/{activeToken:.+}", method = RequestMethod.GET)
-	public ResponseEntity<ErrorMessage> verifyMail(@PathVariable("activeToken") String activeToken,
+	public ResponseEntity<Response> verifyMail(@PathVariable("activeToken") String activeToken,
 			HttpServletResponse response) throws IOException {
 
-		ErrorMessage errorMessage = new ErrorMessage();
-
+		CustomResponse customResponse = new CustomResponse();
 		User user = null;
 		int id = VerifiedJWT.verify(activeToken);
+
 		try {
 			user = userService.getUserById(id);
 			logger.info("User details " + user);
@@ -92,6 +96,7 @@ public class UserController {
 			logger.error("user not found ");
 			e.printStackTrace();
 		}
+
 		user.setActive(true);
 		try {
 			userService.updateUser(user);
@@ -100,47 +105,50 @@ public class UserController {
 			logger.error("Account is not activated");
 			e.printStackTrace();
 		}
-		errorMessage.setStatus(200);
+
+		customResponse.setStatus(200);
 		logger.info("user Email id verified successfully now plzz login....");
-		errorMessage.setMessage("user Email id verified successfully now plzz login....");
+		customResponse.setMessage("user Email id verified successfully now plzz login....");
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
+		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ErrorMessage> loginUser(@RequestBody User user, HttpSession session) {
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<Response> loginUser(@RequestBody User user, HttpSession session) {
+		CustomResponse customResponse = new CustomResponse();
 		user = userService.loginUser(user);
 		logger.info("Login successful " + user);
 		String generatetoken = GenerateJWT.generate(user.getId());
 		session.setAttribute("user", user);
-		errorMessage.setMessage(generatetoken);
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
+		customResponse.setMessage(generatetoken);
+		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public ResponseEntity<ErrorMessage> logout(HttpSession session) {
-		ErrorMessage errorMessage = new ErrorMessage();
+	public ResponseEntity<Response> logout(HttpSession session) {
+
+		CustomResponse customResponse = new CustomResponse();
 		session.removeAttribute("user");
 		session.invalidate();
-		errorMessage.setMessage("Logout seccessful");
+		customResponse.setMessage("Logout seccessful");
 		logger.info("Logout seccessful ");
-		return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.OK);
+		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
-	public ErrorMessage forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
+	public Response forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
 
-		ErrorMessage errorMessage = new ErrorMessage();
+		CustomResponse customResponse = new CustomResponse();
 		String url = request.getRequestURL().toString();
 		int lastIndex = url.lastIndexOf("/");
 		String urlofForgotPassword = url.substring(0, lastIndex) + "#!/resetpassword";
+		
 		user = userService.emailValidate(user.getEmail());
 		if (user == null) {
-			errorMessage.setMessage("Please enter valid emailID");
-			errorMessage.setStatus(500);
+			customResponse.setMessage("Please enter valid emailID");
+			customResponse.setStatus(500);
 			logger.debug("Please enter valid emailID");
-			return errorMessage;
+			return customResponse;
 		}
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
@@ -149,41 +157,41 @@ public class UserController {
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
-			errorMessage.setStatus(400);
-			return errorMessage;
+			customResponse.setStatus(400);
+			return customResponse;
 		}
 		logger.info("Forgot password seccessful");
-		errorMessage.setMessage("Forget Success");
-		errorMessage.setStatus(200);
-		return errorMessage;
+		customResponse.setMessage("Forget Success");
+		customResponse.setStatus(200);
+		return customResponse;
 	}
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
-	public ErrorMessage resetPassword(@RequestBody User user, HttpSession session) {
+	public Response resetPassword(@RequestBody User user, HttpSession session) {
 
-		ErrorMessage errorMessage = new ErrorMessage();
+		CustomResponse customResponse = new CustomResponse();
 
 		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
-
+		
 		user = userService.emailValidate(email);
 		if (user == null) {
 			logger.error("User email is null " + user);
-			errorMessage.setMessage("User not found :");
-			errorMessage.setStatus(500);
-			return errorMessage;
+			customResponse.setMessage("User not found :");
+			customResponse.setStatus(500);
+			return customResponse;
 		}
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			logger.info("Password update is successful ");
-			errorMessage.setMessage("Reset password is success :");
-			errorMessage.setStatus(200);
-			return errorMessage;
+			customResponse.setMessage("Reset password is success :");
+			customResponse.setStatus(200);
+			return customResponse;
 		} else {
 			logger.error("Reset password unseccessful");
-			errorMessage.setMessage("Password could not be changed");
-			errorMessage.setStatus(-200);
-			return errorMessage;
+			customResponse.setMessage("Password could not be changed");
+			customResponse.setStatus(-200);
+			return customResponse;
 		}
 	}
 

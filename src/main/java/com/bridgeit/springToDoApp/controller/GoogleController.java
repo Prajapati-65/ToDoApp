@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.SocialUtility.GoogleLogin;
-import com.bridgeit.springToDoApp.model.ErrorMessage;
+import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.UserService;
 import com.bridgeit.springToDoApp.token.GenerateJWT;
@@ -35,9 +35,10 @@ public class GoogleController {
 	public void afterLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws IOException {
 
-		ErrorMessage message = new ErrorMessage();
+		CustomResponse customResponse = new CustomResponse();
+		
 		if (request.getParameter("error") != null) {
-			message.setMessage(request.getParameter("error"));
+			customResponse.setMessage(request.getParameter("error"));
 		} else {
 
 			String code;

@@ -8,10 +8,9 @@ public interface UserService {
 
 	User loginUser(User user);
 
-	User emailValidate(String email);
-
 	User getUserById(int id);
 
 	boolean updateUser(User user);
 
+	public User emailValidate(String email);
 }

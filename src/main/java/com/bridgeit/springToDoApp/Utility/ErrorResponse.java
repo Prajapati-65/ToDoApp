@@ -1,6 +1,6 @@
-package com.bridgeit.springToDoApp.ResponseUtility;
+package com.bridgeit.springToDoApp.Utility;
 
-public class CustomResponse implements Response {
+public class ErrorResponse extends Response {
 
 	String message;
 	int status;
@@ -20,5 +20,4 @@ public class CustomResponse implements Response {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
 }

@@ -1,10 +1,10 @@
-package com.bridgeit.springToDoApp.model;
+package com.bridgeit.springToDoApp.Utility;
 
-public class ErrorMessage {
+public class Response {
 
 	String message;
 	int status;
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -20,5 +20,5 @@ public class ErrorMessage {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
+
 }

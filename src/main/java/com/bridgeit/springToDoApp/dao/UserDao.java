@@ -8,10 +8,9 @@ public interface UserDao {
 
 	User loginUser(User user);
 
-	User emailValidation(String email);
-
 	User getUserById(int id);
 
 	boolean updateUser(User user);
 	
+	public User emailValidation(String email);
 }

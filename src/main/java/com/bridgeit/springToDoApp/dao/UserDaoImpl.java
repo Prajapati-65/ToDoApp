@@ -17,10 +17,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	SessionFactory factory;
-	
+
 	@Autowired
 	Encryption encryption;
-	
+
 	public SessionFactory getFactory() {
 		return factory;
 	}
@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 			if (user.getPassword() != null) {
 				user.setPassword(encryption.encryptPassword(user.getPassword()));
 			}
-			int id =(int) session.save(user);
+			int id = (int) session.save(user);
 			transaction.commit();
 			return id;
 		} catch (Exception e) {
@@ -68,17 +68,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User emailValidation(String email) {
-		Session session = factory.openSession();
-		@SuppressWarnings("deprecation")
-		Criteria criteria = session.createCriteria(User.class);
-		criteria.add(Restrictions.eq("email", email));
-		User user = (User) criteria.uniqueResult();
-		session.close();
-		return user;
-	}
-	
-	@Override
 	public User getUserById(int id) {
 		Session session = factory.openSession();
 		User user = session.get(User.class, id);
@@ -106,5 +95,16 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return true;
 	}
-	
+
+	public User emailValidation(String email) {
+
+		Session session = factory.openSession();
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("email", email));
+		User user = (User) criteria.uniqueResult();
+		session.close();
+		return user;
+	}
+
 }

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgeit.springToDoApp.model.ErrorMessage;
+import com.bridgeit.springToDoApp.Utility.CustomResponse;
+import com.bridgeit.springToDoApp.Utility.ErrorResponse;
+import com.bridgeit.springToDoApp.Utility.Response;
 import com.bridgeit.springToDoApp.model.Note;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.NoteService;
@@ -26,11 +28,9 @@ public class NoteController {
 	@Autowired
 	NoteService noteService;
 
-	@Autowired
-	ErrorMessage message;
-
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
-	public ResponseEntity<ErrorMessage> createNote(@RequestBody Note note, HttpSession session) {
+	public ResponseEntity<Response> createNote(@RequestBody Note note, HttpSession session) {
+		
 		User user = (User) session.getAttribute("user");
 		note.setUser(user);
 		if (user != null) {
@@ -38,29 +38,33 @@ public class NoteController {
 			note.setCreatedDate(date);
 			note.setModifiedDate(date);
 			noteService.createNote(note);
-			message.setMessage("Note create successfully");
-			return new ResponseEntity<ErrorMessage>(message, HttpStatus.OK);
+			CustomResponse  customResponse = new CustomResponse();
+			customResponse.setMessage("Note create successfully");
+			return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 		}
-		message.setMessage("Please login first");
-		return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.setMessage("Please login first");
+		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<ErrorMessage> deleteNote(@PathVariable("id") int noteId) {
+	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
 		Note note = new Note();
 		note.setNoteId(noteId);
 		boolean delete = noteService.deleteNote(note);
 		if (delete != true) {
-			message.setMessage("Note could not be deleted");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+			ErrorResponse errorResponse = new ErrorResponse();
+			errorResponse.setMessage("Note could not be deleted");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 		} else {
-			message.setMessage("Note deleted successfully");
-			return ResponseEntity.ok(message);
+			CustomResponse customResponse = new CustomResponse();
+			customResponse.setMessage("Note deleted successfully");
+			return ResponseEntity.ok(customResponse);
 		}
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<ErrorMessage> update(@RequestBody Note note) {
+	public ResponseEntity<Response> update(@RequestBody Note note) {
 
 		int noteid =note.getNoteId();
 		System.out.println("noteid: " + noteid);
@@ -77,16 +81,19 @@ public class NoteController {
 		
 		boolean isUpdated = noteService.updateNote(note);
 		if (isUpdated != true) {
-			message.setMessage("Note could not be updated...");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+			ErrorResponse errorResponse = new ErrorResponse();
+			errorResponse.setMessage("Note could not be updated...");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 		} else {
-			message.setMessage("Note updated successfully...");
-			return ResponseEntity.ok(message);
+			CustomResponse customResponse = new CustomResponse();
+			customResponse.setMessage("Note updated successfully...");
+			return ResponseEntity.ok(customResponse);
 		}
 	}
 
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
 	public List<Note> getAllNotes(HttpSession session) {
+		
 		User user = (User) session.getAttribute("user");
 		List<Note> notes = noteService.getAllNotes(user);
 		return notes;
