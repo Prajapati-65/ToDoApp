@@ -1,0 +1,24 @@
+
+#SideNavigation{
+    height: 100%;
+    background-color:#e8e8e8;
+    position: absolute;
+    z-index: 1;
+}
+
+#SideNavigation li{
+     list-style-type:none;
+     margin-right: 20px;
+     margin-top: 10px;
+     height: 100%;
+}
+
+#SideNavigation a{
+    color: black;
+    display: block;
+}
+
+a.hover{
+    color: white;
+    display: block;
+}

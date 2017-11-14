@@ -56,13 +56,13 @@ public class FbLogin {
 	}
 
 	public static String getProfileData(String fbAccessToken) throws IOException {
-		System.out.println("Start GetProfileData");
 		
+		System.out.println("Start GetProfileData");
 		String profileUrl = "https://graph.facebook.com/v2.9/me?access_token="+fbAccessToken+BINDING;
-
 		URL url = new URL(profileUrl);
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
+		
 		System.out.println("Connection is :" + connection);
 		BufferedReader bufferedReader = null;
 		try {

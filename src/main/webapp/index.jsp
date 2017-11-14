@@ -23,6 +23,10 @@
 
 <link rel="stylesheet" href="Style/registration.css">
 <link rel="stylesheet" href="Style/login.css">
+<link rel="stylesheet" href="Style/SideNavigationaBar.css">
+<link rel="stylesheet" href="Style/TopNavigationBar.css">
+
+
 
 <script type="text/javascript" src="directives/SideNavigationBar.js"></script>
 <script type="text/javascript" src="directives/TopNavigationBar.js"></script>

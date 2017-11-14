@@ -2,14 +2,14 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.factory('loginService', function($http) {
 	
-	var abc = {};
+	var login = {};
 	
-	abc.xyz = function(user) {
+	login.loginuser = function(user) {
 		return $http({
 			method : "POST",
 			url : 'login',
 			data : user
 		});
 	}
-	return abc;
+	return login;
 });

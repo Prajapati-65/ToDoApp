@@ -10,9 +10,9 @@
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.bridgeit.springToDoApp" />
-	
-	<mvc:annotation-driven />
 
+	<mvc:annotation-driven />
+	
 	<mvc:resources location="/Template/" mapping="/Template/**" />
 	<mvc:resources location="/Service/" mapping="/Service/**" />
 	<mvc:resources location="/Script/" mapping="/Script/**" />
@@ -93,7 +93,7 @@
 	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
 
 	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
-		
+
 	<bean id="encryption" class="com.bridgeit.springToDoApp.Utility.Encryption" />
 
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.Utility.ErrorResponse;
+import com.bridgeit.springToDoApp.Utility.GenerateOtp;
 import com.bridgeit.springToDoApp.Utility.Response;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.MailService;
@@ -70,7 +71,7 @@ public class UserController {
 							"Please click on this link within 1-hours otherwise your account is not activated--> "
 									+ url);
 					logger.info("Please login email");
-					customResponse.setMessage("Registration successful..!");
+					customResponse.setMessage(isValidator);
 					return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 				} catch (MailException e) {
 					logger.error("Mail don't send");
@@ -79,7 +80,7 @@ public class UserController {
 			}
 		}
 		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setMessage("Email is already exit");
+		errorResponse.setMessage(isValidator);
 		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 
 	}
@@ -144,12 +145,12 @@ public class UserController {
 		CustomResponse customResponse = new CustomResponse();
 		String url = request.getRequestURL().toString();
 		int lastIndex = url.lastIndexOf("/");
-		String urlofForgotPassword = url.substring(0, lastIndex) + "#!/resetpassword";
+		String urlofForgotPassword = url.substring(0, lastIndex) + "#!/resetpassword";		
 		
 		user = userService.emailValidate(user.getEmail());
 		if (user == null) {
 			customResponse.setMessage("Please enter valid emailID");
-			customResponse.setStatus(1);
+			customResponse.setStatus(5);
 			logger.debug("Please enter valid emailID");
 			return customResponse;
 		}
@@ -160,7 +161,7 @@ public class UserController {
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
-			customResponse.setStatus(0);
+			customResponse.setStatus(5);
 			return customResponse;
 		}
 		logger.info("Forgot password seccessful");
@@ -181,7 +182,7 @@ public class UserController {
 		if (user == null) {
 			logger.error("User email is null " + user);
 			customResponse.setMessage("User not found :");
-			customResponse.setStatus(1);
+			customResponse.setStatus(5);
 			return customResponse;
 		}
 		user.setPassword(password);
@@ -193,7 +194,7 @@ public class UserController {
 		} else {
 			logger.error("Reset password unseccessful");
 			customResponse.setMessage("Password could not be changed");
-			customResponse.setStatus(-1);
+			customResponse.setStatus(-2);
 			return customResponse;
 		}
 	}

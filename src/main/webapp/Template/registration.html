@@ -1,57 +1,81 @@
 <div class="container">
-	<div class="row" >
-		<div class="panel panel-primary" style="background-color: #ccccff">
+	<div class="row">
+		<div class="panel panel-primary" style="background-color: #cce6ff">
 			<div class="panel-body">
-					<h1>Create an Account</h1>
-					<form name="registerForm">
-						<h3 ng-bind="errorMessage" id="errorInfo"> </h3>
- 					<div class="form-group">
-						<label class="control-label" for="firstName">Enter the First name</label> 
-						<input id="fName" name="fName" type="text" class="form-control" placeholder="Enter the first name"  required ng-minlength="2" ng-model="user.firstName">
-						<span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.required">Required</span>
-						<span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.minlength">First name is too short</span>
-					</div>
-					
+				<h1>Create an Account</h1>
+
+				<form name="registerForm">
+					<h3 ng-bind="errorMessage" id="errorInfo"></h3>
 					<div class="form-group">
-						<label class="control-label" for="firstName">Enter the Last name</label> 
-						<input id="lName" name="lName" type="text" class="form-control" placeholder="Enter the last name"  required ng-minlength="2" ng-model="user.lastName">
-						<span ng-show="registerForm.lName.$dirty && registerForm.lName.$error.required">Required</span>
-						<span ng-show="registerForm.lName.$dirty && registerForm.lName.$error.minlength">Last name is too short</span>
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label" for="email">Enter the email</label> 
-						<input id="email" name="email" type="email" placeholder="Enter the email" class="form-control" ng-model="user.email" required >
-						<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">Please enter a valid email</span>
-						<span ng-show="registerForm.email.$dirty && registerForm.email.$error.email">Please fill a proper format </span>
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label" for="password">Enter the password</label> 
-						<input id="password" name="password" type="password" placeholder="Enter the password" class="form-control" ng-model="user.password" required ng-minlength="8">
-						<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">Required</span>
-						<span ng-show="registerForm.password.$dirty && registerForm.password.$error.minlength">Password is too short </span>
+						<label class="control-label" for="firstName">Enter the
+							First name</label> <input id="fName" name="fName" type="text"
+							class="form-control" placeholder="Enter the first name" required
+							ng-minlength="2" ng-model="user.firstName"> <span
+							ng-show="registerForm.fName.$dirty && registerForm.fName.$error.required">Required</span>
+						<span
+							ng-show="registerForm.fName.$dirty && registerForm.fName.$error.minlength">First
+							name is too short</span>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label" for="number">Enter mobile number</label> 
-						<input id="mobileNumber" name="mobileNumber" type="text" placeholder="Enter mobile number" class="form-control" ng-model="user.mobileNumber" required ng-minlength="10" ng-maxlength="10">
-						<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.required">Required</span>
-						<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.minlength">MobileNumber is too short </span>
-						<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.maxlength">MobileNumber is too long </span>
+						<label class="control-label" for="firstName">Enter the
+							Last name</label> <input id="lName" name="lName" type="text"
+							class="form-control" placeholder="Enter the last name" required
+							ng-minlength="2" ng-model="user.lastName"> <span
+							ng-show="registerForm.lName.$dirty && registerForm.lName.$error.required">Required</span>
+						<span
+							ng-show="registerForm.lName.$dirty && registerForm.lName.$error.minlength">Last
+							name is too short</span>
 					</div>
 
 					<div class="form-group">
-						<button id="submit"  type="submit" ng-click="registerUser()" class="btn btn-success btn-	block">Create my Account</button>
+						<label class="control-label" for="email">Enter the email</label> <input
+							id="email" name="email" type="email"
+							placeholder="Enter the email" class="form-control"
+							ng-model="user.email" required> <span
+							ng-show="registerForm.email.$dirty && registerForm.email.$error.required">Please
+							enter a valid email</span> <span
+							ng-show="registerForm.email.$dirty && registerForm.email.$error.email">Please
+							fill a proper format </span>
 					</div>
-					
+
+					<div class="form-group">
+						<label class="control-label" for="password">Enter the
+							password</label> <input id="password" name="password" type="password"
+							placeholder="Enter the password" class="form-control"
+							ng-model="user.password" required ng-minlength="8"> <span
+							ng-show="registerForm.password.$dirty && registerForm.password.$error.required">Required</span>
+						<span
+							ng-show="registerForm.password.$dirty && registerForm.password.$error.minlength">Password
+							is too short </span>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="number">Enter mobile
+							number</label> <input id="mobileNumber" name="mobileNumber" type="text"
+							placeholder="Enter mobile number" class="form-control"
+							ng-model="user.mobileNumber" required ng-minlength="10"
+							ng-maxlength="10"> <span
+							ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.required">Required</span>
+						<span
+							ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.minlength">MobileNumber
+							is too short </span> <span
+							ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.maxlength">MobileNumber
+							is too long </span>
+					</div>
+
+					<div class="form-group">
+						<button id="submit" type="submit" ng-click="registerUser()"
+							class="btn btn-success btn-	block">Create my Account</button>
+					</div>
+
 					<p class="form-group">
 						By clicking on the "Create my Account button "bellow you certify
 						that you have read and agree to our <a href="#">Terms of Use</a>
 						and our <a href="#">Privacy Policy</a>.
 					</p>
 					Create an account? <a href="#!/login">Sign in</a>
-					</form>
+				</form>
 			</div>
 		</div>
 	</div>
