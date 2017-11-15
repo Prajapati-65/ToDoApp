@@ -1,6 +1,7 @@
 package com.bridgeit.springToDoApp.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,6 +74,7 @@ public class UserController {
 					logger.info("Please login email");
 					customResponse.setMessage(isValidator);
 					return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
+					
 				} catch (MailException e) {
 					logger.error("Mail don't send");
 					e.printStackTrace();
@@ -82,7 +84,6 @@ public class UserController {
 		ErrorResponse errorResponse = new ErrorResponse();
 		errorResponse.setMessage(isValidator);
 		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
-
 	}
 
 	@RequestMapping(value = "/verifyMail/{activeToken:.+}", method = RequestMethod.GET)
@@ -96,15 +97,18 @@ public class UserController {
 		try {
 			user = userService.getUserById(id);
 			logger.info("User details " + user);
+			
 		} catch (Exception e) {
 			logger.error("user not found ");
 			e.printStackTrace();
 		}
 
 		user.setActive(true);
+		
 		try {
 			userService.updateUser(user);
 			logger.info("Account is activated ");
+			
 		} catch (Exception e) {
 			logger.error("Account is not activated");
 			e.printStackTrace();
@@ -121,8 +125,10 @@ public class UserController {
 	public ResponseEntity<Response> loginUser(@RequestBody User user, HttpSession session) {
 		CustomResponse customResponse = new CustomResponse();
 		user = userService.loginUser(user);
+		
 		logger.info("Login successful " + user);
 		String generatetoken = GenerateJWT.generate(user.getId());
+		
 		session.setAttribute("user", user);
 		customResponse.setMessage(generatetoken);
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
@@ -134,6 +140,7 @@ public class UserController {
 		CustomResponse customResponse = new CustomResponse();
 		session.removeAttribute("user");
 		session.invalidate();
+		
 		customResponse.setMessage("Logout seccessful");
 		logger.info("Logout seccessful ");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
@@ -156,8 +163,10 @@ public class UserController {
 		}
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
+			
 			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "",
-					urlofForgotPassword + "  //Token= " + generateOTP);
+					urlofForgotPassword + " //Token--> " + generateOTP);
+			
 		} catch (Exception e) {
 			logger.error("email don't match");
 			e.printStackTrace();
@@ -171,10 +180,22 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
-	public Response resetPassword(@RequestBody User user, HttpSession session) {
+	public Response resetPassword(@RequestBody User user, HttpSession session ,HttpServletRequest request) {
 
+		String generateOTP=null; 
+		Enumeration  headerNames=request.getHeaderNames();
+		while(headerNames.hasMoreElements()) 
+		{
+			String key=headerNames.nextElement().toString();
+			if(key.equals("token"))
+			{
+				generateOTP=request.getHeader(key); 
+			}
+		}
+		int id=VerifiedJWT.verify(generateOTP);
+		System.out.println("User id is : "+id);
+		
 		CustomResponse customResponse = new CustomResponse();
-
 		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
 		
@@ -191,6 +212,7 @@ public class UserController {
 			customResponse.setMessage("Reset password is success :");
 			customResponse.setStatus(2);
 			return customResponse;
+			
 		} else {
 			logger.error("Reset password unseccessful");
 			customResponse.setMessage("Password could not be changed");
@@ -198,5 +220,39 @@ public class UserController {
 			return customResponse;
 		}
 	}
+	
+	
+	/*@RequestMapping(value = "/setPassword", method = RequestMethod.PUT)
+	public Response setPassword(@RequestBody User user1, HttpSession session,HttpServletRequest request) {
+	String userToken=null; 
+
+	Enumeration  headerNames=request.getHeaderNames();
+	while(headerNames.hasMoreElements()) {
+	String key=headerNames.nextElement().toString();
+	if(key.equals("token")) {
+	userToken=request.getHeader(key); 
+	}
+	}
+	int id=VerifiedJWT.verify(userToken);
+	User user = userService.getUserById(id);
+	   System.out.println("User id is:  "+id);
+	if (user == null) {
+	logger.info("No user Found at this id");
+	errorMessage.setResponseMessage("No user Found at this id");
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+	}
+
+	if (userService.setPassword(user1)) {
+	logger.info("check and set password for user");
+	errorMessage.setResponseMessage("password updated");
+	logger.debug("password updated successfully");;
+	return ResponseEntity.ok(errorMessage);
+	}
+
+	logger.info("password not updated");
+	errorMessage.setResponseMessage("password not updated");
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+	}
+	}*/
 
 }

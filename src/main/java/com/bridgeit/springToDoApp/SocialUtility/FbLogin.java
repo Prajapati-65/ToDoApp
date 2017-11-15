@@ -8,9 +8,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import com.bridgeit.springToDoApp.controller.GoogleController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FbLogin {
+
+	static Logger logger = (Logger) LogManager.getLogger(FbLogin.class);
 
 	private static final String APP_ID = "1845582508804612";
 	private static final String APP_SECRET = "3e8b7173d07b4ce5857a466c3ba86b3b";
@@ -25,7 +31,7 @@ public class FbLogin {
 	}
 
 	public static String getFbLoginUrl() {
-		System.out.println("fb url is : " + facebookUrl);
+		logger.info("fb url is : " + facebookUrl);
 		return facebookUrl;
 	}
 
@@ -51,34 +57,29 @@ public class FbLogin {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		String fbAccessToken = objectMapper.readTree(fbResponse).get("access_token").asText();
-		System.out.println("Access token: " + fbAccessToken);
+		logger.info("Access token: " + fbAccessToken);
 		return fbAccessToken;
 	}
 
 	public static String getProfileData(String fbAccessToken) throws IOException {
-		
-		System.out.println("Start GetProfileData");
 		String profileUrl = "https://graph.facebook.com/v2.9/me?access_token="+fbAccessToken+BINDING;
 		URL url = new URL(profileUrl);
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
+		logger.info("Connection is :" + connection);
 		
-		System.out.println("Connection is :" + connection);
 		BufferedReader bufferedReader = null;
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		} catch (Exception E) {
-			System.out.println("Excetpion");
+			logger.error("Exceptions..");
 		}
 		String line = "";
 		String profileData = "";
 		while ((line = bufferedReader.readLine()) != null) {
 			profileData = profileData + line;
 		}
-
-		System.out.println(profileData);
-		System.out.println("End GetProfileData");
-
+		logger.info("Profile data is : "+profileData);
 		return profileData;
 	}
 }

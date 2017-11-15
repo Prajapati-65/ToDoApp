@@ -2,6 +2,10 @@ package com.bridgeit.springToDoApp.SocialUtility;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GoogleLogin {
 
+	static Logger logger = (Logger) LogManager.getLogger(GoogleLogin.class);
 	
 	private static final String CLIENT_ID = "626052471611-25puhd88m0cefvvfc3pjj1g8ihnibhbf.apps.googleusercontent.com";
 	private static final String CLIENT_SECRET = "kbqL-iIN8RwVmc59mc6sl7F3";
@@ -23,7 +28,6 @@ public class GoogleLogin {
 
 	static {
 		try {
-			
 			googleLoginUrl = "https://accounts.google.com/o/oauth2/auth?client_id=" + CLIENT_ID + "&redirect_uri="
 					+ URLEncoder.encode(REDIRECT_URI, "UTF-8") + "&response_type=code" + "&scope=profile email" + "&approval_prompt=force" + "&access_type=offline";
 		} catch (UnsupportedEncodingException e) {
@@ -32,7 +36,7 @@ public class GoogleLogin {
 	}
 
 	public static String generateLoginUrl() {
-		System.out.println("Google url is : "+googleLoginUrl);
+		logger.info("Google url is : "+googleLoginUrl);
 		return googleLoginUrl;
 	}
 
@@ -60,14 +64,12 @@ public class GoogleLogin {
 
 	public static String getProfileData(String googleAccessToken) throws IOException {
 		
-		System.out.println("Start GetProfileData");
 		String profileUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + googleAccessToken ;
 		URL urlInfo = new URL(profileUrl);
 		
 		URLConnection connection = urlInfo.openConnection();
 		connection.setDoOutput(true);
-		System.out.println("Connection is :" + connection);
-		
+		logger.info("Connection is :" + connection);
 		BufferedReader bufferedReader = null;
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -79,8 +81,7 @@ public class GoogleLogin {
 		while ((line = bufferedReader.readLine()) != null) {
 			googleResponse = googleResponse + line;
 		}
-		System.out.println(googleResponse);
-		System.out.println("End GetProfileData");
+		logger.info("Google response : "+googleResponse);
 		return googleResponse;
 	}
 	

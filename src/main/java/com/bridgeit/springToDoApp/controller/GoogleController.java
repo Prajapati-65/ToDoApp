@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,13 @@ public class GoogleController {
 
 	@Autowired
 	UserService userService;
+	
+	private Logger logger = (Logger) LogManager.getLogger(GoogleController.class);
 
 	@RequestMapping(value = "/googleConnection", method = RequestMethod.GET)
 	public void beforeGoogle(HttpServletResponse response) throws IOException {
 		String googleLoginPageUrl = GoogleLogin.generateLoginUrl();
+		logger.info("Url is : "+googleLoginPageUrl);
 		response.sendRedirect(googleLoginPageUrl);
 	}
 
@@ -36,20 +41,21 @@ public class GoogleController {
 			throws IOException {
 
 		CustomResponse customResponse = new CustomResponse();
-		
 		if (request.getParameter("error") != null) {
+			logger.error("Error ");
 			customResponse.setMessage(request.getParameter("error"));
+			
 		} else {
 
 			String code;
 			code = request.getParameter("code");
-			System.out.println("Code is :-->" + code);
-
+			logger.info("Code is :-->" + code);
+			
 			String googleAccessToken = GoogleLogin.getAccessToken(code);
-			System.out.println("Google Access Token is :--> " + googleAccessToken);
-
+			logger.info("Google Access Token is :--> " + googleAccessToken);
+			
 			String profileData = GoogleLogin.getProfileData(googleAccessToken);
-			System.out.println("Profile data is : --> " + profileData);
+			logger.info("Profile data is : --> " + profileData);
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			String email = objectMapper.readTree(profileData).get("email").asText();
@@ -70,10 +76,13 @@ public class GoogleController {
 				int userId = userService.saveUser(user);
 				if (userId == 0) {
 					response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
+					
 				} else {
 					String accessToken = GenerateJWT.generate(userId);
 					session.setAttribute("todoAppAccessToken", accessToken);
+					response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
 				}
+				
 			} else {
 				String accessToken = GenerateJWT.generate(user.getId());
 				session.setAttribute("todoAppAccessToken", accessToken);

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,9 @@ public class NoteController {
 	
 	@Autowired
 	NoteService noteService;
-
+	
+	private Logger logger = (Logger) LogManager.getLogger(NoteController.class);
+	
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
 	public ResponseEntity<Response> createNote(@RequestBody Note note, HttpSession session) {
 		
@@ -38,11 +42,14 @@ public class NoteController {
 			note.setCreatedDate(date);
 			note.setModifiedDate(date);
 			noteService.createNote(note);
+			logger.info("Note create successfully");
 			CustomResponse  customResponse = new CustomResponse();
 			customResponse.setMessage("Note create successfully");
 			return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
+			
 		}
 		ErrorResponse errorResponse = new ErrorResponse();
+		logger.info("Please login first");
 		errorResponse.setMessage("Please login first");
 		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 	}
@@ -52,11 +59,15 @@ public class NoteController {
 		Note note = new Note();
 		note.setNoteId(noteId);
 		boolean delete = noteService.deleteNote(note);
+		
 		if (delete != true) {
 			ErrorResponse errorResponse = new ErrorResponse();
+			logger.error("Note could not be deleted");
 			errorResponse.setMessage("Note could not be deleted");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+			
 		} else {
+			logger.info("Note deleted successfully");
 			CustomResponse customResponse = new CustomResponse();
 			customResponse.setMessage("Note deleted successfully");
 			return ResponseEntity.ok(customResponse);
@@ -81,10 +92,13 @@ public class NoteController {
 		
 		boolean isUpdated = noteService.updateNote(note);
 		if (isUpdated != true) {
+			logger.error("Note could not be updated...");
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setMessage("Note could not be updated...");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+			
 		} else {
+			logger.info("Note updated successfully...");
 			CustomResponse customResponse = new CustomResponse();
 			customResponse.setMessage("Note updated successfully...");
 			return ResponseEntity.ok(customResponse);
@@ -96,6 +110,7 @@ public class NoteController {
 		
 		User user = (User) session.getAttribute("user");
 		List<Note> notes = noteService.getAllNotes(user);
+		logger.info("All notes are : "+notes);
 		return notes;
 	}
 	
