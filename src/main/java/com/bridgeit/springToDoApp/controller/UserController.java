@@ -121,31 +121,50 @@ public class UserController {
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> loginUser(@RequestBody User user, HttpSession session) {
-		CustomResponse customResponse = new CustomResponse();
-		user = userService.loginUser(user);
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public Response loginUser(@RequestBody User user, HttpSession session, HttpServletRequest request) {
 		
-		logger.info("Login successful " + user);
-		String generatetoken = GenerateJWT.generate(user.getId());
+		User loggedInUser = userService.emailValidate(user.getEmail());
 		
-		session.setAttribute("user", user);
-		customResponse.setMessage(generatetoken);
-		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
+		Response response = new Response();
+		if (loggedInUser == null) {
+			logger.warn("User with this email id does not exist");
+			response.setMessage("User with this email id does not exist");
+			response.setStatus(5);
+			return response;
+		}
+		
+		if (!loggedInUser.isActive()) {
+			logger.warn("User is not activated");
+			response.setMessage("User is not activated");
+			response.setStatus(3);
+			return response;
+		}
+		logger.info("Successfully logged in");
+		String accessToken = GenerateJWT.generate(loggedInUser.getId());
+		session.setAttribute("user", loggedInUser);
+		response.setMessage(accessToken);
+		response.setStatus(2);
+		return response;
 	}
-
+	
+	
+	
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<Response> logout(HttpSession session) {
 
 		CustomResponse customResponse = new CustomResponse();
 		session.removeAttribute("user");
 		session.invalidate();
-		
 		customResponse.setMessage("Logout seccessful");
 		logger.info("Logout seccessful ");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
 
+	
+	
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public Response forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
 
@@ -192,20 +211,20 @@ public class UserController {
 				generateOTP=request.getHeader(key); 
 			}
 		}
+		
 		int id=VerifiedJWT.verify(generateOTP);
-		System.out.println("User id is : "+id);
+		System.out.println("User id is :--> "+id);
 		
 		CustomResponse customResponse = new CustomResponse();
-		String email = user.getEmail();
 		String password = encryption.encryptPassword(user.getPassword());
-		
-		user = userService.emailValidate(email);
+		user=userService.getUserById(id);
 		if (user == null) {
-			logger.error("User email is null " + user);
+			logger.error("User by id ->" + user);
 			customResponse.setMessage("User not found :");
 			customResponse.setStatus(5);
 			return customResponse;
 		}
+		
 		user.setPassword(password);
 		if (userService.updateUser(user)) {
 			logger.info("Password update is successful ");

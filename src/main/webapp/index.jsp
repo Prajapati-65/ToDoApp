@@ -32,6 +32,9 @@
 <link rel="stylesheet" href="Style/login.css">
 <link rel="stylesheet" href="Style/SideNavigationaBar.css">
 <link rel="stylesheet" href="Style/TopNavigationBar.css">
+<link rel="stylesheet" href="Style/forgetpassword.css">
+<link rel="stylesheet" href="Style/resetpassword.css">
+
 
 
 
