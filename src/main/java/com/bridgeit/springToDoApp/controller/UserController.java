@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,10 @@ public class UserController {
 	Encryption encryption;
 
 	private Logger logger = (Logger) LogManager.getLogger(UserController.class);
-
+	
+	
+	//private  Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public ResponseEntity<Response> saveUser(@RequestBody User user, HttpServletRequest request) {
 
@@ -179,7 +183,6 @@ public class UserController {
 		}
 		try {
 			String generateOTP = GenerateJWT.generate(user.getId());
-			
 			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "",
 					urlofForgotPassword + " //Token--> " + generateOTP);
 			
@@ -204,6 +207,7 @@ public class UserController {
 		System.out.println("User id is :--> "+id);
 		
 		CustomResponse customResponse = new CustomResponse();
+		
 		String password = encryption.encryptPassword(user.getPassword());
 		user=userService.getUserById(id);
 		if (user == null) {
@@ -227,39 +231,5 @@ public class UserController {
 			return customResponse;
 		}
 	}
-	
-	
-	/*@RequestMapping(value = "/setPassword", method = RequestMethod.PUT)
-	public Response setPassword(@RequestBody User user1, HttpSession session,HttpServletRequest request) {
-	String userToken=null; 
-
-	Enumeration  headerNames=request.getHeaderNames();
-	while(headerNames.hasMoreElements()) {
-	String key=headerNames.nextElement().toString();
-	if(key.equals("token")) {
-	userToken=request.getHeader(key); 
-	}
-	}
-	int id=VerifiedJWT.verify(userToken);
-	User user = userService.getUserById(id);
-	   System.out.println("User id is:  "+id);
-	if (user == null) {
-	logger.info("No user Found at this id");
-	errorMessage.setResponseMessage("No user Found at this id");
-	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-	}
-
-	if (userService.setPassword(user1)) {
-	logger.info("check and set password for user");
-	errorMessage.setResponseMessage("password updated");
-	logger.debug("password updated successfully");;
-	return ResponseEntity.ok(errorMessage);
-	}
-
-	logger.info("password not updated");
-	errorMessage.setResponseMessage("password not updated");
-	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-	}
-	}*/
 
 }

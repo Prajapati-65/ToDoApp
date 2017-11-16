@@ -1,0 +1,51 @@
+
+<nav class="navbar navbar-fixed-top" role="navigation">
+
+    <div class="container-fluid navbar-padding" ng-style="{'background-color' : navbarBackground}">
+
+        <div class="navbar-header">
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <button type="button" class="navbar-toggle pull-left" ng-click="toggleSidebar()">
+                        <span class="icon-bar toggle-button"></span> <span class="icon-bar toggle-button"></span> <span class="icon-bar toggle-button"></span>
+                    </button>
+                </li>
+            </ul>
+
+            <a class="navbar-brand" href="" ng-click="redirectToNotes()" id="navbar-home-anchor" ng-style="{'color': navbarBrandColor}">{{
+                navbarBrand }}</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li ng-click="toggleView()"><a><img alt="List" ng-src="{{listIcon}}" height="22px" width="22px"></a></li>
+            <li>
+                <p class="navbar-btn">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" type="button" data-toggle="dropdown"> <img alt="" ng-src="{{user.profilePic}}" width="30px"
+                        height="30px" class="profile-pic">
+                    </a> <br>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="user-settings">
+                                <div class="col-xs-4">
+                                   <img alt="Pic" ng-src="{{user.profilePic}}" width="60px" height="60px" class="profile-pic" ng-click="openDialogue2('profile')">
+                                </div>
+                                <div class="col-xs-8">
+                                    <span><b>{{user.firstName}} {{user.lastName}}</b></span> <span class="user-email">{{user.email}}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li><a href="" type="button" id="btn-signout" ng-click="signOut()" class="btn btn-default pull-right">Sign out</a></li>
+                    </ul>
+                </div>
+                </p>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
