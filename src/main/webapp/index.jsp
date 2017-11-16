@@ -15,17 +15,14 @@
 
 <script type="text/javascript" src="Script/app.js"></script>
 
-<script type="text/javascript"
-	src="Controller/RegistrationController.js"></script>
-<script type="text/javascript" src="Service/RegistrationService.js"></script>
-
+<script type="text/javascript" src="Controller/RegistrationController.js"></script>
 <script type="text/javascript" src="Controller/loginController.js"></script>
-<script type="text/javascript" src="Service/loginService.js"></script>
-
 <script type="text/javascript" src="Controller/resetpwdController.js"></script>
-<script type="text/javascript" src="Service/forgotpasswordService.js"></script>
-
 <script type="text/javascript" src="Controller/homeController.js"></script>
+
+<script type="text/javascript" src="Service/RegistrationService.js"></script>
+<script type="text/javascript" src="Service/loginService.js"></script>
+<script type="text/javascript" src="Service/forgotpasswordService.js"></script>
 <script type="text/javascript" src="Service/homeService.js"></script>
 
 <link rel="stylesheet" href="Style/registration.css">
@@ -34,8 +31,6 @@
 <link rel="stylesheet" href="Style/TopNavigationBar.css">
 <link rel="stylesheet" href="Style/forgetpassword.css">
 <link rel="stylesheet" href="Style/resetpassword.css">
-
-
 
 
 <script type="text/javascript" src="directives/SideNavigationBar.js"></script>

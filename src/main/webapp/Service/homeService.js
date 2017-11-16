@@ -2,14 +2,14 @@ var todoApp = angular.module("toDoApp");
 
 todoApp.factory('homeService', function($http, $location){
 	
-	var card = {};
-	 
-	card.cardUser = function() {
+	var cards = {};
+	
+	cards.cardUser = function() {
 		return $http({
 			method : "GET",
-			url : 'getallnotes',
+			url : 'user/getallnotes',
 			data : note
 		});
 	}
-	return card;
+	return cards;
 });
