@@ -1,7 +1,6 @@
 package com.bridgeit.springToDoApp.controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.Utility.ErrorResponse;
-import com.bridgeit.springToDoApp.Utility.GenerateOtp;
 import com.bridgeit.springToDoApp.Utility.Response;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.MailService;
@@ -201,16 +198,7 @@ public class UserController {
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public Response resetPassword(@RequestBody User user, HttpSession session ,HttpServletRequest request) {
 
-		String generateOTP=null; 
-		Enumeration  headerNames=request.getHeaderNames();
-		while(headerNames.hasMoreElements()) 
-		{
-			String key=headerNames.nextElement().toString();
-			if(key.equals("token"))
-			{
-				generateOTP=request.getHeader(key); 
-			}
-		}
+		String	generateOTP=request.getHeader("token"); 
 		
 		int id=VerifiedJWT.verify(generateOTP);
 		System.out.println("User id is :--> "+id);
