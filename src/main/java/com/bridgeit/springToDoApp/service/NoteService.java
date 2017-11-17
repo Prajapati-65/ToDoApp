@@ -2,8 +2,10 @@ package com.bridgeit.springToDoApp.service;
 
 import java.util.List;
 
+
 import com.bridgeit.springToDoApp.model.Note;
 import com.bridgeit.springToDoApp.model.User;
+
 
 public interface NoteService {
 
