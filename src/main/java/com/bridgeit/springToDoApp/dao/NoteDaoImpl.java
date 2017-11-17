@@ -26,11 +26,7 @@ public class NoteDaoImpl implements NoteDao {
 		try {
 			transaction = session.beginTransaction();
 			noteId = (Integer) session.save(note);
-			transaction.commit();
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
 			e.printStackTrace();
 		}
 		return noteId;
@@ -42,12 +38,7 @@ public class NoteDaoImpl implements NoteDao {
 		try {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(note);
-			transaction.commit();
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-				return false;
-			}
 			e.printStackTrace();
 		}
 		return true;
@@ -65,11 +56,7 @@ public class NoteDaoImpl implements NoteDao {
 		try {
 			transaction = session.beginTransaction();
 			session.delete(note);
-			transaction.commit();
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
 			e.printStackTrace();
 			return false;
 		}

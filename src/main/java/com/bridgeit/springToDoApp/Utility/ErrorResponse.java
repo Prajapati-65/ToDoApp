@@ -2,22 +2,23 @@ package com.bridgeit.springToDoApp.Utility;
 
 public class ErrorResponse extends Response {
 
-	String message;
-	int status;
+	String errorMessage;
+	int errorStatus;
 
-	public String getMessage() {
-		return message;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
-	public int getStatus() {
-		return status;
+	public int getErrorStatus() {
+		return errorStatus;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setErrorStatus(int errorStatus) {
+		this.errorStatus = errorStatus;
 	}
+
 }

@@ -2,7 +2,7 @@
 <head>
 
 <script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+	src="bower_components/angular/angular.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
 <script type="text/javascript" src="Script/app.js"></script>
 

@@ -83,7 +83,7 @@ public class UserController {
 			}
 		}
 		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setMessage(isValidator);
+		errorResponse.setErrorMessage(isValidator);
 		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 	}
 
@@ -117,7 +117,7 @@ public class UserController {
 
 		customResponse.setStatus(200);
 		logger.info("user Email id verified successfully now plzz login....");
-		customResponse.setMessage("user Email id verified successfully now plzz login....");
+		customResponse.setMessage("user Email id verified successfully");
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
@@ -155,7 +155,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<Response> logout(HttpSession session) {
-
 		CustomResponse customResponse = new CustomResponse();
 		session.removeAttribute("user");
 		session.invalidate();

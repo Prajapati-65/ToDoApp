@@ -35,13 +35,9 @@ public class UserDaoImpl implements UserDao {
 				user.setPassword(encryption.encryptPassword(user.getPassword()));
 			}
 			int id = (int) session.save(user);
-			transaction.commit();
 			return id;
 		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-				return 0;
-			}
+			e.printStackTrace();
 		} finally {
 			session.close();
 		}
@@ -83,11 +79,6 @@ public class UserDaoImpl implements UserDao {
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			if (transaction != null) {
-				transaction.rollback();
-				session.close();
-				return false;
-			}
 		}
 		session.close();
 		return true;

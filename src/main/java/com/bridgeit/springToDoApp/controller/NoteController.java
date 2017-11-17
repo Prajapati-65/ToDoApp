@@ -50,7 +50,7 @@ public class NoteController {
 		}
 		ErrorResponse errorResponse = new ErrorResponse();
 		logger.info("Please login first");
-		errorResponse.setMessage("Please login first");
+		errorResponse.setErrorMessage("Please login first");  
 		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 	}
 
@@ -63,7 +63,7 @@ public class NoteController {
 		if (delete != true) {
 			ErrorResponse errorResponse = new ErrorResponse();
 			logger.error("Note could not be deleted");
-			errorResponse.setMessage("Note could not be deleted");
+			errorResponse.setErrorMessage("Note could not be deleted");  
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 			
 		} else {
@@ -94,7 +94,7 @@ public class NoteController {
 		if (isUpdated != true) {
 			logger.error("Note could not be updated...");
 			ErrorResponse errorResponse = new ErrorResponse();
-			errorResponse.setMessage("Note could not be updated...");
+			errorResponse.setErrorMessage("Note could not be updated..."); 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 			
 		} else {

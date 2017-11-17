@@ -3,9 +3,10 @@
 		<h2>Create an Account</h2>
 		<form name="registerForm">
 			<h3 ng-bind="errorMessage" id="errorInfo"></h3>
+			
 			<div class="form-group">
 				<label class="control-label" for="firstName">Enter the first name</label>
-				 <input id="fName" name="fName" type="text" class="form-control"  required ng-minlength="2" ng-model="user.firstName"> 
+				 <input id="fName" name="fName" type="text" class="form-control" required ng-minlength="2" ng-model="user.firstName"> 
 				 <span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.required">Required</span>
 				 <span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.minlength">First name is too short</span>
 			</div>

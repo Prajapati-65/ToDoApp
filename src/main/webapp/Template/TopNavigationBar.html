@@ -3,7 +3,7 @@
 	<div class="container-fluid" id="topNavigation">
 		<ul class="nav navbar-nav">
 			<li><i class="glyphicons glyphicons-show-lines"></i></li>
-			<li ng-click="">
+			<li ng-click="#">
 				<span class="span-a" cursor: pointer">&#9776;</span>
 			</li>
 			<li><h4>Fundoo Notes</h4></li>
@@ -20,9 +20,12 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li>
 				<div class="dropdown">
-					<span class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+					<span class="btn dropdown-toggle"  id="demo" type="button" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-user"></span>
 					</span>
+					<ul class="dropdown-menu xyz" role="menu"  aria-labelledby="demo">
+						<li ng-click="#">logout</li>
+					</ul>
 				</div>
 			</li>
 		</ul>
