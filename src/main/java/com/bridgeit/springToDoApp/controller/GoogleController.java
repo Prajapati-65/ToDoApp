@@ -86,6 +86,7 @@ public class GoogleController {
 			} else {
 				String accessToken = GenerateJWT.generate(user.getId());
 				session.setAttribute("todoAppAccessToken", accessToken);
+				response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
 			}
 		}
 	}

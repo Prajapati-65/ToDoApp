@@ -1,16 +1,14 @@
-
 #SideNavigation{
     height: 100%;
     background-color:#b3ffff;
     position: absolute;
     z-index: 1;
-    margin-top: 60px;
+    margin-top: -20px;
 }
 
 #SideNavigation li{
      list-style-type:none;
      margin-right: 20px;
-     height: 100%;
 }
 
 #SideNavigation a{

@@ -33,8 +33,7 @@
 <link rel="stylesheet" href="Style/resetpassword.css">
 
 
-<script type="text/javascript" src="directives/SideNavigationBar.js"></script>
-<script type="text/javascript" src="directives/TopNavigationBar.js"></script>
+<script type="text/javascript" src="directives/AllDirective.js"></script>
 
 </head>
 <body ng-app="toDoApp">

@@ -22,7 +22,7 @@ toDoApp.controller('resetController', function($scope, forgotpasswordService,
 	$scope.resetPassword = function() {
 
 		var httpReset = forgotpasswordService.resetPassword($scope.user);
-
+		
 		httpReset.then(function(response) {
 
 			if (response.data.status == 5) {
