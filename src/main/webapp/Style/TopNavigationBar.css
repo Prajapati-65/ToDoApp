@@ -9,12 +9,25 @@
 #topNavigation li {
 	background-color: #ffbb33;
 	margin-right: 20px;
-	margin-top: 10px;
 }
 
 #topNavigation input {
 	length: 100px;
 }
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+.search-bar{
+	padding-right: 350px;
+	margin-top: 18px;
+}
+
+.glyphicon-pic {
+	top: 20px;
+} 
 
 .toggle-button {
 	background-color: black;
@@ -25,26 +38,9 @@
 	display: inline-block;
 }
 
-.icon-bar {
-	background-color: #333;
-}
-
-#btn-signout {
-	margin-right: 25px;
-}
-
-.navbar-padding {
-	padding-left: 20px;
-	padding-right: 20px;
-	height: 50px;
-}
 
 .span-a {
 	font-size: 25px;
-}
-
-.span-b{
-	padding-top: 10px;
 }
 
 .xyz{

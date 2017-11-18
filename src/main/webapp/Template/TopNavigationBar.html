@@ -2,24 +2,26 @@
 
 	<div class="container-fluid" id="topNavigation">
 		<ul class="nav navbar-nav">
-			<li><i class="glyphicons glyphicons-show-lines"></i></li>
-			<li ng-click="sidebarToggle()">
-				<span class="span-a" cursor: pointer">&#9776;</span>
-			</li>
-			<li><h4>Fundoo Notes</h4></li>
 		
-			<li><span class="glyphicon span-b glyphicon-search"></span></li>
+			<li><i class="glyphicons glyphicons-show-lines"></i></li>
+			<li id="main">
+				<span ng-click="toggleSideBar()" class="span-a" cursor: pointer">&#9776;</span>
+			</li>
+			<li><h3>Fundoo Notes</h3></li>
+			
+			<li>
+				<span class="glyphicon glyphicon-search" style="top: 25px;"></span>
+			</li>
 			
 			<li>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" class="form-control search-bar" placeholder="Search">
 				</div>
 			</li>
 		</ul>
-
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<div class="dropdown">
+				<div class="dropdown glyphicon-pic ">
 					<span class="btn dropdown-toggle"  id="demo" type="button" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-user"></span>
 					</span>

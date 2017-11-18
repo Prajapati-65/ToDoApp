@@ -14,8 +14,9 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao;
 
 	@Transactional
-	public int saveUser(User user) {
-
+	public int saveUser(User user) 
+	{
+		user.setActive(false);
 		return userDao.saveUser(user);
 	}
 

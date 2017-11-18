@@ -57,8 +57,8 @@ public class UserController {
 		
 		//check the validation for user
 		String isValidator = validator.validateSaveUser(user);
-		if (isValidator.equals("Success")) {
-			user.setActive(false);
+		if (isValidator.equals("Success"))
+		{
 			int id = userService.saveUser(user);
 			logger.info("Registration successful");
 			if (id != 0) {
@@ -142,6 +142,7 @@ public class UserController {
 			response.setStatus(3);
 			return response;
 		}
+		
 		logger.info("Successfully logged in");
 		String accessToken = GenerateJWT.generate(loggedInUser.getId());
 		session.setAttribute("user", loggedInUser);
