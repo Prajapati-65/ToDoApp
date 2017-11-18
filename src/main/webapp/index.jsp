@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="Style/TopNavigationBar.css">
 <link rel="stylesheet" href="Style/forgetpassword.css">
 <link rel="stylesheet" href="Style/resetpassword.css">
-
+<link rel="stylesheet" href="Style/home.css">
 
 <script type="text/javascript" src="directives/AllDirective.js"></script>
 
