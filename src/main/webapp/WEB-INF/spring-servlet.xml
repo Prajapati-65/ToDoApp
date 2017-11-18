@@ -93,7 +93,7 @@
 
 	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
 
-	<bean id="validator" class="com.bridgeit.springToDoApp.validation.Validator" />
+	<bean id="validator" class="com.bridgeit.springToDoApp.Utility.Validator" />
 
 	<bean id="encryption" class="com.bridgeit.springToDoApp.Utility.Encryption" />
 

@@ -1,6 +1,8 @@
 package com.bridgeit.springToDoApp.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +30,7 @@ import com.bridgeit.springToDoApp.service.MailService;
 import com.bridgeit.springToDoApp.service.UserService;
 import com.bridgeit.springToDoApp.token.GenerateJWT;
 import com.bridgeit.springToDoApp.token.VerifiedJWT;
-import com.bridgeit.springToDoApp.validation.Validator;
+import com.bridgeit.springToDoApp.Utility.Validator;
 
 @RestController
 public class UserController {

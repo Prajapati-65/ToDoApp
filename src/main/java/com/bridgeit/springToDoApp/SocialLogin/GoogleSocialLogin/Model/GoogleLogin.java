@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.SocialUtility;
+package com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Model;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

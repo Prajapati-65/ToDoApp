@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.SocialUtility;
+package com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Model;
 
 import java.io.BufferedReader;
 import java.io.IOException;

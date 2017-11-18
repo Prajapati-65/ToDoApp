@@ -1,5 +1,4 @@
-package com.bridgeit.springToDoApp.controller;
-
+package com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,12 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgeit.springToDoApp.SocialUtility.GoogleLogin;
+import com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Model.GoogleLogin;
 import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.UserService;

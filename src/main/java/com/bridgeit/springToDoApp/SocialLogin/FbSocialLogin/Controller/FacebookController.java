@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.controller;
+package com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Controller;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bridgeit.springToDoApp.SocialUtility.FbLogin;
+import com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Model.FbLogin;
 import com.bridgeit.springToDoApp.model.User;
 import com.bridgeit.springToDoApp.service.UserService;
 import com.bridgeit.springToDoApp.token.GenerateJWT;

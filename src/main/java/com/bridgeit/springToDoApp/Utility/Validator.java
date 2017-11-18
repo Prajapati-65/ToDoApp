@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.validation;
+package com.bridgeit.springToDoApp.Utility;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
