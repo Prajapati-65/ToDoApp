@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.bridgeit.springToDoApp.controller.GoogleController;
+import com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Controller.FacebookController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FbLogin {

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Model.FbLogin;
-import com.bridgeit.springToDoApp.model.User;
-import com.bridgeit.springToDoApp.service.UserService;
-import com.bridgeit.springToDoApp.token.GenerateJWT;
+import com.bridgeit.springToDoApp.User.Model.User;
+import com.bridgeit.springToDoApp.User.Service.UserService;
+import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller

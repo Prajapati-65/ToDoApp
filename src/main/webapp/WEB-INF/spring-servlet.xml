@@ -39,8 +39,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.bridgeit.springToDoApp.model.User</value>
-				<value>com.bridgeit.springToDoApp.model.Note</value>
+				<value>com.bridgeit.springToDoApp.User.Model.User</value>
+				<value>com.bridgeit.springToDoApp.Note.Model.Note</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -68,7 +68,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**" />
-			<bean class="com.bridgeit.springToDoApp.Filter.TokenInterceptor" />
+			<bean class="com.bridgeit.springToDoApp.Utility.Filter.TokenInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
@@ -85,17 +85,16 @@
 		<property name="email" ref="mail" />
 	</bean>
 
-	<bean id="userDao" class="com.bridgeit.springToDoApp.dao.UserDaoImpl" />
+	<bean id="userDao" class="com.bridgeit.springToDoApp.User.DAO.UserDaoImpl" />
 
-	<bean id="userService" class="com.bridgeit.springToDoApp.service.UserServiceImpl" />
+	<bean id="userService" class="com.bridgeit.springToDoApp.User.Service.UserServiceImpl" />
 
-	<bean id="noteDao" class="com.bridgeit.springToDoApp.dao.NoteDaoImpl" />
+	<bean id="noteDao" class="com.bridgeit.springToDoApp.Note.DAO.NoteDaoImpl" />
 
-	<bean id="noteService" class="com.bridgeit.springToDoApp.service.NoteServiceImpl" />
+	<bean id="noteService" class="com.bridgeit.springToDoApp.Note.Service.NoteServiceImpl" />
 
 	<bean id="validator" class="com.bridgeit.springToDoApp.Utility.Validator" />
 
 	<bean id="encryption" class="com.bridgeit.springToDoApp.Utility.Encryption" />
-
 
 </beans>

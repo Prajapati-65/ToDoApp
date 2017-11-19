@@ -2,7 +2,7 @@ package com.bridgeit.springToDoApp.Utility;
 
 import java.util.List;
 
-import com.bridgeit.springToDoApp.model.Note;
+import com.bridgeit.springToDoApp.Note.Model.Note;
 
 public class CustomResponse extends Response {
 

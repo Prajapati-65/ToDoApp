@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bridgeit.springToDoApp.model.User;
-import com.bridgeit.springToDoApp.service.UserService;
+import com.bridgeit.springToDoApp.User.Model.User;
+import com.bridgeit.springToDoApp.User.Service.UserService;
 
 public class Validator {
 
