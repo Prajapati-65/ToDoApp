@@ -1,21 +1,21 @@
 package com.bridgeit.springToDoApp.Note.Service;
 
-import java.util.List;
 
 import com.bridgeit.springToDoApp.Note.Model.Note;
-import com.bridgeit.springToDoApp.User.Model.User;
+import com.bridgeit.springToDoApp.Utility.Response;
 
 public interface NoteService {
 
-	int createNote(Note note);
 	
-	boolean updateNote(Note note);
-
-	boolean deleteNote(Note note);
+	Response createNote(Note note, int userId);
 	
-	Note getNoteById(int noteId);
-
-	List<Note> getAllNotes(User user);
+	Response updateNote(Note note, int userId) throws Exception;
+	
+	/*Note getNoteById(int noteId);*/
+	
+	Response deleteNote(int noteId, int userId);
+	
+	Response getAllNotes(int userId);
 	
 	
 }

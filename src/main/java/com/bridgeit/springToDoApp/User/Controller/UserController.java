@@ -1,8 +1,6 @@
 package com.bridgeit.springToDoApp.User.Controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +22,10 @@ import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.Utility.ErrorResponse;
 import com.bridgeit.springToDoApp.Utility.Response;
+import com.bridgeit.springToDoApp.Utility.UrlTemplate;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.service.MailService;
+import com.sun.mail.imap.Utility;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
@@ -53,70 +52,63 @@ public class UserController {
 	//private  Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-	public ResponseEntity<Response> saveUser(@RequestBody User user, HttpServletRequest request) {
-
+	public Response saveUser(@RequestBody User user, HttpServletRequest request) {
 		CustomResponse customResponse = new CustomResponse();
-		
-		//check the validation for user
 		String isValidator = validator.validateSaveUser(user);
-		if (isValidator.equals("Success"))
+		if (isValidator.equals("Registration successful"))
 		{
-			int id = userService.saveUser(user);
-			logger.info("Registration successful");
-			if (id != 0) {
+			try {
+				userService.saveUser(user, request);
+				logger.info("User registered successfully");
+				customResponse.setMessage("User registered successfully");
+				customResponse.setStatus(2);
+				return customResponse;
+			} catch (Exception e) {
+				logger.error("Could not registered user");
 				
-				//create a template and send to the mail
-				String activeToken = GenerateJWT.generate(id);
-				String url = request.getRequestURL().toString();
-				url = url.substring(0, url.lastIndexOf("/")) + "/" + "verifyMail/" + activeToken;
-
-				try {
-					mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz ",
-							"Please click on this link within 1-hours otherwise your account is not activated--> "
-									+ url);
-					logger.info("Please login email");
-					customResponse.setMessage(isValidator);
-					return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
-					
-				} catch (MailException e) {
-					logger.error("Mail don't send");
-					e.printStackTrace();
-				}
+				customResponse.setMessage("User could not be registered");
+				customResponse.setStatus(-1);
+				return customResponse;
 			}
+		} else {
+			logger.warn("User could not be registered, validation failed");
+
+			customResponse.setMessage(isValidator);
+			customResponse.setStatus(-6);
+			return customResponse;
 		}
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setErrorMessage(isValidator);
-		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
 	}
-
-	@RequestMapping(value = "/verifyMail/{activeToken:.+}", method = RequestMethod.GET)
+						
+	@RequestMapping(value = "verifyMail/{activeToken:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> verifyMail(@PathVariable("activeToken") String activeToken,
-			HttpServletResponse response) throws IOException {
-
+			HttpServletResponse response) throws IOException 
+	{
 		CustomResponse customResponse = new CustomResponse();
 		User user = null;
 		int id = VerifiedJWT.verify(activeToken);
-
-		try {
+		try 
+		{
 			user = userService.getUserById(id);
 			logger.info("User details " + user);
 			
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			logger.error("user not found ");
 			e.printStackTrace();
 		}
-
-		user.setActive(true);
 		
-		try {
+		user.setActive(true);
+		try 
+		{
 			userService.updateUser(user);
 			logger.info("Account is activated ");
-			
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			logger.error("Account is not activated");
 			e.printStackTrace();
 		}
-
 		customResponse.setStatus(200);
 		logger.info("user Email id verified successfully now plzz login....");
 		customResponse.setMessage("user Email id verified successfully");
@@ -128,36 +120,31 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Response loginUser(@RequestBody User user, HttpSession session, HttpServletRequest request) {
 		
-		User loggedInUser = userService.emailValidate(user.getEmail());
-		
 		Response response = new Response();
-		if (loggedInUser == null) {
-			logger.warn("User with this email id does not exist");
-			response.setMessage("User with this email id does not exist");
-			response.setStatus(5);
+		try {
+			int userId = userService.loginUser(user);
+			if (userId == 0) {
+				logger.warn("Invalid details");
+				response.setMessage("Invalid details");
+				response.setStatus(-5);
+				return response;
+			} else {
+				String jwt = GenerateJWT.generate(userId);
+				response.setMessage(jwt);
+				response.setStatus(2);
+				return response;
+			}
+		} catch (Exception e) {
+			logger.error("User from database is showing error");
+			response.setMessage("User from database is showing error");
+			response.setStatus(-1);
 			return response;
 		}
-		
-		if (!loggedInUser.isActive()) {
-			logger.warn("User is not activated");
-			response.setMessage("User is not activated");
-			response.setStatus(3);
-			return response;
-		}
-		
-		logger.info("Successfully logged in");
-		String accessToken = GenerateJWT.generate(loggedInUser.getId());
-		session.setAttribute("user", loggedInUser);
-		response.setMessage(accessToken);
-		response.setStatus(2);
-		return response;
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public ResponseEntity<Response> logout(HttpSession session) {
+	public ResponseEntity<Response> logout(HttpSession session) 
+	{
 		CustomResponse customResponse = new CustomResponse();
 		session.removeAttribute("user");
 		session.invalidate();
@@ -165,41 +152,30 @@ public class UserController {
 		logger.info("Logout seccessful ");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 	}
-
-	
 	
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
-	public Response forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) {
-
+	public Response forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) 
+	{
 		CustomResponse customResponse = new CustomResponse();
-		String url = request.getRequestURL().toString();
-		int lastIndex = url.lastIndexOf("/");
-		String urlofForgotPassword = url.substring(0, lastIndex) + "#!/resetpassword";		
-		
-		user = userService.emailValidate(user.getEmail());
-		if (user == null) {
-			customResponse.setMessage("Please enter valid emailID");
-			customResponse.setStatus(5);
-			logger.debug("Please enter valid emailID");
-			return customResponse;
-		}
 		try {
-			String generateOTP = GenerateJWT.generate(user.getId());
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "",
-					urlofForgotPassword + " //Token--> " + generateOTP);
+			boolean successful = userService.forgotPassword(user , request);
+			if (!successful) 
+			{
+				customResponse.setMessage("This email does not exist");
+				customResponse.setStatus(-1);
+			}
+		} catch (MailException e) {
 			
-		} catch (Exception e) {
-			logger.error("email don't match");
-			e.printStackTrace();
-			customResponse.setStatus(5);
+			customResponse.setMessage("Reset link could not be sent");
+			customResponse.setStatus(-1);
 			return customResponse;
 		}
 		logger.info("Forgot password seccessful");
-		customResponse.setMessage("Forget Success");
-		customResponse.setStatus(2);
+		customResponse.setMessage("Forgot password seccessful");
+		customResponse.setStatus(1);
 		return customResponse;
 	}
-
+	
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public Response resetPassword(@RequestBody User user, HttpSession session ,HttpServletRequest request) {
 
@@ -207,31 +183,23 @@ public class UserController {
 		
 		int id=VerifiedJWT.verify(generateOTP);
 		System.out.println("User id is :--> "+id);
+		user=userService.getUserById(id);
 		
 		CustomResponse customResponse = new CustomResponse();
 		
-		String password = encryption.encryptPassword(user.getPassword());
-		user=userService.getUserById(id);
-		if (user == null) {
-			logger.error("User by id ->" + user);
-			customResponse.setMessage("User not found :");
-			customResponse.setStatus(5);
-			return customResponse;
-		}
-		
-		user.setPassword(password);
-		if (userService.updateUser(user)) {
+		boolean reset= userService.resetpassword(user);
+		if(reset==true)
+		{
 			logger.info("Password update is successful ");
 			customResponse.setMessage("Reset password is success :");
 			customResponse.setStatus(2);
 			return customResponse;
-			
-		} else {
+		}
+		else {
 			logger.error("Reset password unseccessful");
 			customResponse.setMessage("Password could not be changed");
 			customResponse.setStatus(-2);
 			return customResponse;
 		}
 	}
-
 }

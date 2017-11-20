@@ -1,53 +1,101 @@
 package com.bridgeit.springToDoApp.Utility;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 
+
 public class Validator {
 
 	@Autowired
-	UserService userServive;
+	UserService userService;
 	
-	public static final Pattern EMAIL_ID_REGEX = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",Pattern.CASE_INSENSITIVE);
-	public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,}$");
-	public static final Pattern MOBILE_REGEX = Pattern.compile("[0-9]{10}");
-	public static final Pattern PASSWORD_REGEX = Pattern.compile("^[a-zA-Z0-9]{8,}$");
-
 	public String validateSaveUser(User user) {
-
-		if (!validateRegEx(user.getFirstName(), NAME_REGEX)) {
-			return "Your first name is too short...";
-		} 
-		else if (!validateRegEx(user.getLastName(), NAME_REGEX)) {
-			return "your last name is too short...";
-		} 
-		else if (!validateRegEx(user.getEmail(), EMAIL_ID_REGEX)) {
-			return "Please enter a valid email address !!";
-		} 
-		else if (!validateRegEx(String.valueOf(user.getMobileNumber()), MOBILE_REGEX)) {
-			return "Contact number must be 10 digits !!";
-		} 
-		else if (!validateRegEx(user.getPassword(), PASSWORD_REGEX)) {
-			return "Your password is short !!";
-		} 
+		
+		String result="false";
+		
+		String firstName="^[a-zA-Z]{2,}$";
+		
+		String lastName="^[a-zA-Z]{2,}$";
+		
+		String emailFormat="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		
+		String passwordFormat="^[a-zA-Z0-9]{8,}$";
+		
+		String contactFormat="[0-9]{10}";
+		
+		if(user.getFirstName()==null||user.getFirstName()==""){
+			result="Your first name is too short...";
+			return result;
+		}
+		
+		else if(user.getLastName()==null||user.getLastName()==""){
+			result="Your last name is too short...";
+			return result;
+		}
+		
+		else if(user.getEmail()==null||user.getEmail()==""){
+			result="Email is not in correct format.";
+			return result;
+		}
+		
+		else if(user.getPassword()==null||user.getPassword()==""){
+			result="Password must contain words and number";
+			return result;
+		}
+		
+		else if(String.valueOf(user.getMobileNumber())==null||String.valueOf(user.getMobileNumber())==""){
+			result="Contact cannot be empty.";
+			return result;
+		}
+		
+		else if(!user.getFirstName().matches(firstName)){
+			result="Your first name is too short...";
+			return result;
+		}
+		
+		else if(!user.getLastName().matches(lastName)){
+			result="Your last name is too short...";
+			return result;
+		}
+		
+		else if(!user.getEmail().matches(emailFormat)){
+			result="Please enter a valid email address !!";
+			return result;
+		}
+		
+		else if(!user.getPassword().matches(passwordFormat)){
+			result="Your password is short !!";
+			return result;
+		}
+		
+		else if(!String.valueOf(user.getMobileNumber()).matches(contactFormat)){
+			result="Contact number must be 10 digits !!";
+			return result;
+		}
+		
 		else {
 			
-			User newUser= userServive.emailValidate(user.getEmail());
+			User newUser= userService.emailValidate(user.getEmail());
 			if (newUser != null) {
-				return "Email already exists";
+				result = "Email already exists";
+				return result;
 			} else {
-				return "Success";
+				result = "Registration successful";
+				return result;
 			}
 		}
 	}
-
-	boolean validateRegEx(String email, Pattern match) {
-		Matcher matcher = match.matcher(email);
-		return matcher.find();
+	
+	public String validatePassword(String password) {
+		String passwordFormat="^[a-zA-Z0-9]{8,}$";
+		
+		 if(!password.matches(passwordFormat)){
+			 return "Your password is short !!";
+			}
+		 else{
+			 return "true";
+		 }
 	}
-
 }

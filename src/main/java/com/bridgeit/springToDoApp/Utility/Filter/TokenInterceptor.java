@@ -40,6 +40,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 			logger.error("Token is not varified");
 			return false;
 		}
+		request.setAttribute("userId", userId);
 		logger.info("Token is varified");
 		return true;
 	}

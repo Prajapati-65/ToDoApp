@@ -3,6 +3,7 @@ package com.bridgeit.springToDoApp.Note.Controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.LogManager;
@@ -34,44 +35,46 @@ public class NoteController {
 	private Logger logger = (Logger) LogManager.getLogger(NoteController.class);
 	
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
-	public ResponseEntity<Response> createNote(@RequestBody Note note, HttpSession session) {
+	public Response createNote(@RequestBody Note note , HttpServletRequest request)
+	{
+		int userId = (int) request.getAttribute("userId");
 		
-		User user = (User) session.getAttribute("user");
+		CustomResponse customResponse = new CustomResponse();
+		User user = new User();
+		user.setId(userId);
 		note.setUser(user);
-		if (user != null) {
-			Date date = new Date();
-			note.setCreatedDate(date);
-			note.setModifiedDate(date);
-			noteService.createNote(note);
-			logger.info("Note create successfully");
-			CustomResponse  customResponse = new CustomResponse();
-			customResponse.setMessage("Note create successfully");
-			return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
-			
-		}
-		ErrorResponse errorResponse = new ErrorResponse();
-		logger.info("Please login first");
-		errorResponse.setErrorMessage("Please login first");  
-		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
-	}
-
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
-		Note note = new Note();
-		note.setNoteId(noteId);
-		boolean delete = noteService.deleteNote(note);
 		
-		if (delete != true) {
-			ErrorResponse errorResponse = new ErrorResponse();
-			logger.error("Note could not be deleted");
-			errorResponse.setErrorMessage("Note could not be deleted");  
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+		if(userId !=0)
+		{
+			noteService.createNote(note ,userId);
+			logger.info("Note created successful");
+			customResponse.setMessage("Note create successfully");
+			return customResponse;
+		}
+		else{
+		
+			logger.info("Please login first");
+			customResponse.setMessage("Please login first");  
+			return customResponse;	
+	
+		}
+	}
+	
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public Response deleteNote(@PathVariable("id") int noteId , HttpServletRequest request) {
+		
+		int userId = (int) request.getAttribute("userId");
+		try {
+			Response response = noteService.deleteNote(noteId, userId);
+			return response;
 			
-		} else {
-			logger.info("Note deleted successfully");
-			CustomResponse customResponse = new CustomResponse();
-			customResponse.setMessage("Note deleted successfully");
-			return ResponseEntity.ok(customResponse);
+		} catch (Exception e) {
+			
+			Response response = new Response();
+			response.setMessage("Error deleting note");
+			response.setStatus(1);
+			return response;
 		}
 	}
 

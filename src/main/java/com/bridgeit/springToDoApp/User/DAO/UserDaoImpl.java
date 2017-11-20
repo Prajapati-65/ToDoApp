@@ -31,9 +31,6 @@ public class UserDaoImpl implements UserDao {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			if (user.getPassword() != null) {
-				user.setPassword(encryption.encryptPassword(user.getPassword()));
-			}
 			int id = (int) session.save(user);
 			return id;
 		} catch (Exception e) {
