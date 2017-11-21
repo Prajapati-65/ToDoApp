@@ -1,36 +1,49 @@
 <nav class="navbar navbar-default">
 
-	<div class="container-fluid" id="topNavigation">
-		<ul class="nav navbar-nav">
-		
-			<li><i class="glyphicons glyphicons-show-lines"></i></li>
-			<li id="main">
-				<span ng-click="toggleSideBar()" class="span-a" cursor: pointer">&#9776;</span>
-			</li>
-			<li><h3>Fundoo Notes</h3></li>
+		<div class="container-fluid" id="topNavigation">
+			<ul class="nav navbar-nav">
 			
-			<li>
-				<span class="glyphicon glyphicon-search" style="top: 25px;"></span>
-			</li>
-			
-			<li>
-				<div class="form-group">
-					<input type="text" class="form-control search-bar" placeholder="Search">
-				</div>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<li>
-				<div class="dropdown glyphicon-pic ">
-					<span class="btn dropdown-toggle"  id="demo" type="button" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-user"></span>
-					</span>
-					<ul class="dropdown-menu xyz" role="menu"  aria-labelledby="demo">
-						<li ng-click="logout()">logout</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-		
+				<li><i class="glyphicons glyphicons-show-lines"></i></li>
+				<li id="main">
+					<span ng-click="toggleSideBar()" class="span-a" cursor: pointer">&#9776;</span>
+				</li>
+				<li><h3>Fundoo Notes</h3></li>
+				
+				<li>
+					<span class="glyphicon glyphicon-search" style="top: 25px;"></span>
+				</li>
+				
+				<li>
+					<div class="form-group">
+						<input type="text" class="form-control search-bar" placeholder="Search">
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+			 		<div class="dropdown">
+	                    <a class="btn dropdown-toggle" type="button" data-toggle="dropdown"> 
+	                    <img alt="" ng-src="{{user.profileImage}}" width="30px" height="30px" class="profile-pic">
+	                    </a>
+	                     <br>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <div class="user-settings">
+	                                <div class="col-xs-4">
+	                                    <img alt="Pic" ng-src="{{user.profileImage}}" width="60px" height="60px" class="profile-pic" ng-click="">
+	                                </div>
+	                                <div class="col-xs-8">
+	                                    <span><b>{{user.firstName}} {{user.lastName}}</b></span>
+	                                    <span class="user-email">{{user.email}}</span>
+	                                </div>
+	                            </div>
+	                        </li>
+	
+	                        <li><a href="" type="button" id="btn-signout" ng-click="" class="btn btn-default pull-right">Sign out</a></li>
+	                    </ul>
+	                </div>
+				</li>
+			</ul>
+	   
 	</div>
 </nav>

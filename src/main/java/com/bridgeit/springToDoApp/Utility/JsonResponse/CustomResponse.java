@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.Utility;
+package com.bridgeit.springToDoApp.Utility.JsonResponse;
 
 import java.util.List;
 

@@ -21,8 +21,8 @@ import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.Note.Service.NoteService;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
-import com.bridgeit.springToDoApp.Utility.CustomResponse;
-import com.bridgeit.springToDoApp.Utility.Response;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
 @RestController
 @RequestMapping(value = "/user")

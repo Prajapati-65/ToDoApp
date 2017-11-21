@@ -68,18 +68,14 @@ public class FacebookController {
 			user.setEmail(email);
 			user.setActive(true);
 			
-			int userId = userService.saveUser(user);
-			if (userId == 0) {
-				response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
-			} else {
-				String accessToken = GenerateJWT.generate(userId);
-				session.setAttribute("todoAppAccessToken", accessToken);
-				response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
-			}
-		} else {
+			userService.saveUser(user , request);
+			
 			String accessToken = GenerateJWT.generate(user.getId());
 			session.setAttribute("todoAppAccessToken", accessToken);
 			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
+			
+		} else {
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		}
 	}
 	

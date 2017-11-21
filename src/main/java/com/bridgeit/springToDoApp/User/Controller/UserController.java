@@ -18,15 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
-import com.bridgeit.springToDoApp.Utility.Response;
 import com.bridgeit.springToDoApp.User.Model.User;
-import com.bridgeit.springToDoApp.service.MailService;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
 import com.bridgeit.springToDoApp.Utility.Validator;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
 @RestController
 public class UserController {
@@ -38,18 +37,13 @@ public class UserController {
 	Validator validator;
 
 	@Autowired
-	MailService mailService;
-
-	@Autowired
 	Encryption encryption;
 
 	private Logger logger = (Logger) LogManager.getLogger(UserController.class);
 	
-	
-	//private  Logger logger = LoggerFactory.getLogger(UserController.class);
-	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public Response saveUser(@RequestBody User user, HttpServletRequest request) {
+		
 		CustomResponse customResponse = new CustomResponse();
 		String isValidator = validator.validateSaveUser(user);
 		if (isValidator.equals("Registration successful"))
@@ -62,7 +56,6 @@ public class UserController {
 				return customResponse;
 			} catch (Exception e) {
 				logger.error("Could not registered user");
-				
 				customResponse.setMessage("User could not be registered");
 				customResponse.setStatus(-1);
 				return customResponse;

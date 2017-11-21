@@ -1,27 +1,24 @@
 @CHARSET "UTF-8";
 
-.addnote {
-	background-color: White;
+div#addNoteForm{
+	background-color:red;
 	margin-top: 10px;
 	margin-bottom: 25px;
 	margin-left: 20%;
 }
 
-.notetitle {
-	outline: none;
-	padding-top: 5px;
+div#noteDescription{
+	outline:none;
+	padding-top:5px;
 	height: 28px;
 }
 
-.noteDescypt{
-	outline: none;
-	padding-top: 5px;
+div#notetitle {
+	outline:none;
+	padding-top:5px;
 	height: 28px;
 }
 
-
-
-[contentEditable=true]:empty:not (:focus ):before {
-	color: #989faa;
-	content: attr(data-ph)
-}
+[contentEditable=true]:empty:not(:focus):before{
+	color:#989faa;
+content:attr(data-ph) }

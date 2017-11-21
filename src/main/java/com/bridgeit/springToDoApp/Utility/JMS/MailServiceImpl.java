@@ -1,4 +1,4 @@
-package com.bridgeit.springToDoApp.service;
+package com.bridgeit.springToDoApp.Utility.JMS;
 
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -18,12 +18,11 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Async
-	public void sendEmail(String from, String to, String subject, String text) throws MailException {
+	public void sendEmail(String to, String text) throws MailException {
 		
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(from);
 		message.setTo(to);
-		message.setSubject(subject);
+		message.setSubject("Welcome to bridgelabz");
 		message.setText(text);
 		email.send(message);
 	}

@@ -1,7 +1,6 @@
 package com.bridgeit.springToDoApp.User.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,8 @@ import com.bridgeit.springToDoApp.User.DAO.UserDao;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.Utility.UrlTemplate;
+import com.bridgeit.springToDoApp.Utility.JMS.JmsMessageSendingService;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
-import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
-import com.bridgeit.springToDoApp.service.MailService;
 
 public class UserServiceImpl implements UserService {
 
@@ -23,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	Encryption encryption;
 
 	@Autowired
-	MailService mailService;
+	JmsMessageSendingService JmsMessageSendingService;
 
 	@Transactional
 	public void saveUser(User user, HttpServletRequest request) {
@@ -36,7 +34,7 @@ public class UserServiceImpl implements UserService {
 			String activeToken = GenerateJWT.generate(userID);
 			String url = UrlTemplate.urlTemplate(request);
 			url = url + "verifyMail/" + activeToken;
-			mailService.sendEmail("om4java@gmail.com", user.getEmail(), "Welcome to bridgelabz ",
+			JmsMessageSendingService.sendMessage(user.getEmail(),
 					"Please click on this link within 1-hours otherwise your account is not activated--> " + url);
 		}
 	}
@@ -66,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		}
 		String generateOTP = GenerateJWT.generate(user.getId());
 		String url = UrlTemplate.urlTemplate(request);
-		mailService.sendEmail("om4java@gmail.com", user.getEmail(), "", url + " //Token--> " + generateOTP);
+		JmsMessageSendingService.sendMessage(user.getEmail() ,url + " //Token--> " + generateOTP);
 		return true;
 	}
 
