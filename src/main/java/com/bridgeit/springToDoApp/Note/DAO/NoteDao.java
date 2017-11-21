@@ -10,9 +10,9 @@ import com.bridgeit.springToDoApp.Utility.Response;
 
 public interface NoteDao {
 
-int createNote(Note note);
+	int createNote(Note note);
 	
-	void updateNote(Note note);
+	public boolean updateNote(Note note);
 	
 	Note getNoteById(int noteId);
 	

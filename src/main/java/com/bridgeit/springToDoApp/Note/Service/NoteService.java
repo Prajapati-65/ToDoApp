@@ -9,9 +9,9 @@ public interface NoteService {
 	
 	Response createNote(Note note, int userId);
 	
-	Response updateNote(Note note, int userId) throws Exception;
+	public boolean updateNote(Note note);
 	
-	/*Note getNoteById(int noteId);*/
+	public Note getNoteById(int noteId);
 	
 	Response deleteNote(int noteId, int userId);
 	

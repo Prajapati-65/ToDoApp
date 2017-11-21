@@ -61,6 +61,7 @@ public class NoteController {
 	}
 	
 	
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public Response deleteNote(@PathVariable("id") int noteId , HttpServletRequest request) {
 		
@@ -83,6 +84,7 @@ public class NoteController {
 
 		int noteid =note.getNoteId();
 		System.out.println("noteid: " + noteid);
+		
 		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
@@ -108,17 +110,26 @@ public class NoteController {
 			return ResponseEntity.ok(customResponse);
 		}
 	}
-
-	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
-	public List<Note> getAllNotes(HttpSession session) {
-		
-		User user = (User) session.getAttribute("user");
-		List<Note> notes = noteService.getAllNotes(user);
-		logger.info("All notes are : "+notes);
-		return notes;
-	}
 	
+	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
+	public Response getAllNotes(HttpSession session, HttpServletRequest request) {
 
+		int userId = (int) request.getAttribute("userId");
+
+		try {
+			
+			Response response = (Response) noteService.getAllNotes(userId);
+			return response;
+			
+		} catch (Exception e) {
+			Response response = new Response();
+			logger.info("Notes could not beloaded");
+			response.setMessage("Notes could not be loaded");
+			response.setStatus(-1);
+			return response;
+		}
+		
+	}
 	
 
 }

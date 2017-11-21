@@ -30,12 +30,12 @@ public class NoteDaoImpl implements NoteDao {
 	}
 
 	@Override
-	public void updateNote(Note note) {
-
+	public boolean updateNote(Note note) {
 		Session session = factory.getCurrentSession();
-
-		session.update(note);
+		session.saveOrUpdate(note);
+		return true;
 	}
+	
 
 	@Override
 	public Note getNoteById(int noteId) {

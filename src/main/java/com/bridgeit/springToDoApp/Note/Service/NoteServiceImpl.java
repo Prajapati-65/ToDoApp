@@ -46,6 +46,9 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	
+	
+	
+	
 	@Override
 	@Transactional
 	public Response deleteNote(int noteId, int userId) {
@@ -74,7 +77,7 @@ public class NoteServiceImpl implements NoteService {
 		response.setMessage("Note deleted successfully");
 		response.setStatus(1);
 		return response;
-	}
+	}	
 
 	@Override
 	@Transactional
@@ -90,5 +93,16 @@ public class NoteServiceImpl implements NoteService {
 		response.setStatus(1);
 		return response;
 	}
+	
+	@Override
+	@Transactional
+	public boolean updateNote(Note note) {
+		return noteDao.updateNote(note);
+	}
 
+	@Override
+	@Transactional
+	public Note getNoteById(int noteId){
+		return noteDao.getNoteById(noteId);
+	}
 }
