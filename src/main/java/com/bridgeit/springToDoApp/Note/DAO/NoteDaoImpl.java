@@ -2,9 +2,12 @@ package com.bridgeit.springToDoApp.Note.DAO;
 
 import java.util.List;
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,69 +17,62 @@ import com.bridgeit.springToDoApp.User.Model.User;
 
 public class NoteDaoImpl implements NoteDao {
 
-
 	@Autowired
 	SessionFactory factory;
 
-	@Override
 	public int createNote(Note note) {
 		int noteId = 0;
-
-		Session session = factory.getCurrentSession();
-
-		noteId = (int) session.save(note);
-
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			noteId = (Integer) session.save(note);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return noteId;
 	}
 
-	@Override
 	public boolean updateNote(Note note) {
-		Session session = factory.getCurrentSession();
-		session.saveOrUpdate(note);
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(note);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
-	
 
-	@Override
 	public Note getNoteById(int noteId) {
-		Session session = factory.getCurrentSession();
-
+		Session session = factory.openSession();
 		Note note = session.get(Note.class, noteId);
-
 		return note;
 	}
 
-	@Override
-	public void deleteNote(Note note) {
-		Session session = factory.getCurrentSession();
-
-		session.delete(note);
+	public boolean deleteNote(Note note) {
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			session.delete(note);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
-	@SuppressWarnings({ "unchecked" })
-	@Override
 	public List<Note> getAllNotes(User user) {
-
-		Session session = factory.getCurrentSession();
-
+		Session session = factory.openSession();
+		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(Note.class);
-
 		criteria.add(Restrictions.eq("user", user));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-		List<Note> notes1 = criteria.list();
-
-		criteria = session.createCriteria(Note.class);
-		criteria.createAlias("sharedUsers", "u");
-		criteria.add(Restrictions.eq("u.userId", user.getId()));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-		List<Note> notes2 = criteria.list();
-
-		notes1.removeAll(notes2);
-		notes1.addAll(notes2);
-		
-		return notes1;
+		criteria.addOrder(Order.desc("modifiedDate"));
+		@SuppressWarnings("unchecked")
+		List<Note> notes = criteria.list();
+		return notes;
 	}
 	
 }

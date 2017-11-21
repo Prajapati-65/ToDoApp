@@ -2,11 +2,6 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $location) {
 
-	$scope.card = function() {
-		var httpServiceUser1 = homeService.cardUser($scope.user);
-		
-	}
-	
 	$scope.toggleSideBar = function() {
 		var width = $('#sideToggle').width();
 		console.log(width);
@@ -18,8 +13,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location) {
 			document.getElementById("content-wrapper-inside").style.marginLeft = "300px";
 		}
 	}
-
 	
 });
-
 
