@@ -22,7 +22,6 @@ import com.bridgeit.springToDoApp.Note.Service.NoteService;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.CustomResponse;
-import com.bridgeit.springToDoApp.Utility.ErrorResponse;
 import com.bridgeit.springToDoApp.Utility.Response;
 
 @RestController
@@ -50,26 +49,28 @@ public class NoteController {
 			CustomResponse  customResponse = new CustomResponse();
 			customResponse.setMessage("Note create successfully");
 			return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
-			
 		}
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setErrorMessage("Please login first");  
-		return new ResponseEntity<Response>(errorResponse, HttpStatus.CONFLICT);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("Please login first");  
+		return new ResponseEntity<Response>(customResponse, HttpStatus.CONFLICT);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
 		Note note = new Note();
 		note.setNoteId(noteId);
+		
 		boolean delete = noteService.deleteNote(note);
 		
+		CustomResponse customResponse = new CustomResponse();
+		
 		if (delete != true) {
-			ErrorResponse errorResponse = new ErrorResponse();
-			errorResponse.setErrorMessage("Note could not be deleted");  
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+	
+			customResponse.setMessage("Note could not be deleted");  
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customResponse);
 			
 		} else {
-			CustomResponse customResponse = new CustomResponse();
+			
 			customResponse.setMessage("Note deleted successfully");
 			return ResponseEntity.ok(customResponse);
 		}
@@ -92,21 +93,27 @@ public class NoteController {
 		note.setModifiedDate(modifiedDate);
 		
 		boolean isUpdated = noteService.updateNote(note);
+		
+		CustomResponse customResponse = new CustomResponse();
+		
 		if (isUpdated != true) {
-			ErrorResponse errorResponse = new ErrorResponse();
-			errorResponse.setErrorMessage("Note could not be updated..."); 
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+
+			customResponse.setMessage("Note could not be updated..."); 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customResponse);
 			
 		} else {
-			CustomResponse customResponse = new CustomResponse();
+			
 			customResponse.setMessage("Note updated successfully...");
 			return ResponseEntity.ok(customResponse);
 		}
 	}
 
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
-	public List<Note> getAllNotes(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+	public List<Note> getAllNotes(HttpServletRequest request) {
+		
+		int userId = (int) request.getAttribute("userId");
+		User user = userService.getUserById(userId);
+		
 		List<Note> notes = noteService.getAllNotes(user);
 		return notes;
 	}

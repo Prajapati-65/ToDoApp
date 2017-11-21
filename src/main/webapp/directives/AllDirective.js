@@ -1,6 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.directive('abcBar', function() {
+toDoApp.directive('sideBar', function() {
 	return {
 		templateUrl : 'Template/SideNavigationBar.html'
 	}

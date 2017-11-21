@@ -39,6 +39,7 @@ public class NoteDaoImpl implements NoteDao {
 		try {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(note);
+			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,6 +58,7 @@ public class NoteDaoImpl implements NoteDao {
 		try {
 			transaction = session.beginTransaction();
 			session.delete(note);
+			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

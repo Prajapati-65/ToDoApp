@@ -3,6 +3,7 @@ var toDoApp = angular.module('toDoApp');
 toDoApp.controller('homeController', function($scope, homeService, $location) {
 
 	$scope.toggleSideBar = function() {
+		
 		var width = $('#sideToggle').width();
 		console.log(width);
 		if (width == '250') {

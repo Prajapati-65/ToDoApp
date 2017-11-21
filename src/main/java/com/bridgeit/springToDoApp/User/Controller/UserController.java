@@ -20,12 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.Encryption;
-import com.bridgeit.springToDoApp.Utility.ErrorResponse;
 import com.bridgeit.springToDoApp.Utility.Response;
-import com.bridgeit.springToDoApp.Utility.UrlTemplate;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.service.MailService;
-import com.sun.mail.imap.Utility;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
