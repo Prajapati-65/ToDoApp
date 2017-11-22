@@ -10,9 +10,9 @@
 				<add-notes></add-notes>
 					<div ng-click="AddNoteBox=false; AddNoteColor='#ffffff'">
 						<div class="card" ng-repeat="note in allGetNotes">
-							<div ng-bind-html="note.title">{{note.title}}</div>
+							<div ng-bind-html="note.title"></div>
 							<br>
-							<div ng-bind-html="note.description">{{note.description}}</div>
+							<div ng-bind-html="note.description"></div>
 							<br>
 						</div>				
 					</div>
