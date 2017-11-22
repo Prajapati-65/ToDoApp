@@ -12,7 +12,8 @@
 
 <script type="text/javascript"
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
+<script type="text/javascript"
+	src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script type="text/javascript" src="Script/app.js"></script>
 
 <script type="text/javascript" src="Controller/RegistrationController.js"></script>

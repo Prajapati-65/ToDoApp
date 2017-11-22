@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -108,16 +109,37 @@ public class NoteController {
 		}
 	}
 
+	/**
+	 * @param note(note who's color has to be changes)
+	 * @param user(user who is login)
+	 * @return OK Status
+	 */
+	
+	@RequestMapping(value = "/changeColor", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateColor(@RequestBody Note note, @RequestAttribute("loginedUser") User user) {
+		CustomResponse customResponse = new CustomResponse();
+		note.setUser(user);
+		noteService.updateNote(note);
+		customResponse.setMessage("note updated.");
+		customResponse.setNotes(null);
+		return ResponseEntity.ok(customResponse);
+	}
+
+
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
-	public List<Note> getAllNotes(HttpServletRequest request) {
+	public ResponseEntity<List> getAllNotes(HttpServletRequest request) {
 		
 		int userId = (int) request.getAttribute("userId");
 		User user = userService.getUserById(userId);
+		CustomResponse customResponse = new CustomResponse();
 		
-		List<Note> notes = noteService.getAllNotes(user);
-		return notes;
+		List<Note> allNotes = noteService.getAllNotes(user);
+
+		customResponse.setMessage("note found.");
+		customResponse.setNotes(allNotes);
+
+		return ResponseEntity.ok(customResponse.getNotes());
 	}
-	
 
 	
 

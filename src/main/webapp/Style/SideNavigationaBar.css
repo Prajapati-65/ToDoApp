@@ -1,6 +1,6 @@
 .SideNavigation{
     height: 100%;
-    background-color:#b3ffff;
+    background-color:#ffffff;
     position: absolute;
    	width: 0;
     z-index: 1;
@@ -9,7 +9,7 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    margin-top: 68px;
+    margin-top: -20px;
 }
 
 .SideNavigation li{
@@ -34,4 +34,3 @@
   .SideNavigation {padding-top: 15px;}
   .SideNavigation a {font-size: 18px;}
 }
-

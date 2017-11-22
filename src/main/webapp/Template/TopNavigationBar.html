@@ -1,32 +1,28 @@
-<nav class="navbar navbar-default">
-
-		<div class="container-fluid" id="topNavigation">
+<nav class="navbar">
+		<div class="container-fluid" id="topNavigation" ng-style="{'background-color': navBarColor}">
 			<ul class="nav navbar-nav">
-			
+				
 				<li><i class="glyphicons glyphicons-show-lines"></i></li>
-				<li id="main">
-					<span ng-click="toggleSideBar()" class="span-a" cursor: pointer">&#9776;</span>
-				</li>
-				<li><h3>Fundoo Notes</h3></li>
-				
+				<li id="main" ng-click="toggleSideBar()">
+					<span class="span-a">&#9776;</span></li>
+				<li><h3 ng-bind="navBarHeading"></h3></li>
 				<li>
-					<span class="glyphicon glyphicon-search" style="top: 25px;"></span>
-				</li>
-				
+					<span style="top: 25px;" class="glyphicon glyphicon-search"></span></li>
 				<li>
 					<div class="form-group">
 						<input type="text" class="form-control search-bar" placeholder="Search">
 					</div>
 				</li>
 			</ul>
+			
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-			 		<div class="dropdown">
-	                    <a class="btn dropdown-toggle" type="button" data-toggle="dropdown"> 
-	                    <img alt="" ng-src="{{user.profileImage}}" width="30px" height="30px" class="profile-pic">
-	                    </a>
-	                     <br>
-	                    <ul class="dropdown-menu">
+					<li>
+						<div class="dropdown">
+							<a class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+								<img alt="" ng-src="{{user.profileImage}}" width="30px" height="30px" class="profile-pic">
+							</a>
+							
+							<ul class="dropdown-menu">
 	                        <li>
 	                            <div class="user-settings">
 	                                <div class="col-xs-4">
@@ -39,11 +35,10 @@
 	                            </div>
 	                        </li>
 	
-	                        <li><a href="" type="button" id="btn-signout" ng-click="" class="btn btn-default pull-right">Sign out</a></li>
+	                        <li><a ng-click="logout()" type="button" id="btn-signout" ng-click="" class="btn btn-default pull-right">Logout</a></li>
 	                    </ul>
-	                </div>
+					</div>
 				</li>
-			</ul>
-	   
+			</ul>	
 	</div>
 </nav>

@@ -32,7 +32,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-
 		
 		int userId = VerifiedJWT.verify(request.getHeader("token"));
 		if (userId == 0) {

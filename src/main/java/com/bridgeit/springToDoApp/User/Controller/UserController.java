@@ -80,7 +80,6 @@ public class UserController {
 		{
 			user = userService.getUserById(id);
 			logger.info("User details " + user);
-			
 		} 
 		catch (Exception e) 
 		{
