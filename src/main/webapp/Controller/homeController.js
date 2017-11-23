@@ -31,9 +31,7 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						$scope.note = {};
 						$scope.note.title = document.getElementById("notetitle").innerHTML;
 						$scope.note.description = document.getElementById("noteDescription").innerHTML;
-						$scope.note.noteColor = $scope.AddNoteColor;
-						console.log($scope.note);
-
+						
 						var a = homeService.addNote($scope.note);
 						a.then(function(response) {
 						document.getElementById("notetitle").innerHTML = "";
@@ -60,34 +58,77 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					function getAllNotes() {
 						var b = homeService.allNotes();
 						b.then(function(response) {
-							console.log("aasdjsad sdfsdkfjsdfs ---> "+response.data);
+							console.log("all note are : "+response.data);
 							$scope.allGetNotes = response.data;
-						}, function(response) {
-						});
-					}
-
-					/* Add notes to trash */
-					$scope.deleteNote = function(note) {
-						var a = homeService.updateNote(note);
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
-					}
-
-					/* delete note forever */
-					$scope.deleteNoteForever = function(id) {
-						console.log("id is ..." + id);
-						var a = homeService.deleteNoteForever(id);
-						a.then(function(response) {
-							getAllNotes();
 						}, function(response) {
 						});
 					}
 
 					/* update the note */
 					$scope.updateNote = function(note) {
+							console.log("Title"+note.title);
+							console.log("Title"+note.noteId);
+							console.log(note);
+							note.title = document.getElementById("notetitle").innerHTML;
+							note.description = document.getElementById("noteDescription").innerHTML;
+							
+							
 						var a = homeService.updateNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+					
+					
+					
+					
+					/*archive notes*/
+					$scope.archiveNote=function(note){
+						note.archiveStatus="true";
+						note.noteStatus="false";
+						note.pin="false";
+						var a = homePageService.updateNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+					
+					
+					
+					
+					
+					 /*restore note*/ 
+					$scope.restoreNote=function(note){
+						note.pin="false";
+						note.deleteStatus="false";
+						var a = homePageService.updateNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+					
+					 /*Add notes to trash*/ 
+					$scope.deleteNote=function(note){
+						note.pin="false";
+						note.deleteStatus="true";
+						note.reminderStatus="false";
+						var a = homePageService.updateNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+					/*delete note forever*/
+					$scope.deleteNoteForever = function(id) {
+						console.log("id is ..." + id);
+						var a = homePageService.deleteNoteForever(id);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {

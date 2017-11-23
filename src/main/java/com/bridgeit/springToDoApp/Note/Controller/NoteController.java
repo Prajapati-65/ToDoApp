@@ -77,7 +77,7 @@ public class NoteController {
 		}
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<Response> update(@RequestBody Note note) {
 
 		int noteid =note.getNoteId();
@@ -96,9 +96,9 @@ public class NoteController {
 		boolean isUpdated = noteService.updateNote(note);
 		
 		CustomResponse customResponse = new CustomResponse();
-		
+		System.out.println("is update "+isUpdated);
 		if (isUpdated != true) {
-
+			
 			customResponse.setMessage("Note could not be updated..."); 
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customResponse);
 			
