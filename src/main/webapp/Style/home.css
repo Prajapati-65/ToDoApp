@@ -33,6 +33,14 @@
 	word-break: break-all;
 }
 
+.card:hover{
+	 box-shadow: 6px 6px 3px 1px #0A0A0A;
+}
+
+.card:hover #moreOptions{
+	visibility:visible;
+}
+
 .card li{
 	background-color: white;
 	text-align :center;
@@ -44,9 +52,22 @@
 	cursor: pointer;
 }
 
+.dropdown img{
+	padding-left: 20px;
+}
+
 
 body {
 	background-color: #e8e8e8;
+}
+
+.dropdown-menu{
+	text-align: center;
+	font-size: 15px;
+}
+
+#moreOptions{
+	visibility: hidden;
 }
 
 .dropdown-menu li:hover {

@@ -2,49 +2,164 @@ var toDoApp = angular.module('toDoApp');
 var modalInstance;
 toDoApp.controller('homeController', function($scope, homeService, $location, $state) {
 					
-					/*toggle side bar*/
-					$scope.showSideBar = true;
-					$scope.sidebarToggle = function() {
-						if($scope.showSideBar){
-							$scope.showSideBar=false;
-							document.getElementById("mainWrapper").style.paddingLeft = "200px";
+						/*toggle side bar*/
+						$scope.showSideBar = true;
+						$scope.sidebarToggle = function() {
+							if($scope.showSideBar){
+								$scope.showSideBar=false;
+								document.getElementById("mainWrapper").style.paddingLeft = "200px";
+							}
+							else{
+								$scope.showSideBar = true;
+								document.getElementById("mainWrapper").style.paddingLeft = "300px";
+							}
 						}
-						else{
-							$scope.showSideBar = true;
-							document.getElementById("mainWrapper").style.paddingLeft = "300px";
+		
+						//toggle side bar
+						$scope.toggleSideBar = function() {
+							var width = $('#sideToggle').width();
+							console.log(width);
+							if (width == '250') {
+								document.getElementById("sideToggle").style.width = "0px";
+							} else {
+								document.getElementById("sideToggle").style.width = "250px";
+							}
 						}
-					}
+						
+						$scope.changeColor=function(note){
+		
+							var a = homeService.changeColor(note);
+							
+							a.then(function(response) {
+								getAllNotes();
+							}, function(response) {
+								
+							});
+							
+						}
+						
+						$scope.AddNoteColor="#ffffff";
+						
+						$scope.addNoteColorChange=function(color){
+							$scope.AddNoteColor=color;
+						}
+						
+						
+						$scope.colors=[
+							
+							{
+								"color":'#ffffff',
+								"path":'image/white.png'
+							},
+							{
+								"color":'#e74c3c',
+								"path":'image/Red.png'
+							},
+							{
+								"color":'#ff8c1a',
+								"path":'image/orange.png'
+							},
+							{
+								"color":'#fcff77',
+								"path":'image/lightyellow.png'
+							},
+							{
+								"color":'#80ff80',
+								"path":'image/green.png'
+							},
+							{
+								"color":'#99ffff',
+								"path":'image/skyblue.png'
+							},
+							{
+								"color":'#0099ff',
+								"path":'image/blue.png'
+							},
+							{
+								"color":'#1a53ff',
+								"path":'image/darkblue.png'
+							},
+							{
+								"color":'#9966ff',
+								"path":'image/purple.png'
+							},
+							{
+								"color":'#ff99cc',
+								"path":'image/pink.png'
+							},
+							{
+								"color":'#d9b38c',
+								"path":'image/brown.png'
+							},
+							{
+								"color":'#bfbfbf',
+								"path":'image/grey.png'
+							}
+						];
+						
+						
+						if($state.current.name=="home"){
+							$scope.navBarColor= "#ffbb33";
+							$scope.navBarHeading="Fundoo Keep";
+						}
+						else if($state.current.name=="reminder"){
+							$scope.navBarColor="#607D8B"
+							$scope.navBarHeading="Reminder";
+						}
+						else if($state.current.name=="trash"){
+							$scope.navBarHeading="Trash";
+							$scope.navBarColor="#636363"
+						}
+						else if($state.current.name=="archive"){
+							$scope.navBarColor= "#607D8B";
+							$scope.navBarHeading="Archive";
+						}
 					
-					//toggle side bar
-					$scope.toggleSideBar = function() {
-						var width = $('#sideToggle').width();
-						console.log(width);
-						if (width == '250') {
-							document.getElementById("sideToggle").style.width = "0px";
-						} else {
-							document.getElementById("sideToggle").style.width = "250px";
-						}
-					}
 					
-					//add a new note 
-					$scope.addNote = function() {
+						 //add a new note
+						$scope.addNote = function() {
 						$scope.note = {};
 						$scope.note.title = document.getElementById("notetitle").innerHTML;
 						$scope.note.description = document.getElementById("noteDescription").innerHTML;
+						$scope.note.pin = $scope.pinStatus;
+						$scope.note.noteStatus = "true";
+						$scope.note.reminderStatus= "true";
+						$scope.note.archiveStatus= "false";
+						$scope.note.deleteStatus = "false";
+						$scope.note.noteColor=$scope.AddNoteColor;
 						
 						var a = homeService.addNote($scope.note);
 						a.then(function(response) {
-						document.getElementById("notetitle").innerHTML = "";
-						document.getElementById("noteDescription").innerHTML = "";
-								getAllNotes();
+							document.getElementById("notetitle").innerHTML = "";
+							document.getElementById("noteDescription").innerHTML = "";
+							$scope.pinStatus = false;
+							$scope.AddNoteColor="#ffffff";
+							getAllNotes();
 							}, function(response) {
 						});
 					}
 					
-					if ($state.current.name == "home") {
-						$scope.navBarColor = "#ffbb33";
-						$scope.navBarHeading = "Fundoo Keep";
+					
+					/*add a new note to archive*/
+					$scope.addArchiveNote = function() {
+						$scope.note = {};
+						$scope.note.title = document.getElementById("notetitle").innerHTML;
+						$scope.note.description = document.getElementById("noteDescription").innerHTML;
+						$scope.note.pin = "false";
+						$scope.note.noteStatus = "false";
+						$scope.note.archiveStatus = "true";
+						$scope.note.deleteStatus = "false";
+						$scope.note.reminderStatus = "false";
+						var a = homeService.addNote($scope.note);
+						a.then(function(response) {
+							document.getElementById("notetitle").innerHTML = "";
+							document.getElementById("noteDescription").innerHTML = "";
+							$scope.pinStatus = false;
+							getAllNotes();
+							}, function(response) {
+						});
 					}
+					
 
 					/* toggle AddNote box */
 					$scope.AddNoteBox = false;
@@ -55,24 +170,62 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					getAllNotes();
 
 					/* display notes */
+					
+					
 					function getAllNotes() {
 						var b = homeService.allNotes();
 						b.then(function(response) {
 							console.log("all note are : "+response.data);
 							$scope.allGetNotes = response.data;
 						}, function(response) {
+							$scope.error = response.data.message;
 						});
 					}
 
-					/* update the note */
+					
+					
+					
+					$scope.popup=function(note){
+						
+					}
+					
+					/*update the note*/
 					$scope.updateNote = function(note) {
-							console.log("Title"+note.title);
-							console.log("Title"+note.noteId);
-							console.log(note);
-							note.title = document.getElementById("notetitle").innerHTML;
-							note.description = document.getElementById("noteDescription").innerHTML;
-							
-							
+						var a = homeService.updateNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+
+					$scope.pinStatus =false;
+					
+					/*pin unpin the notes*/
+					$scope.pinUnpin = function() {
+							if($scope.pinStatus == false){
+							$scope.pinStatus = true;
+						}
+						else {
+							$scope.pinStatus=false;
+						}
+					}
+					
+					$scope.Reminder=false;
+					
+					$scope.addReminder=function(){
+						if($scope.Reminder==false){
+						$scope.Reminder=true;
+						}else{
+							$scope.Reminder=false;
+						}
+					}
+					
+					/*archive notes*/
+					$scope.archiveNote=function(note){
+						note.archiveStatus="true";
+						note.noteStatus="false";
+						note.pin="false";
 						var a = homeService.updateNote(note);
 						a.then(function(response) {
 							getAllNotes();
@@ -81,15 +234,12 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					}
 					
 					
-					
-					
-					
-					/*archive notes*/
-					$scope.archiveNote=function(note){
-						note.archiveStatus="true";
-						note.noteStatus="false";
+					/*unarchive notes*/
+					$scope.unarchiveNote=function(note){
+						note.noteStatus="true";
+						note.archiveStatus="false";
 						note.pin="false";
-						var a = homePageService.updateNote(note);
+						var a = homeService.updateNote(note);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -97,15 +247,11 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					}
 					
 					
-					
-					
-					
-					
 					 /*restore note*/ 
 					$scope.restoreNote=function(note){
 						note.pin="false";
 						note.deleteStatus="false";
-						var a = homePageService.updateNote(note);
+						var a = homeService.updateNote(note);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -118,7 +264,7 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						note.pin="false";
 						note.deleteStatus="true";
 						note.reminderStatus="false";
-						var a = homePageService.updateNote(note);
+						var a = homeService.updateNote(note);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -128,12 +274,13 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					/*delete note forever*/
 					$scope.deleteNoteForever = function(id) {
 						console.log("id is ..." + id);
-						var a = homePageService.deleteNoteForever(id);
+						var a = homeService.deleteNoteForever(id);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
 						});
 					}
+					
 					
 					/* logout user */
 					$scope.logout = function() {
@@ -143,5 +290,50 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 							$location.path('/login');
 						})
 					}
+					
+					/*make a copy of the note*/
+					$scope.copy = function(note) {
+						note.id = 0;
+						note.noteStatus="true";
+						note.archiveStatus="false";
+						note.deleteStatus="false";
+						note.reminderStatus="false";
+						note.pin = "false";
+						var a = homeService.addNote(note);
+						a.then(function(response) {
+							getAllNotes();
+						}, function(response) {
+						});
+					}
+					
+					$scope.open = function () {
+
+					    var modalInstance = $modal.open({
+					      templateUrl: 'myModalContent.html',
+					      
+					    });
+					 };
+					 
+
+					$scope.ListView=true;
+						
+					$scope.listGrideView=function(){
+						if($scope.ListView){
+							var element = document.getElementsByClassName('card');
+							for(var i=0;i<element.length;i++){
+								element[i].style.width="900px";
+							}
+							$scope.ListView=false;
+						}
+						else{
+							var element = document.getElementsByClassName('card');
+							for(var i=0;i<element.length;i++){
+								element[i].style.width="300px";
+							}
+							$scope.ListView=true;
+						}
+					}
+						
+					
 					
 				});

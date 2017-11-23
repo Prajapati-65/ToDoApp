@@ -4,19 +4,6 @@ todoApp.factory('homeService', function($http, $location){
 	
 	var cards = {};
 	
-	
-	cards.allservice = function(method,url,note) {
-		return $http({
-			method : method,
-			url : url,
-			headers: {
-				'token':localStorage.getItem('token')
-			},
-			data : note
-		})
-	}
-	
-	
 	cards.addNote = function(note) {
 		return $http({
 			method : "POST",
@@ -48,8 +35,6 @@ todoApp.factory('homeService', function($http, $location){
 			data: note
 		})
 	}
-
-	
 	
 	cards.deleteNoteForever = function(id){
 		return $http({
