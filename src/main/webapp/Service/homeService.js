@@ -35,7 +35,6 @@ todoApp.factory('homeService', function($http, $location){
 			data: note
 		})
 	}
-	
 
 	cards.deleteNoteForever = function(id){
 		return $http({
