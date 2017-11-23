@@ -266,7 +266,7 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						note.reminderStatus="false";
 						var a = homeService.updateNote(note);
 						a.then(function(response) {
-							getAllNotes();
+							/*getAllNotes();*/
 						}, function(response) {
 						});
 					}

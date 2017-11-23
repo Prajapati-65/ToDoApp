@@ -1,36 +1,26 @@
 <div class="container">
 	<div class="row">
-		<div class="col-sm-5" id="addNoteForm" style="background-color: '#ffffff'">
-			<div class="form-group" >
-	
+		<div class="col-sm-5" id="addNoteForm"
+			style="background-color: '#ffffff'">
+
+			<div class="form-group">
+
 				<div ng-show="AddNoteBox" data-text="Title" contentEditable="true" id="notetitle"></div>
-					<br>
-				<div contentEditable="true" data-text="Take a note..." ng-click="ShowAddNote()" id="noteDescription"></div>
-					<br>
+				<br>
+				<div data-text="Take a note..." contentEditable="true" ng-click="ShowAddNote()" id="noteDescription"></div>
+				<br>
+
 				<div ng-show="AddNoteBox" style="float: right">
 					<div>
 						<div class="dropdown" style="float: right">
-						
-							<!-- <div class="btn-group dropup colorDiv" uib-dropdown>
-								<img id ="dropdown" class="dropdown-toggle" data-toggle="dropdown" alt="color" 
-											src="image/colorpallete.svg"  uib-dropdown-toggle height="20px">
-										<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body" style="background-color: #000000">
-											 <a ng-repeat="color in colors"   role="menuitem">
-												<img ng-src="{{color.path}}"  height="25px" ng-click="addNoteColorChange(color.color)">
-											</a>
-										</ul>
-							</div> 
-						<span ng-click="addArchiveNote()">
-							<img alt="archive" src="image/archive.svg" height="20px">
-						</span> -->
-						
-						
-						<span ng-click="addNote()" >DONE</span>
+							<div class="btn-group dropup colorDiv"></div>
+							<span ng-click="addNote()">DONE</span>
 						</div>
 					</div>
 				</div>
+
 			</div>
+
 		</div>
 	</div>
 </div>
-	
