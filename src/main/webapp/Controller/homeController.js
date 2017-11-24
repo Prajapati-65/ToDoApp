@@ -42,7 +42,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var url = 'user/changeColor';
 							var method = 'POST';
 							var token =  localStorage.getItem('token');
-							
+		
 							var a = homeService.service(url,method,token,note);
 							a.then(function(response) {
 								getAllNotes();
@@ -295,13 +295,14 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					
 					/*delete note forever*/
 					$scope.deleteNoteForever = function(id) {
-						console.log("id is ..." + id);
+						
+						console.log("id is ..." +id);
 						
 						var url = 'user/delete/'+id;
 						var method = 'DELETE';
 						var token = localStorage.getItem('token');
 						
-						var a = homeService.service(url,method,token);
+						var a = homeService.service(url,method,token,id);
 						
 						a.then(function(response) {
 							getAllNotes();
