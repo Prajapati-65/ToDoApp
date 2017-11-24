@@ -8,7 +8,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						$scope.sidebarToggle = function() {
 							if($scope.showSideBar){
 								$scope.showSideBar=false;
-								document.getElementById("mainWrapper").style.paddingLeft = "200px";
+								document.getElementById("mainWrapper").style.paddingLeft = "250px";
 							}
 							else{
 								$scope.showSideBar = true;
@@ -110,10 +110,17 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						];
 						
-						
 						if($state.current.name=="home"){
-							$scope.navBarColor= "#ffbb33";
+							$scope.topBarColor= "#ffbb33";
 							$scope.navBarHeading="Fundoo Keep";
+						}
+						else if($state.current.name=="archive"){
+							$scope.topBarColor= "#669999";
+							$scope.navBarHeading="Archive";
+						}
+						else if($state.current.name=="trash"){
+							$scope.topBarColor= "#636363";
+							$scope.navBarHeading="Trash";
 						}
 					
 						 //add a new note
@@ -197,7 +204,11 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					/*update the note*/
 					$scope.updateNote = function(note) {
 						
-					
+						console.log("update---> "+note);
+						
+						console.log("title---> "+note.title);
+
+				
 						var url = 'user/update';
 						var method = 'POST';
 						var token = localStorage.getItem('token');
@@ -328,13 +339,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					
 					/*make a copy of the note*/
 					$scope.copy = function(note) {
-						note.id = 0;
+					
 						note.noteStatus="true";
 						note.archiveStatus="false";
 						note.deleteStatus="false";
 						note.reminderStatus="false";
 						note.pin = "false";
-						
 						
 						var url = 'user/createNote';
 						var method = 'POST';

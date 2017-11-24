@@ -7,7 +7,7 @@
 		</div>
 		
 		<div id="mainHome">
-			<div class="col-sm-10" id="mainWrapper">		
+			<div class="col-sm-10">		
 				<add-notes></add-notes>
 				<div ng-click="AddNoteBox=false; AddNoteColor='#ffffff'">
 					
@@ -15,7 +15,7 @@
 					<h4>Pinned</h4>
 					<div class="card" style="background-color: {{note.noteColor}}" 
 						ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'}"
-						ng-click="">
+						ng-click="showModal(note)">
 						<div style="float: right">
 							
 							<span style="cursor: pointer" ng-click="note.pin=false; updateNote(note)">
@@ -74,7 +74,7 @@
 
 					<br><br>
 					<h4>Others</h4>
-					<div class="card" ng-click="" style="background-color: {{note.noteColor}}"
+					<div class="card" ng-click="showModal(note)" style="background-color: {{note.noteColor}}"
 						ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'}">
 						
 						<div id="moreOptions" style="float: right">					
