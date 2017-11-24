@@ -1,8 +1,21 @@
 var toDoApp = angular.module('toDoApp');
-var modalInstance;
-toDoApp.controller('homeController', function($scope, homeService, $location, $state) {
+
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
 					
-		
+	
+						//toggle side bar
+						$scope.showSideBar = true;
+						$scope.sidebarToggle = function() {
+							if($scope.showSideBar){
+								$scope.showSideBar=false;
+								document.getElementById("mainWrapper").style.paddingLeft = "200px";
+							}
+							else{
+								$scope.showSideBar = true;
+								document.getElementById("mainWrapper").style.paddingLeft = "300px";
+							}
+						}
+
 						//toggle side bar
 						$scope.toggleSideBar = function() {
 							var width = $('#sideToggle').width();
@@ -14,16 +27,28 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 							}
 						}
 						
+
+						$scope.showModal = function(note) {
+							$scope.note = note;
+							modalInstance = $uibModal.open({
+								templateUrl : 'Template/EditNote.html',
+								scope : $scope,
+								size : 'md'
+							});
+						};
+						
 						$scope.changeColor=function(note){
 		
-							var a = homeService.changeColor(note);
+							var url = 'user/changeColor';
+							var method = 'POST';
+							var token =  localStorage.getItem('token');
 							
+							var a = homeService.service(url,method,token,note);
 							a.then(function(response) {
 								getAllNotes();
 							}, function(response) {
 								
 							});
-							
 						}
 						
 						$scope.AddNoteColor="#ffffff";
@@ -102,8 +127,13 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						$scope.note.archiveStatus= "false";
 						$scope.note.deleteStatus = "false";
 						$scope.note.noteColor=$scope.AddNoteColor;
+					
+						var note = $scope.note;
+						var url = 'user/createNote';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
 						
-						var a = homeService.addNote($scope.note);
+						var a = homeService.service(url,method,token,note);
 						a.then(function(response) {
 							document.getElementById("notetitle").innerHTML = "";
 							document.getElementById("noteDescription").innerHTML = "";
@@ -113,7 +143,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 							}, function(response) {
 						});
 					}
-					
 					
 					/*add a new note to archive*/
 					$scope.addArchiveNote = function() {
@@ -125,7 +154,14 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						$scope.note.archiveStatus = "true";
 						$scope.note.deleteStatus = "false";
 						$scope.note.reminderStatus = "false";
-						var a = homeService.addNote($scope.note);
+						
+						var note = $scope.note;
+						var url = 'user/createNote';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
+						
 						a.then(function(response) {
 							document.getElementById("notetitle").innerHTML = "";
 							document.getElementById("noteDescription").innerHTML = "";
@@ -135,7 +171,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						});
 					}
 					
-
 					/* toggle AddNote box */
 					$scope.AddNoteBox = false;
 					$scope.ShowAddNote = function() {
@@ -146,7 +181,11 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 
 					/* display notes */
 					function getAllNotes() {
-						var b = homeService.allNotes();
+						
+						var	url='user/getallnotes';
+						var	token = localStorage.getItem('token');
+		
+						var b = homeService.service(url,'GET',token)
 						b.then(function(response) {
 							console.log("all note are : "+response.data);
 							$scope.allGetNotes = response.data;
@@ -154,15 +193,17 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 							$scope.error = response.data.message;
 						});
 					}
-
-					
-					$scope.popup=function(note){
-						
-					}
-					
+		
 					/*update the note*/
 					$scope.updateNote = function(note) {
-						var a = homeService.updateNote(note);
+						
+					
+						var url = 'user/update';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
+						
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -182,22 +223,19 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						}
 					}
 					
-					$scope.Reminder=false;
-					
-					$scope.addReminder=function(){
-						if($scope.Reminder==false){
-						$scope.Reminder=true;
-						}else{
-							$scope.Reminder=false;
-						}
-					}
 					
 					/*archive notes*/
 					$scope.archiveNote=function(note){
-						note.archiveStatus="true";
 						note.noteStatus="false";
+						note.archiveStatus="true";
 						note.pin="false";
-						var a = homeService.updateNote(note);
+						
+						var url = 'user/update';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
+						
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -210,34 +248,47 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						note.noteStatus="true";
 						note.archiveStatus="false";
 						note.pin="false";
-						var a = homeService.updateNote(note);
+						
+						var url = 'user/update';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
 						});
 					}
-					
 					
 					 /*restore note*/ 
 					$scope.restoreNote=function(note){
 						note.pin="false";
 						note.deleteStatus="false";
-						var a = homeService.updateNote(note);
+
+						var url = 'user/update';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
 						});
 					}
-					
 					
 					 /*Add notes to trash*/ 
 					$scope.deleteNote=function(note){
 						note.pin="false";
 						note.deleteStatus="true";
 						note.reminderStatus="false";
-						var a = homeService.updateNote(note);
+
+						var url = 'user/update';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
 						a.then(function(response) {
-							/*getAllNotes();*/
+							getAllNotes();
 						}, function(response) {
 						});
 					}
@@ -245,7 +296,13 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					/*delete note forever*/
 					$scope.deleteNoteForever = function(id) {
 						console.log("id is ..." + id);
-						var a = homeService.deleteNoteForever(id);
+						
+						var url = 'user/delete/'+id;
+						var method = 'DELETE';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token);
+						
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
@@ -255,7 +312,13 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					
 					/* logout user */
 					$scope.logout = function() {
-						var a = homeService.logout();
+						
+						var url = 'logout';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token);
+						
 						a.then(function(response) {
 							localStorage.removeItem('token');
 							$location.path('/login');
@@ -270,41 +333,18 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						note.deleteStatus="false";
 						note.reminderStatus="false";
 						note.pin = "false";
-						var a = homeService.addNote(note);
+						
+						
+						var url = 'user/createNote';
+						var method = 'POST';
+						var token = localStorage.getItem('token');
+						
+						var a = homeService.service(url,method,token,note);
+						
 						a.then(function(response) {
 							getAllNotes();
 						}, function(response) {
 						});
 					}
-					
-					$scope.open = function () {
-
-					    var modalInstance = $modal.open({
-					      templateUrl: 'myModalContent.html',
-					      
-					    });
-					 };
-					 
-
-					$scope.ListView=true;
-						
-					$scope.listGrideView=function(){
-						if($scope.ListView){
-							var element = document.getElementsByClassName('card');
-							for(var i=0;i<element.length;i++){
-								element[i].style.width="900px";
-							}
-							$scope.ListView=false;
-						}
-						else{
-							var element = document.getElementsByClassName('card');
-							for(var i=0;i<element.length;i++){
-								element[i].style.width="300px";
-							}
-							$scope.ListView=true;
-						}
-					}
-						
-					
 					
 				});

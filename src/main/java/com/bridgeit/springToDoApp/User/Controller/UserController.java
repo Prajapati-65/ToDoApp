@@ -119,6 +119,7 @@ public class UserController {
 				return response;
 			} else {
 				String jwt = GenerateJWT.generate(userId);
+				session.setAttribute("tokenlogin", jwt);
 				response.setMessage(jwt);
 				response.setStatus(2);
 				return response;
@@ -134,12 +135,21 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<Response> logout(HttpSession session) 
 	{
+		
 		CustomResponse customResponse = new CustomResponse();
+		if(session!=null){
+			
+		session.removeAttribute("tokenlogin");
 		session.removeAttribute("user");
 		session.invalidate();
 		customResponse.setMessage("Logout seccessful");
-		logger.info("Logout seccessful ");
+		
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
+		
+		} else {
+			customResponse.setMessage("Logout Unseccessful");
+			return new ResponseEntity<Response>(customResponse, HttpStatus.CONFLICT);
+		}
 	}
 	
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)

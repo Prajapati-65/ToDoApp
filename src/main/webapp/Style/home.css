@@ -33,16 +33,15 @@
 }
 
 
-
-/* 
 .card:hover{
-	 box-shadow: 6px 6px 3px 1px #0A0A0A;
+	 box-shadow: 2px 2px 1px 1px #53c68c;
 }
-
+ 
 .card:hover #moreOptions{
 	visibility:visible;
 }
- */
+
+
 .card li{
 	background-color: white;
 	text-align :center;
@@ -63,20 +62,19 @@ body {
 	 cursor: pointer;
 }
 
-/* 
-
-.dropdown img{
-	padding-left: 20px;
+dropdown img{
+	margin-right: 20px;
 }
-
-
 
 .dropdown-menu{
 	text-align: center;
-	font-size: 15px;
+	font-size: 18px;
 }
 
+/* 
 #moreOptions{
 	visibility: hidden;
 }
- */
+  */
+ 
+  

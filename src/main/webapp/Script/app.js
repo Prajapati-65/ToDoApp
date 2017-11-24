@@ -1,4 +1,4 @@
-var toDoApp = angular.module('toDoApp', [ 'ui.router','ngSanitize']);
+var toDoApp = angular.module('toDoApp', [ 'ui.router','ngSanitize','ui.bootstrap']);
 
 toDoApp.config(function($stateProvider, $urlRouterProvider) {
 	
