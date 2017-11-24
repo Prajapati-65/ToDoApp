@@ -2,18 +2,6 @@ var toDoApp = angular.module('toDoApp');
 var modalInstance;
 toDoApp.controller('homeController', function($scope, homeService, $location, $state) {
 					
-						/*toggle side bar*/
-						$scope.showSideBar = true;
-						$scope.sidebarToggle = function() {
-							if($scope.showSideBar){
-								$scope.showSideBar=false;
-								document.getElementById("mainWrapper").style.paddingLeft = "200px";
-							}
-							else{
-								$scope.showSideBar = true;
-								document.getElementById("mainWrapper").style.paddingLeft = "300px";
-							}
-						}
 		
 						//toggle side bar
 						$scope.toggleSideBar = function() {
@@ -102,19 +90,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 							$scope.navBarColor= "#ffbb33";
 							$scope.navBarHeading="Fundoo Keep";
 						}
-						else if($state.current.name=="reminder"){
-							$scope.navBarColor="#607D8B"
-							$scope.navBarHeading="Reminder";
-						}
-						else if($state.current.name=="trash"){
-							$scope.navBarHeading="Trash";
-							$scope.navBarColor="#636363"
-						}
-						else if($state.current.name=="archive"){
-							$scope.navBarColor= "#607D8B";
-							$scope.navBarHeading="Archive";
-						}
-					
 					
 						 //add a new note
 						$scope.addNote = function() {
@@ -170,8 +145,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 					getAllNotes();
 
 					/* display notes */
-					
-					
 					function getAllNotes() {
 						var b = homeService.allNotes();
 						b.then(function(response) {
@@ -182,8 +155,6 @@ toDoApp.controller('homeController', function($scope, homeService, $location, $s
 						});
 					}
 
-					
-					
 					
 					$scope.popup=function(note){
 						

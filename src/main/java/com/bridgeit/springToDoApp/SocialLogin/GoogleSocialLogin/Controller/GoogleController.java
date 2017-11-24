@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Model.GoogleLogin;
-import com.bridgeit.springToDoApp.Utility.CustomResponse;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

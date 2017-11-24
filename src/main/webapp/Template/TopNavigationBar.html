@@ -1,7 +1,6 @@
 <nav class="navbar">
 		<div class="container-fluid" id="topNavigation" ng-style="{'background-color': navBarColor}">
 			<ul class="nav navbar-nav">
-				
 				<li><i class="glyphicons glyphicons-show-lines"></i></li>
 				<li id="main" ng-click="toggleSideBar()">
 					<span class="span-a">&#9776;</span></li>
@@ -13,35 +12,25 @@
 						<input type="text" class="form-control search-bar" placeholder="Search">
 					</div>
 				</li>
-			</ul>
+			</ul>	
 			
 			<ul class="nav navbar-nav navbar-right">
-					<li>
-						<div class="dropdown">
-							<a class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
-								<img alt="" ng-src="{{user.profileImage}}" width="30px" height="30px" class="profile-pic">
-							</a>
-							
-							<ul class="dropdown-menu">
-	                        <li>
-	                            <div class="user-settings">
-	                            
-	                                <div class="col-xs-4">
-	                                    <img alt="Pic" ng-src="{{user.profileImage}}" width="60px" height="60px" class="profile-pic" ng-click="">
-	                                </div>
-	                                
-	                                <div class="col-xs-8">
-	                                    <span><b>{{user.firstName}} {{user.lastName}}</b></span>
-	                                    <span class="user-email">{{user.email}}</span>
-	                                </div>
-	                                
-	                            </div>
-	                        </li>
-	
-	                        <li><a ng-click="logout()" type="button" id="btn-signout" ng-click="" class="btn btn-default pull-right">Logout</a></li>
-	                    </ul>
+				<li>
+					<div class="dropdown">
+						<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="margin-top: 20px;">
+							<span class="glyphicon glyphicon-user"></span>
+						</span>
+						
+						<ul class="dropdown-menu" role="menu" style="background-color: white; padding-left: 10px" aria-labelledby="menu1">
+							<li ng-click="logout()">logout</li>
+						</ul>
 					</div>
 				</li>
-			</ul>	
+			</ul>
 	</div>
 </nav>
+
+
+
+
+
