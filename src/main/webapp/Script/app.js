@@ -33,6 +33,10 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		url : '/trash',
 		templateUrl : 'Template/Trash.html',
 		controller: 'homeController'
+	}).state('reminders',{
+		url : '/reminders',
+		templateUrl : 'Template/reminders.html',
+		controller: 'homeController'
 	});
 	
 	$urlRouterProvider.otherwise('login');

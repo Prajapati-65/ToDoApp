@@ -1,9 +1,9 @@
 <div>
 	<br> <br>
-	<h4>Others</h4>
+	<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>
 	<div class="card" ng-click="showModal(note)"
 		style="background-color: {{note.noteColor}}"
-		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'}">
+		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 
 		<div id="moreOptions" style="float: right">
 			<span ng-click="note.pin='true'; updateNote(note)"> <img

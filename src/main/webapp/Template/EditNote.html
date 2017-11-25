@@ -1,20 +1,14 @@
-
 <div class="modal-content">
 	<div class="modal-body">
 		<div class="form-group">
-
 			<div id="notetitle" contenteditable="true" ng-model="note.title"></div>
+			<br>
+			
 			<div id="noteDescription" contenteditable="true" ng-model="note.description"></div>
-
-				<div  style="float: right">
-					<div>
-						<div class="dropdown" style="float: right">
-							<div class="btn-group dropup colorDiv">
-							</div>
-							<span ng-click="updateNote(note)">DONE</span>
-						</div>
-					</div>
-				</div>
+			<br>
+			<div id="edit">
+          	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateNote(note)">DONE</button>
+      	  	</div>
 		</div>
 	</div>
 </div>

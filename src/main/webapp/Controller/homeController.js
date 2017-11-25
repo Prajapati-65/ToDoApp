@@ -122,6 +122,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.topBarColor= "#636363";
 							$scope.navBarHeading="Trash";
 						}
+						else if($state.current.name=="reminders"){
+							$scope.topBarColor= "#669999";
+							$scope.navBarHeading="Reminders";
+						}
 					
 						 //add a new note
 						$scope.addNote = function() {
@@ -140,6 +144,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var method = 'POST';
 						var token = localStorage.getItem('token');
 						
+						if($scope.note.title!='' || $scope.note.description!='')
+						{	
 						var a = homeService.service(url,method,token,note);
 						a.then(function(response) {
 							document.getElementById("notetitle").innerHTML = "";
@@ -149,6 +155,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							getAllNotes();
 							}, function(response) {
 						});
+					 }
 					}
 					
 					/*add a new note to archive*/
@@ -215,6 +222,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var a = homeService.service(url,method,token,note);
 						
 						a.then(function(response) {
+							modalInstance.close();
 							getAllNotes();
 						}, function(response) {
 						});

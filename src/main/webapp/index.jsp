@@ -40,6 +40,7 @@
 <link rel="stylesheet" href="Style/resetpassword.css">
 <link rel="stylesheet" href="Style/home.css">
 <link rel="stylesheet" href="Style/AddNote.css">
+<link rel="stylesheet" href="Style/style.css">
 
 <script type="text/javascript" src="directives/AllDirective.js"></script>
 
