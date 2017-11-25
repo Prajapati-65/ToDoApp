@@ -42,7 +42,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var url = 'user/changeColor';
 							var method = 'POST';
 							var token =  localStorage.getItem('token');
-		
+							
 							var a = homeService.service(url,method,token,note);
 							a.then(function(response) {
 								getAllNotes();
@@ -207,8 +207,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						console.log("update---> "+note);
 						
 						console.log("title---> "+note.title);
-
-				
+						
 						var url = 'user/update';
 						var method = 'POST';
 						var token = localStorage.getItem('token');
@@ -252,7 +251,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
-					
 					
 					/*unarchive notes*/
 					$scope.unarchiveNote=function(note){
@@ -308,7 +306,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					$scope.deleteNoteForever = function(id) {
 						
 						console.log("id is ..." +id);
-						
 						var url = 'user/delete/'+id;
 						var method = 'DELETE';
 						var token = localStorage.getItem('token');

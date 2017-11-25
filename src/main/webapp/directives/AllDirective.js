@@ -13,60 +13,53 @@ toDoApp.directive('topBar', function() {
 });
 
 toDoApp.directive("addNotes", function() {
-    return {
-    	templateUrl :'Template/AddNote.html'
-    };
+	return {
+		templateUrl : 'Template/AddNote.html'
+	};
 });
 
-toDoApp.directive('contenteditable', ['$sce', function($sce) {
+toDoApp.directive("pinNote", function() {
+	return {
+		templateUrl : 'Template/pinNote.html'
+	};
+});
 
-	  return {
+toDoApp.directive("otherNote", function() {
+	return {
+		templateUrl : 'Template/otherNote.html'
+	};
+});
 
-		  restrict: 'A', 
+toDoApp.directive('contenteditable', [ '$sce', function($sce) {
 
-		  require: '?ngModel', 
+	return {
+		restrict : 'A',
+		require : '?ngModel',
+		
+		link : function(scope, element, attrs, ngModel) {
+			if (!ngModel)
+				return;
 
-	  link: function(scope, element, attrs, ngModel) {
+			ngModel.$render = function() {
+				element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
+				read();
+			};
 
-	      if (!ngModel) return; // do nothing if no ng-model
+			element.on('blur keyup change', function() {
+				scope.$evalAsync(read);
+			});
 
-
-	      ngModel.$render = function() {
-
-	        element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
-
-	        read(); // initialize
-
-	      };
-
-	      element.on('blur keyup change', function() {
-
-	        scope.$evalAsync(read);
-
-	      });
-
-	      function read() {
-
-	        var html = element.html();
-
-	        if ( attrs.stripBr && html == '<br>' ) {
-
-	          html = '';
-
-	        }
-	        if ( attrs.stripDiv && html == '<div>' &&html=='</div>') {
-
-		          html = '';
-
-		        }
-
-	        ngModel.$setViewValue(html);
-
-	      }
-
-	    }
-
-	  };
-
-	}]);
-
+			function read() {
+				var html = element.html();
+				if (attrs.stripBr && html == '<br>') {
+					html = '';
+				}
+				if (attrs.stripDiv && html == '<div>' && html == '</div>') {
+					html = '';
+				}
+				ngModel.$setViewValue(html);
+			}
+		}
+	};
+	
+} ]);

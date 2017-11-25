@@ -28,7 +28,7 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 	}).state('archive', {
 		url : '/archive',
 		templateUrl : 'Template/Archive.html',
-			controller: 'homeController'
+		controller: 'homeController'
 	}).state('trash',{
 		url : '/trash',
 		templateUrl : 'Template/Trash.html',
