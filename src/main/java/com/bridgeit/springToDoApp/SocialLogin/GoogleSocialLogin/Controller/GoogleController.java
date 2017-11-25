@@ -1,4 +1,5 @@
 package com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Controller;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +25,13 @@ public class GoogleController {
 
 	@Autowired
 	UserService userService;
-	
+
 	private Logger logger = (Logger) LogManager.getLogger(GoogleController.class);
 
 	@RequestMapping(value = "/googleConnection", method = RequestMethod.GET)
 	public void beforeGoogle(HttpServletResponse response) throws IOException {
 		String googleLoginPageUrl = GoogleLogin.generateLoginUrl();
-		logger.info("Url is : "+googleLoginPageUrl);
+		logger.info("Url is : " + googleLoginPageUrl);
 		response.sendRedirect(googleLoginPageUrl);
 	}
 
@@ -42,16 +43,16 @@ public class GoogleController {
 		if (request.getParameter("error") != null) {
 			logger.error("Error ");
 			customResponse.setMessage(request.getParameter("error"));
-			
+
 		} else {
 
 			String code;
 			code = request.getParameter("code");
 			logger.info("Code is :-->" + code);
-			
+
 			String googleAccessToken = GoogleLogin.getAccessToken(code);
 			logger.info("Google Access Token is :--> " + googleAccessToken);
-			
+
 			String profileData = GoogleLogin.getProfileData(googleAccessToken);
 			logger.info("Profile data is : --> " + profileData);
 
@@ -66,19 +67,21 @@ public class GoogleController {
 				user.setFirstName(firstName);
 				String lastName = objectMapper.readTree(profileData).get("family_name").asText();
 				user.setLastName(lastName);
-				
+
 				String profileImage = objectMapper.readTree(profileData).get("picture").asText();
 				user.setProfileImage(profileImage);
-				
+
 				user.setActive(true);
-				userService.saveUser(user , request);
+				userService.saveUser(user, request);
 
 				String accessToken = GenerateJWT.generate(user.getId());
 				session.setAttribute("todoAppAccessToken", accessToken);
-				response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
-
+				response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#" + accessToken);
+			} else if (user != null && user.getPassword() == null) {
+				String accessToken = GenerateJWT.generate(user.getId());
+				session.setAttribute("todoAppAccessToken", accessToken);
+				response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#" + accessToken);
 			} else {
-
 				response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 			}
 		}

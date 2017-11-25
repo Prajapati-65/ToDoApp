@@ -21,6 +21,7 @@
 <script type="text/javascript"
 	src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script type="text/javascript" src="Script/app.js"></script>
+<script type="text/javascript" src="Script/SideBarNav.js"></script>
 
 <script type="text/javascript" src="Controller/RegistrationController.js"></script>
 <script type="text/javascript" src="Controller/loginController.js"></script>

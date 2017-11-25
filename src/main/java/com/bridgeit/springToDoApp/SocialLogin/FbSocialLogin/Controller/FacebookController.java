@@ -26,7 +26,7 @@ public class FacebookController {
 	UserService userService;
 
 	private Logger logger = (Logger) LogManager.getLogger(FacebookController.class);
-	
+
 	@RequestMapping(value = "/facebookConnection", method = RequestMethod.GET)
 	public void beforeFbLogin(HttpServletResponse response) throws IOException {
 		String fbUrl = FbLogin.getFbLoginUrl();
@@ -40,46 +40,46 @@ public class FacebookController {
 
 		String code;
 		code = request.getParameter("code");
-		logger.info("Code : ---> "+code);
-		
+		logger.info("Code : ---> " + code);
+
 		String fbAccessToken = FbLogin.getFbAccessToken(code);
-		logger.info("FBAccess token : "+fbAccessToken);
-		
+		logger.info("FBAccess token : " + fbAccessToken);
+
 		String profileData = FbLogin.getProfileData(fbAccessToken);
-		logger.info("profile is : "+profileData);
-		
+		logger.info("profile is : " + profileData);
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String email = objectMapper.readTree(profileData).get("email").asText();
-		
+
 		User user = userService.emailValidate(email);
-		
+
 		if (user == null) {
-			
+
 			user = new User();
 			String firstName = objectMapper.readTree(profileData).get("first_name").asText();
 			user.setFirstName(firstName);
-			
+
 			String lastName = objectMapper.readTree(profileData).get("last_name").asText();
 			user.setLastName(lastName);
-			
+
 			String profileImage = objectMapper.readTree(profileData).get("picture").asText();
 			user.setProfileImage(profileImage);
-			
+
 			user.setEmail(email);
 			user.setActive(true);
-			
-			userService.saveUser(user , request);
-			
+
+			userService.saveUser(user, request);
+
 			String accessToken = GenerateJWT.generate(user.getId());
 			session.setAttribute("todoAppAccessToken", accessToken);
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home");
-			
-		} else {
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#"+accessToken);
+		} else if(user!=null && user.getPassword()==null){
+			String accessToken = GenerateJWT.generate(user.getId());
+			session.setAttribute("todoAppAccessToken", accessToken);
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#"+accessToken);
+		} else{
 			response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		}
 	}
-	
-	
-	
-	
+
 }
