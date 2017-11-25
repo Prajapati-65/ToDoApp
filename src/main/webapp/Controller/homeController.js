@@ -2,15 +2,27 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
 					
+			/*---------------------------------get user-----------------------------------*/
+						getUser();
+							
+						var getUserDetails = function getUser(){
+								var a = homePageService.getUser();
+								a.then(function(response) {
+									$scope.UserDetails=response.data;
+								}, function(response) {
+									
+								});
+							}
+	
 			/*---------------------------------get valid token-----------------------------------*/
 	
-					var gettingToken = function() {
-						var token =  localStorage.getItem('token');
-						if(token==null){
-						 token = $location.hash();
+						var gettingToken = function() {
+							var token =  localStorage.getItem('token');
+							if(token==null){
+							 token = $location.hash();
+							}
+							return token;
 						}
-						return token;
-					}
 						
 			/*-----------------------------------toggle side bar ----------------------------------*/
 					
@@ -52,6 +64,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 						
 			/*---------------------------------show Modal-----------------------------------------*/
+						
 						
 						$scope.showModal = function(note) {
 							$scope.note = note;
@@ -266,6 +279,16 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
+		/*--------------------------------Update the header and title from modal---------------------*/
+				
+					$scope.updateNoteModal=function(note){
+						note.title = document.getElementById("modified-title").innerHTML;
+						note.description = document.getElementById("modified-descreption").innerHTML;
+						note.noteColor=$scope.EditNoteColor;
+						$scope.updateNote(note);
+						modalInstance.close('resetmodel');
+					}
+					
 					
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
@@ -409,5 +432,52 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
+				
+					
+			/*-------------------------------------List View and Gride View--------------------------------*/
+					
+					$scope.ListView=true;
+					
+					$scope.ListViewToggle=function(){
+						if($scope.ListView==true){
+							$scope.ListView=false;
+							listGrideView();
+						}
+						else{
+						$scope.ListView=true;
+						listGrideView();
+						}
+					}
+					
+					listGrideView();
+					
+					function listGrideView(){
+						if($scope.ListView){
+							var element = document.getElementsByClassName('card');
+							for(var i=0;i<element.length;i++){
+								element[i].style.width="900px";
+							}
+						}
+						else{
+							var element = document.getElementsByClassName('card');
+							for(var i=0;i<element.length;i++){
+								element[i].style.width="300px";
+							}
+						}
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 				});
+				

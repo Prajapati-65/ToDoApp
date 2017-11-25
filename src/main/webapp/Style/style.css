@@ -1,4 +1,14 @@
-#edit{
+#edit {
 	float: right;
 	margin: -10px;
+}
+
+#editNoteModal {
+	padding: 20px;
+	position: absolute;
+	width: 135%;
+}
+
+#list-gride-View {
+	margin-top: 20px;
 }

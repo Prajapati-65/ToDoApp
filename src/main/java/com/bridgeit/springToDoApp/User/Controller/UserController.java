@@ -201,4 +201,12 @@ public class UserController {
 			return customResponse;
 		}
 	}
+	
+	@RequestMapping(value = "/getCurrentUser")
+	public ResponseEntity<User> currrentUser(HttpServletRequest request) throws IOException {
+		
+		int userId = VerifiedJWT.verify(request.getHeader("token"));
+		User user = userService.getUserById(userId);
+		return ResponseEntity.ok(user);
+	}
 }
