@@ -2,18 +2,7 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
 					
-			/*---------------------------------get user-----------------------------------*/
-						getUser();
-							
-						var getUserDetails = function getUser(){
-								var a = homePageService.getUser();
-								a.then(function(response) {
-									$scope.UserDetails=response.data;
-								}, function(response) {
-									
-								});
-							}
-	
+			
 			/*---------------------------------get valid token-----------------------------------*/
 	
 						var gettingToken = function() {
@@ -24,9 +13,28 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							return token;
 						}
 						
+						
+			/*---------------------------------get user-----------------------------------*/
+						getUser();
+							
+						var getUserDetails = function getUser(){
+							
+							var url = 'getCurrentUser';
+							var method = 'POST';
+							var token = gettingToken();
+							
+							var a = homeService.service(url,method,token,note);
+								a.then(function(response) {
+									$scope.UserDetails=response.data;
+								}, function(response) {
+									
+								});
+							}
+	
+						
 			/*-----------------------------------toggle side bar ----------------------------------*/
 					
-						$scope.showSideBar = true;
+					/*	$scope.showSideBar = true;
 						$scope.sidebarToggle = function() {
 							if($scope.showSideBar){
 								$scope.showSideBar=false;
@@ -47,21 +55,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								document.getElementById("sideToggle").style.width = "250px";
 							}
 						}
-						
-						
-					
-						/*function toggleSide(){
-							var sideNav=document.getElementById("sideToggle").style.width;
-							if(sideNav=="0px"){
-								document.getElementById("sideToggle").style.width = "250px";
-							    document.getElementById("noteWrapper").style.marginLeft = "250px";
-							}
-							else{
-								document.getElementById("sideToggle").style.width = "0px";
-							    document.getElementById("noteWrapper").style.marginLeft = "0px";
-							}
-						}*/
-
+						*/
 						
 			/*---------------------------------show Modal-----------------------------------------*/
 						
@@ -74,6 +68,21 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								size : 'md'
 							});
 						};
+
+
+			/*---------------------------------Add reminder-----------------------------------------*/
+						$scope.reminder=false;
+					
+						$scope.addReminder=function(){
+							if($scope.reminder==false){
+							$scope.reminder=true;
+							}else{
+								$scope.reminder=false;
+							}
+						}
+
+
+
 						
 			/*---------------------------------Change color----------------------------------------*/
 						
@@ -153,10 +162,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						];
 						
 						if($state.current.name=="home"){
-							$scope.topBarColor= "#ffbb33";
-							$scope.navBarHeading="Fundoo Keep";
-						}
-						else if($state.current.name=="sociolLoginhome"){
 							$scope.topBarColor= "#ffbb33";
 							$scope.navBarHeading="Fundoo Keep";
 						}
@@ -465,18 +470,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						}
 					}
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					
 					
 				});
