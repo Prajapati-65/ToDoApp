@@ -57,24 +57,25 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						$scope.sidebarToggle = function() {
 							if($scope.showSideBar){
 								$scope.showSideBar=false;
-								document.getElementById("noteWrapper").style.marginLeft = "250px";
+								document.getElementById("noteWrapper").style.marginLeft = "200px";
 							}
 							else{
 								$scope.showSideBar = true;
-								document.getElementById("noteWrapper").style.marginLeft = "300px";
+								document.getElementById("noteWrapper").style.marginLeft = "200px";
 							}
 						}
 						
 						$scope.toggleSideBar = function() {
 							var width = $('#sideToggle').width();
 							console.log(width);
-							if (width == '250') {
+							if (width == '200') {
 								document.getElementById("sideToggle").style.width = "0px";
 							} else {
-								document.getElementById("sideToggle").style.width = "250px";
+								document.getElementById("sideToggle").style.width = "200px";
 							}
 						}
 						
+					
 						
 			/*---------------------------------Social Share-----------------------------------------*/
 						

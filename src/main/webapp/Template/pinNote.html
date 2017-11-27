@@ -4,7 +4,7 @@
 	<div class="card" ng-click="showModal(note)" style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 
-		<div style="float: right">
+		<div id="moreOptions" style="float: right;">
 			<span ng-click="note.pin=false; updateNote(note)"> <img
 				alt="pin" style="height: 17px" src="image/bluepin.svg"></img>
 			</span>
@@ -18,8 +18,7 @@
 		<div id="moreOptions">
 			<div class="dropdown">
 
-
-				<img alt="reminder" src="image/reminder.svg" height="15px"> 
+				<img alt="reminder" src="image/reminder.svg" height="18px"> 
 				<img alt="colaburator" src="image/colaburator.png" height="25px">
 
 

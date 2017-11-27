@@ -12,7 +12,7 @@
 			<div class="card" style="background-color: {{note.noteColor}}"
 				ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{reminderStatus:'true',noteStatus:'false'}">
 			
-				<div id="moreOptions" style="float: right">
+				<div id="moreOptions">
 				
 					<span style="cursor: pointer"
 						ng-click="note.pin='true';note.archiveStatus='false' ;note.noteStatus='true'; updateNote(note)">
@@ -26,9 +26,9 @@
 				<br>
 				
 				<div id="moreOptions">
-					<div class="dropdown" style="float: left">
+					<div class="dropdown">
 					
-						<img alt="reminder" src="image/reminder.svg" height="15px">
+						<img alt="reminder" src="image/reminder.svg" height="18px">
 						<img alt="colaburator" src="image/colaburator.png" height="25px"> 
 						
 						<div class="btn-group dropup colorDiv" uib-dropdown>

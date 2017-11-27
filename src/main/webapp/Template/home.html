@@ -1,21 +1,23 @@
 <div>
 	<top-bar></top-bar>
 	<div class="row">
-		<div class="col-sm-2" id="sidebarWrapper" ng-show="showSideBar">
+		<div class="col-sm-2">
 			<side-bar></side-bar>
 		</div>
 
-		<div id="mainHome">
-			<div class="col-sm-10" id="noteWrapper">
-				<add-notes></add-notes>
-				<div ng-click="AddNoteBox=false; AddNoteColor='#ffffff'">
 
-					<pin-note></pin-note>
-
+		<div id="noteWrapper">
+			<div class="mainHome">
+				<div class="col-sm-10">
+					<add-notes></add-notes>
+					<div ng-click="AddNoteBox=false; AddNoteColor='#ffffff'">
+	
+						<pin-note></pin-note>
+	
 						<other-note></other-note>
-
+						</div>
+					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
