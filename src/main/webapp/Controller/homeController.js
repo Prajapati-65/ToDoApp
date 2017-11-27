@@ -76,18 +76,37 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						
-			/*---------------------------------show Modal-----------------------------------------*/
+			/*---------------------------------Social Share-----------------------------------------*/
 						
-						/*
-						$scope.showModal = function(note) {
-							$scope.note = note;
-							modalInstance = $uibModal.open({
-								templateUrl : 'Template/EditNote.html',
-								scope : $scope,
-								size : 'md'
+						// SOCIAL SHARE
+						$scope.fbAsyncSocialShare = function(note) {
+							console.log(note.title);
+							console.log('inside fbAsyncInit');
+							FB.init({
+								appId : '1845582508804612',
+								status : true,
+								cookie : true,
+								xfbml : true,
+								version : 'v2.4'
+							});
+
+							FB.ui({
+								method : 'share_open_graph',
+								action_type : 'og.likes',
+								action_properties : JSON.stringify({
+									object : {
+										'og:title' : note.title,
+										'og:description' :note.description
+									}
+								})
+							}, function(response) {
+								if (response && !response.error_message) {
+									alert('Posting completed.');
+								} else {
+									alert('Error while posting');
+								}
 							});
 						};
-*/
 
 			/*---------------------------------Add reminder-----------------------------------------*/
 						$scope.reminder=false;

@@ -24,19 +24,22 @@
 					
 					<div class="imagedropdown">
 					
-						<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
-							<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" width="33px"
-	                        height="35px" class="profile-pic">
+						<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="margin-top: 7px;">
+							<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" width="30px"
+	                        height="30px" class="img-circle">
 						</span>
 						
-						<ul class="dropdown-menu" role="menu" style="background-color: white; padding-left: 10px" aria-labelledby="menu1">
-							<li  style="height: 150px;width: 200px;">
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 							
-								<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" height="100px">
+							
+							<li>
+								<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" height="100px" class="img-circle">
+								<br>
 								{{UserDetails.firstName}} {{UserDetails.lastName}}
+								<br>
 	                          	{{UserDetails.email}}
-							
 							</li>
+							
 							<button style="float: right">
 							<li ng-click="logout()">logout</li>
 							</button>

@@ -13,6 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<!-- FOR FACEBOOK SHARE -->
+<script src="https://connect.facebook.net/enUS/all.js"></script>
 	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +24,6 @@
 <script type="text/javascript"
 	src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script type="text/javascript" src="Script/app.js"></script>
-<script type="text/javascript" src="Script/SideBarNav.js"></script>
 
 <script type="text/javascript" src="Controller/RegistrationController.js"></script>
 <script type="text/javascript" src="Controller/loginController.js"></script>
