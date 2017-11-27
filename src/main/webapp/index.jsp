@@ -27,6 +27,7 @@
 <script type="text/javascript" src="Controller/loginController.js"></script>
 <script type="text/javascript" src="Controller/resetpwdController.js"></script>
 <script type="text/javascript" src="Controller/homeController.js"></script>
+<script type="text/javascript" src="Controller/dummyController.js"></script>
 
 <script type="text/javascript" src="Service/RegistrationService.js"></script>
 <script type="text/javascript" src="Service/loginService.js"></script>

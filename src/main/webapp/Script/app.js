@@ -41,6 +41,9 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		url : '/reminders',
 		templateUrl : 'Template/reminders.html',
 		controller: 'homeController'
+	}).state('dummy',{
+		url : '/dummy',
+		controller: 'dummyController'
 	});
 	
 	$urlRouterProvider.otherwise('login');

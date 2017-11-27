@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -55,7 +56,7 @@ public class Note {
 
 	@Column(name = "NOTE_COLOR")
 	private String noteColor;
-
+	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")

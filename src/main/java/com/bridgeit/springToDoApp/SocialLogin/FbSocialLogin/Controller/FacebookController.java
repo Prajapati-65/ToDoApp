@@ -72,11 +72,11 @@ public class FacebookController {
 
 			String accessToken = GenerateJWT.generate(user.getId());
 			session.setAttribute("todoAppAccessToken", accessToken);
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#"+accessToken);
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/dummy");
 		} else if(user!=null && user.getPassword()==null){
 			String accessToken = GenerateJWT.generate(user.getId());
 			session.setAttribute("todoAppAccessToken", accessToken);
-			response.sendRedirect("http://localhost:8080/ToDoApp/#!/home/#"+accessToken);
+			response.sendRedirect("http://localhost:8080/ToDoApp/#!/dummy");
 		} else{
 			response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		}

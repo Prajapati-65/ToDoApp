@@ -1,26 +1,27 @@
 <div>
 	<br> <br>
 	<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>
-	<div class="card" ng-click="showModal(note)"
+	<div class="card" 
 		style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 
 		<div id="moreOptions" style="float: right">
-			<span ng-click="note.pin='true'; updateNote(note)"> <img
-				alt="pin" style="height: 17px" src="image/bluepin.svg"></img>
+			<span ng-click="note.pin='true'; updateNote(note)"> 
+			<img alt="pin" style="height: 17px" src="image/bluepin.svg"></img>
 			</span>
 		</div>
 
-		<div ng-bind-html="note.title"></div>
+		<div ng-bind-html="note.title" ng-click="open(note)"></div>
 		<br>
-		<div ng-bind-html="note.description"></div>
+		<div ng-bind-html="note.description" ng-click="open(note)"></div>
 		<br>
 
 		<div id="moreOptions">
 			<div class="dropdown">
 
-				<img alt="reminder" src="image/reminder.svg" height="15px"> <img
-					alt="colaburator" src="image/colaburator.png" height="25px">
+				<img ng-click="" alt="reminder" src="image/reminder.svg" height="15px">
+				
+				<img alt="colaburator" src="image/colaburator.png" height="25px">
 
 				<div class="btn-group dropup colorDiv" uib-dropdown>
 					<img id="dropdown" class="dropdown-toggle" data-toggle="dropdown"
@@ -29,17 +30,17 @@
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu"
 						aria-labelledby="btn-append-to-body"
 						style="background-color: #f9fbff">
-						<a ng-repeat="color in colors" role="menuitem"> <img
-							ng-src="{{color.path}}" height="25px"
-							ng-click="note.noteColor =color.color; addNoteColorChange(color.color)">
+						<a ng-repeat="color in colors" role="menuitem"> 
+						<img ng-src="{{color.path}}" height="25px" ng-click="note.noteColor =color.color; addNoteColorChange(color.color)">
 						</a>
 					</ul>
 				</div>
 
-				<img alt="image" src="image/image.svg" height="20px"> <span
-					ng-click="archiveNote(note)"> <img alt="archive"
-					src="image/archive.svg" height="20px">
-				</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+				<img alt="image" src="image/image.svg" height="20px"> 
+					<span ng-click="archiveNote(note)"> <img alt="archive" src="image/archive.svg" height="20px">
+				</span>
+				
+				<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
 					<span class="glyphicon glyphicon-option-vertical"></span>
 				</span>
 

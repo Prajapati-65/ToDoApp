@@ -2,18 +2,7 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
 					
-			/*---------------------------------get user-----------------------------------*/
-						getUser();
-							
-						var getUserDetails = function getUser(){
-								var a = homePageService.getUser();
-								a.then(function(response) {
-									$scope.UserDetails=response.data;
-								}, function(response) {
-									
-								});
-							}
-	
+			
 			/*---------------------------------get valid token-----------------------------------*/
 	
 						var gettingToken = function() {
@@ -24,17 +13,36 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							return token;
 						}
 						
+			/*---------------------------------get user-----------------------------------*/
+						
+						getUser();
+						
+						function getUser(){
+							var token =  localStorage.getItem('token');
+							var method = "POST";
+							var url = 'getUserDetails';
+							var a = homeService.service(url,method,token);
+							a.then(function(response) {
+								$scope.UserDetails=response.data;
+								console.log($scope.UserDetails);
+							}, function(response) {
+								
+							});
+						}
+						
+						
+						
 			/*-----------------------------------toggle side bar ----------------------------------*/
 					
 						$scope.showSideBar = true;
 						$scope.sidebarToggle = function() {
 							if($scope.showSideBar){
 								$scope.showSideBar=false;
-								document.getElementById("noteWrapper").style.paddingLeft = "250px";
+								document.getElementById("noteWrapper").style.marginLeft = "250px";
 							}
 							else{
 								$scope.showSideBar = true;
-								document.getElementById("noteWrapper").style.paddingLeft = "300px";
+								document.getElementById("noteWrapper").style.marginLeft = "300px";
 							}
 						}
 						
@@ -48,32 +56,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						}
 						
-						
-					
-						/*function toggleSide(){
-							var sideNav=document.getElementById("sideToggle").style.width;
-							if(sideNav=="0px"){
-								document.getElementById("sideToggle").style.width = "250px";
-							    document.getElementById("noteWrapper").style.marginLeft = "250px";
-							}
-							else{
-								document.getElementById("sideToggle").style.width = "0px";
-							    document.getElementById("noteWrapper").style.marginLeft = "0px";
-							}
-						}*/
-
-						
-			/*---------------------------------show Modal-----------------------------------------*/
-						
-						
-						$scope.showModal = function(note) {
-							$scope.note = note;
-							modalInstance = $uibModal.open({
-								templateUrl : 'Template/EditNote.html',
-								scope : $scope,
-								size : 'md'
-							});
-						};
 						
 			/*---------------------------------Change color----------------------------------------*/
 						
@@ -152,6 +134,56 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						];
 						
+			/*---------------------------------Edit a note in modal---------------------------------------*/
+								
+							$scope.open = function (note) {
+							$scope.AddNoteColor=note.noteColor;
+							$scope.note = note;
+							modalInstance = $uibModal.open({
+								templateUrl : 'Template/EditNote.html',
+								scope : $scope									
+								});
+							};
+									
+								
+									
+									
+							$scope.changeColorInModal=function(color){
+								$scope.AddNoteColor=color;
+							}
+									
+									
+			/*-----------------------Update the header and title from modal----------------------------*/
+							$scope.updateNoteModal=function(note){
+								note.title = document.getElementById("modifiedtitle").innerHTML;
+								note.description = document.getElementById("modifieddescreption").innerHTML;
+								note.noteColor=$scope.AddNoteColor;
+								$scope.updateNote(note);
+								modalInstance.close('resetmodel');
+							}
+			/*------------------------------archive a note from a modal------------------------------*/
+						
+							$scope.UnarchiveandArchiveFromModal=function(note){
+								note.title = document.getElementById("modifiedtitle").innerHTML;
+								note.description = document.getElementById("modifieddescreption").innerHTML;
+								note.noteColor=$scope.AddNoteColor;
+								if(note.archiveStatus=="false"){
+								note.archiveStatus="true";
+								note.noteStatus="false";
+								note.pin="false";
+								$scope.updateNote(note);
+								modalInstance.close('resetmodel');
+								}
+								else{
+									note.archiveStatus="false";
+									note.noteStatus="true";
+									$scope.updateNote(note);
+									modalInstance.close('resetmodel');
+								}
+							}
+									
+						
+			/*---------------------------------------------------------------------------------*/
 						if($state.current.name=="home"){
 							$scope.topBarColor= "#ffbb33";
 							$scope.navBarHeading="Fundoo Keep";
@@ -262,11 +294,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		/*--------------------------------update the note-------------------------------------*/
 					
 					$scope.updateNote = function(note) {
-						
-						console.log("update---> "+note);
-						
-						console.log("title---> "+note.title);
-						
 						var url = 'user/update';
 						var method = 'POST';
 						var token = localStorage.getItem('token');
@@ -279,17 +306,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
-		/*--------------------------------Update the header and title from modal---------------------*/
-				
-					$scope.updateNoteModal=function(note){
-						note.title = document.getElementById("modified-title").innerHTML;
-						note.description = document.getElementById("modified-descreption").innerHTML;
-						note.noteColor=$scope.EditNoteColor;
-						$scope.updateNote(note);
-						modalInstance.close('resetmodel');
-					}
-					
-					
+		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
 					$scope.pinStatus =false;
@@ -465,6 +482,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						}
 					}
+			/*--------------------------------------------------------------------------		*/
 					
 					
 					
@@ -478,6 +496,5 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					
 					
 					
-					
-				});
+});
 				

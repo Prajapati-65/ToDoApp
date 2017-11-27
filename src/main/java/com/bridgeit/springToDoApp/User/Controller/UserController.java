@@ -202,11 +202,23 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/getCurrentUser")
+	@RequestMapping(value = "/getUserDetails")
 	public ResponseEntity<User> currrentUser(HttpServletRequest request) throws IOException {
 		
 		int userId = VerifiedJWT.verify(request.getHeader("token"));
 		User user = userService.getUserById(userId);
 		return ResponseEntity.ok(user);
 	}
+	
+
+	@RequestMapping(value = "/social")
+	public ResponseEntity<Response> social(HttpSession session) {
+		System.out.println("session id2: " + session.getId());
+		String token = (String) session.getAttribute("todoAppAccessToken");
+		Response response = new Response();
+		response.setMessage(token);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+	
+	
 }

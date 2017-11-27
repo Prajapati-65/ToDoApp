@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -37,8 +38,11 @@ public class User {
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
 	
-	@Column(name="PROFILE_IMAGE")
+	//@Lob
+	//@Column(name="PROFILE_IMAGE",columnDefinition = "LONGBLOB")
 	private String profileImage;
+
+	
 	
 	public boolean isActive() {
 		return isActive;

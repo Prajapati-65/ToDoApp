@@ -16,42 +16,37 @@
 			
 		
 			<ul class="nav navbar-nav navbar-right">
-			<li ng-click="ListViewToggle()" id="list-gride-View">
-				<img ng-if="!ListView" height="30px" alt="gride" src="image/gridePxart.png">
-				<img ng-if="ListView" height="30px" alt="list" src="image/list1.png">
-			</li>
-			<li>
-			
-			
-				<div class="dropdown">
-					<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="margin-top: 20px;>
-						<img alt="userProfile" class="img-circle" ng-src="{{UserDetails.profile}}" height="35px">
-					</span>
+					<li ng-click="ListViewToggle()">
+					<img ng-if="!ListView" height="30px" alt="gride" src="image/gridePxart.png">
+					<img ng-if="ListView" height="30px" alt="list" src="image/list1.png"></li>
+					<li>
 					
-					<ul class="dropdown-menu" role="menu" style="background-color: white; padding-left: 10px" aria-labelledby="menu1">
-						<li     style="height: 150px;width: 200px;">
+					
+					<div class="imagedropdown">
+					
+						<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+							<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" width="33px"
+	                        height="35px" class="profile-pic">
+						</span>
 						
-						<img alt="userProfile" class="img-circle" ng-src="{{UserDetails.profile}}" height="100px">
-						{{UserDetails.firstName}}
-						{{UserDetails.lastName}}
-						{{UserDetails.email}}
-						
-						</li>
-						<button style="float: right">
-						<li ng-click="logout()">logout</li>
-						</button>
-						
-					</ul>
-				</div>
-				
-				
-			</li>
-		</ul>
-		
+						<ul class="dropdown-menu" role="menu" style="background-color: white; padding-left: 10px" aria-labelledby="menu1">
+							<li  style="height: 150px;width: 200px;">
+							
+								<img alt="userProfile"  ng-src="{{UserDetails.profileImage}}" height="100px">
+								{{UserDetails.firstName}} {{UserDetails.lastName}}
+	                          	{{UserDetails.email}}
+							
+							</li>
+							<button style="float: right">
+							<li ng-click="logout()">logout</li>
+							</button>
+						</ul>
+					</div>
+					
+					
+					
+				</li>
+			</ul>
 	</div>
 </nav>
-		
-		
-
-
-
+	
