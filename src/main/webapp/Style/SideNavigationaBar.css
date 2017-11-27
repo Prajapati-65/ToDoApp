@@ -1,24 +1,18 @@
-.SideNavigation{
+.sidenav {
     height: 100%;
-    background-color:#ffffff;
-    position: absolute;
-   	width: 0;
+    width: 0;
+    position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
+    background-color: #ffffff;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    margin-top: -20px;
+    margin-top: 69px;
 }
 
-
-.SideNavigation li{
-     list-style-type:none;
-     margin-right: 20px;
-}
-
-.SideNavigation a {
+.sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -27,11 +21,6 @@
     transition: 0.3s;
 }
 
-.SideNavigation a:hover {
+.sidenav a:hover {
     color: #f1f1f1;
-}
-
-@media screen and (max-height: 450px) {
-  .SideNavigation {padding-top: 15px;}
-  .SideNavigation a {font-size: 18px;}
 }
