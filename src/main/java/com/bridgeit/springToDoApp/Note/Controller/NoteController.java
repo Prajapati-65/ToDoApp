@@ -128,6 +128,7 @@ public class NoteController {
 		
 		int userId = (int) request.getAttribute("userId");
 		User user = userService.getUserById(userId);
+		
 		CustomResponse customResponse = new CustomResponse();
 		
 		List<Note> allNotes = noteService.getAllNotes(user);
@@ -137,7 +138,5 @@ public class NoteController {
 
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
-
-	
 
 }

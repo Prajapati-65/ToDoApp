@@ -13,6 +13,25 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							return token;
 						}
 						
+						
+			/*---------------------------------get user-----------------------------------*/
+						getUser();
+							
+						var getUserDetails = function getUser(){
+							
+							var url = 'getCurrentUser';
+							var method = 'POST';
+							var token = gettingToken();
+							
+							var a = homeService.service(url,method,token,note);
+								a.then(function(response) {
+									$scope.UserDetails=response.data;
+								}, function(response) {
+									
+								});
+							}
+	
+						
 			/*---------------------------------get user-----------------------------------*/
 						
 						getUser();
@@ -34,7 +53,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 			/*-----------------------------------toggle side bar ----------------------------------*/
 					
-						$scope.showSideBar = true;
+					/*	$scope.showSideBar = true;
 						$scope.sidebarToggle = function() {
 							if($scope.showSideBar){
 								$scope.showSideBar=false;
@@ -55,7 +74,34 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								document.getElementById("sideToggle").style.width = "250px";
 							}
 						}
+						*/
 						
+			/*---------------------------------show Modal-----------------------------------------*/
+						
+						
+						$scope.showModal = function(note) {
+							$scope.note = note;
+							modalInstance = $uibModal.open({
+								templateUrl : 'Template/EditNote.html',
+								scope : $scope,
+								size : 'md'
+							});
+						};
+
+
+			/*---------------------------------Add reminder-----------------------------------------*/
+						$scope.reminder=false;
+					
+						$scope.addReminder=function(){
+							if($scope.reminder==false){
+							$scope.reminder=true;
+							}else{
+								$scope.reminder=false;
+							}
+						}
+
+
+
 						
 			/*---------------------------------Change color----------------------------------------*/
 						
@@ -185,10 +231,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 			/*---------------------------------------------------------------------------------*/
 						if($state.current.name=="home"){
-							$scope.topBarColor= "#ffbb33";
-							$scope.navBarHeading="Fundoo Keep";
-						}
-						else if($state.current.name=="sociolLoginhome"){
 							$scope.topBarColor= "#ffbb33";
 							$scope.navBarHeading="Fundoo Keep";
 						}
@@ -485,16 +527,5 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*--------------------------------------------------------------------------		*/
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-});
+				});
 				
