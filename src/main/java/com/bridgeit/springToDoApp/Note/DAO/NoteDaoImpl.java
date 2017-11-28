@@ -20,12 +20,11 @@ public class NoteDaoImpl implements NoteDao {
 	@Autowired
 	SessionFactory factory;
 
+	@Override
 	public int createNote(Note note) {
 		int noteId = 0;
 		Session session = factory.openSession();
-		Transaction transaction = null;
 		try {
-			transaction = session.beginTransaction();
 			noteId = (Integer) session.save(note);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -33,13 +32,12 @@ public class NoteDaoImpl implements NoteDao {
 		return noteId;
 	}
 
+	@Override
 	public boolean updateNote(Note note) {
 		Session session = factory.openSession();
-		Transaction transaction = null;
 		try {
-			transaction = session.beginTransaction();
 			session.saveOrUpdate(note);
-			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,11 +52,11 @@ public class NoteDaoImpl implements NoteDao {
 
 	public boolean deleteNote(Note note) {
 		Session session = factory.openSession();
-		Transaction transaction = null;
+		
 		try {
-			transaction = session.beginTransaction();
+			
 			session.delete(note);
-			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

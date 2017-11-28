@@ -7,15 +7,16 @@ import com.bridgeit.springToDoApp.User.Model.User;
 
 public interface NoteService {
 
-	int createNote(Note note);
 	
-	boolean updateNote(Note note);
-
-	boolean deleteNote(Note note);
+	public void createNote(Note note, int userId);
+	
+	
+	boolean updateNote(Note note, int userId);
+	
+	boolean deleteNote(int noteId , int userId);
 	
 	Note getNoteById(int noteId);
 
-	List<Note> getAllNotes(User user);
-	
+	List<Note> getAllNotes(int userId);
 	
 }
