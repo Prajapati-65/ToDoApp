@@ -12,7 +12,7 @@ public interface NoteDao {
 
 	boolean updateNote(Note note);
 
-	void deleteNote(Note note);
+	boolean deleteNote(Note note);
 
 	Note getNoteById(int noteId);
 

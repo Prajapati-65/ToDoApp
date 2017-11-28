@@ -6,38 +6,47 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		url : '/login',
 		templateUrl : 'Template/login.html',
 		controller : 'loginController'
-	}).state('registerUser', {
+	})
+	.state('registerUser', {
 		url : '/registerUser',
 		templateUrl : 'Template/registration.html',
 		controller : 'registerController'
-	}).state('forgetpassword',{
+	})
+	.state('forgetpassword',{
 		url:'/forgetpassword',
 		templateUrl : 'Template/forgetpassword.html',
 		controller : 'resetController'
-	}).state('resetpassword',{
+	})
+	.state('resetpassword',{
 		url:'/resetpassword',
 		templateUrl : 'Template/resetpassword.html',
 		controller : 'resetController'
-	}).state('home',{
+	})
+	.state('home',{
 		url:'/home',
 		templateUrl : 'Template/home.html',
 		controller : 'homeController'
-	}).state('info',{
+	})
+	.state('info',{
 		url:'/info',
 		templateUrl : 'Template/info.html'
-	}).state('archive', {
+	})
+	.state('archive', {
 		url : '/archive',
 		templateUrl : 'Template/Archive.html',
 		controller: 'homeController'
-	}).state('trash',{
+	})
+	.state('trash',{
 		url : '/trash',
 		templateUrl : 'Template/Trash.html',
 		controller: 'homeController'
-	}).state('reminders',{
+	})
+	.state('reminders',{
 		url : '/reminders',
 		templateUrl : 'Template/reminders.html',
 		controller: 'homeController'
-	}).state('dummy',{
+	})
+	.state('dummy',{
 		url : '/dummy',
 		controller: 'dummyController'
 	});

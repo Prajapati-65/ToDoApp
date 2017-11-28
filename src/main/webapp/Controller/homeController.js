@@ -1,7 +1,7 @@
 var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
-					
+			// toastr,  $filter, $interval,fileReader
 			
 			/*---------------------------------get valid token-----------------------------------*/
 	
@@ -48,61 +48,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-						
-						
-						
-			/*-----------------------------------toggle side bar ----------------------------------*/
-					
-						$scope.showSideBar = true;
-						$scope.sidebarToggle = function() {
-							if($scope.showSideBar){
-								$scope.showSideBar=false;
-								document.getElementById("noteWrapper").style.marginLeft = "200px";
-							}
-							else{
-								$scope.showSideBar = true;
-								document.getElementById("noteWrapper").style.marginLeft = "200px";
-							}
-						}
-						
-						$scope.toggleSideBar = function() {
-							var width = $('#sideToggle').width();
-							console.log(width);
-							if (width == '200') {
-								document.getElementById("sideToggle").style.width = "0px";
-							} else {
-								document.getElementById("sideToggle").style.width = "200px";
-							}
-						}
-						
-					/*	
-						
-						
-						function toggleSideBar(){
-							var sideNav=document.getElementById("sideToggle").style.width;
-							if(sideNav=="0px"){
-								openNav();
-							}
-							else{
-								closeNav();
-							}
-						}
-
-						function openNav() {
-						    document.getElementById("sideToggle").style.width = "250px";
-						    document.getElementById("noteWrapper").style.marginLeft = "250px";
-						}
-
-
-						 
-						function closeNav() {
-						    document.getElementById("sideToggle").style.width = "0px";
-						    document.getElementById("noteWrapper").style.marginLeft = "0px";
-						}
-						
-						*/
-					
-						
+			
 			/*---------------------------------Social Share-----------------------------------------*/
 						
 						// SOCIAL SHARE
@@ -136,18 +82,32 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						};
 
 			/*---------------------------------Add reminder-----------------------------------------*/
-						$scope.reminder=false;
-					
-						$scope.addReminder=function(){
-							if($scope.reminder==false){
-							$scope.reminder=true;
-							}else{
-								$scope.reminder=false;
-							}
+						
+						$scope.AddReminder='';
+						$scope.openAddReminder=function(){
+						   	$('#datepicker').datetimepicker();
+						   	$scope.AddReminder= $('#datepicker').val();
 						}
-
-
-
+						
+						$scope.reminder ="";
+						$scope.openReminder=function(note){
+							   	$('.reminder').datetimepicker();
+							   	 var id = '#datepicker' + note.noteId;
+							   	$scope.reminder = $(id).val();
+							  
+							   	if($scope.reminder === "" || $scope.reminder === undefined){
+							   		console.log(note);
+							   		console.log($scope.reminder);
+							   	}
+							   	else{
+							   		console.log($scope.reminder);
+							   		note.reminderStatus=$scope.reminder;
+							   		$scope.updateNote(note);
+							   		$scope.reminder="";
+							   }
+						}
+						
+						
 						
 			/*---------------------------------Change color----------------------------------------*/
 						
@@ -226,12 +186,14 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						];
 						
+						$scope.modalInstance="";
+						
 			/*---------------------------------Edit a note in modal---------------------------------------*/
 								
 							$scope.open = function (note) {
 							$scope.AddNoteColor=note.noteColor;
 							$scope.note = note;
-							modalInstance = $uibModal.open({
+							$scope.modalInstance = $uibModal.open({
 								templateUrl : 'Template/EditNote.html',
 								scope : $scope									
 								});

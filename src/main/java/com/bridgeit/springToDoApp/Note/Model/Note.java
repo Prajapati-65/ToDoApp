@@ -8,11 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.bridgeit.springToDoApp.User.Model.User;
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "NOTE_TABLE")
-@DynamicUpdate(true)
 public class Note {
 
 	@Id
@@ -57,13 +54,15 @@ public class Note {
 	private String noteStatus;
 
 	@Column(name = "NOTE_COLOR")
-	private String noteColor;
+	private String noteColor;	
+	
+	@Column(name="Reminder")
+	private String reminder;
 	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
-
 
 	public int getNoteId() {
 		return noteId;

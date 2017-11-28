@@ -48,17 +48,10 @@ body {
 	background-color: #e8e8e8;
 }
 
-.dropdown-menu li:hover {
-	background-color: #e8e8e8;
-	 cursor: pointer;
+.inline{
+	display: inline-block;
 }
 
-
-.dropdown-menu{
-	text-align: center;
-	font-size: 15px;
-
-}
 /* 
 #moreOptions{
 	visibility: hidden;

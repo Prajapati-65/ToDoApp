@@ -1,6 +1,6 @@
 <div>
 	<br> <br>
-	<h4>Others</h4>  <!-- ng-show="pinnedNotes.length && otherNotes.length" -->
+	<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>  
 	<div class="card" 
 		style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
@@ -15,43 +15,63 @@
 		<br>
 		<div ng-bind-html="note.description" ng-click="open(note)"></div>
 		<br>
-
-		<div id="moreOptions">
 		
-			<div class="dropdown">
+		<div>
+			<div class="dropdown inline">
+				<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+						<img alt="reminder" src="image/reminder.svg" height="17px">
+				</span>
+										
+				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+				<li><input type="text" ng-attr-id="datepicker{{note.noteId}}" class="reminder"></li>
+					<li><button ng-click="openReminder(note)">
+						<span  class="glyphicon glyphicon-calendar"></span>
+						</button>
+					</li>
+				</ul>
+			</div>
 			
-				<img ng-click="" alt="reminder" src="image/reminder.svg" height="18px">
-				
-				<img alt="colaburator" src="image/colaburator.png" height="25px">
-
-				<div class="btn-group dropup colorDiv" uib-dropdown>
+			
+			<img alt="colaburator" src="image/colaburator.png" height="23px">
+		
+			<div class="dropdown inline">
+				<div class="btn btn-group dropup colorDiv" uib-dropdown>
 					<img id="dropdown" class="dropdown-toggle" data-toggle="dropdown"
 						alt="color" src="image/colorpallete.svg" uib-dropdown-toggle
 						height="20px">
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu"
 						aria-labelledby="btn-append-to-body"
 						style="background-color: #f9fbff">
-						<a ng-repeat="color in colors" role="menuitem"> 
-						<img ng-src="{{color.path}}" height="25px" ng-click="note.noteColor =color.color; addNoteColorChange(color.color)">
+						<a ng-repeat="color in colors" role="menuitem"> <img
+							ng-src="{{color.path}}" height="25px"
+							ng-click="note.noteColor =color.color; addNoteColorChange(color.color)">
 						</a>
 					</ul>
 				</div>
-
-				<img alt="image" src="image/image.svg" height="20px"> 
-					<span ng-click="archiveNote(note)"> <img alt="archive" src="image/archive.svg" height="20px">
-				</span>
-				
-				<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
-					<span class="glyphicon glyphicon-option-vertical"></span>
-				</span>
-
-				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-					<li><a ng-click="deleteNote(note)">Delete</a></li>
-					<li><a ng-click="">Add label</a></li>
-					<li><a ng-click="copy(note)">Make a Copy</a></li>
-					<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
-				</ul>
 			</div>
+			
+			
+				<img alt="image" src="image/image.svg" height="20px">
+				
+				
+				<span ng-click="archiveNote(note)" class="btn"> 
+					<img alt="archive" src="image/archive.svg" height="20px">	
+				</span>
+			
+			
+				<div class="dropdown inline">
+					</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-option-vertical"></span>
+					</span>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+						<li><a ng-click="deleteNote(note)">Delete</a></li>
+						<li><a ng-click="">Add label</a></li>
+						<li><a ng-click="copy(note)">Make a Copy</a></li>
+					</ul>
+				</div>
 		</div>
+	
+		
+		
 	</div>
 </div>
