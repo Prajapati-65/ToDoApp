@@ -1,6 +1,6 @@
 <div>
 	<br> <br>
-	<h4 ng-show="pinnedNotes.length">Pinned</h4>
+	<h4>Pinned</h4>  <!-- ng-show="pinnedNotes.length" -->
 	<div class="card" ng-click="showModal(note)" style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 

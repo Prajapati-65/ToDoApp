@@ -68,30 +68,26 @@ public class NoteController {
 	public Response deleteNote(@PathVariable("id") int noteId , HttpServletRequest request) {
 		
 		int userId = (int) request.getAttribute("userId");
+		
 		CustomResponse customResponse = new CustomResponse();
-
-
 		try {
-			
 			boolean isDeleted = noteService.deleteNote(noteId, userId);
-			
+			System.out.println("isDeleted : "+isDeleted);
 			if (!isDeleted) {
-				
 				customResponse.setMessage("Error deleting note");
 				customResponse.setStatus(-1);
 			}
-			
 			customResponse.setMessage("Note deleted successfully");
 			customResponse.setStatus(1);
 			return customResponse;
-			
 		} catch (Exception e) {
 			customResponse.setMessage("Error deleting note");
 			customResponse.setStatus(-1);
 			return customResponse;
 		}
-
 	}
+	
+	
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Response update(@RequestBody Note note, HttpServletRequest request) {
@@ -101,14 +97,12 @@ public class NoteController {
 
 		try {
 			boolean isUpdated = noteService.updateNote(note , userId);
-
 			System.out.println("is update " + isUpdated);
 			if (!isUpdated) {
 				customResponse.setMessage("User is not authorized");
 				customResponse.setStatus(-1);
 				return customResponse;
 			}
-			
 			customResponse.setMessage("Note updated successfully");
 			customResponse.setStatus(2);
 			return customResponse;
@@ -123,10 +117,12 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/changeColor", method = RequestMethod.POST)
-	public ResponseEntity<Response> updateColor(@RequestBody Note note, @RequestAttribute("loginedUser") User user) {
+	public ResponseEntity<Response> updateColor(@RequestBody Note note, HttpServletRequest request) {
 		CustomResponse customResponse = new CustomResponse();
+		int userId = (int) request.getAttribute("userId");
+		User user = userService.getUserById(userId);
 		note.setUser(user);
-		//noteService.updateNote(note);
+		noteService.updateNote(note ,userId);
 		customResponse.setMessage("note updated.");
 		customResponse.setNotes(null);
 		return ResponseEntity.ok(customResponse);
@@ -134,30 +130,18 @@ public class NoteController {
 	
 	
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
-	public Response getAllNotes(HttpSession session ,HttpServletRequest request) {
-
+	public ResponseEntity<List> getAllNotes(HttpServletRequest request) {
+		
 		int userId = (int) request.getAttribute("userId");
+		User user = userService.getUserById(userId);
 		
 		CustomResponse customResponse = new CustomResponse();
-
-		try {
-			
-			List<Note> notes = noteService.getAllNotes(userId);
-			
-			customResponse.setMessage("Notes loaded");
-			customResponse.setStatus(1);
-			customResponse.setNotes(notes);
-			return customResponse;
-			
-		} catch (Exception e) {
-			
-			customResponse.setMessage("Notes could not be loaded");
-			customResponse.setStatus(-1);
-			return customResponse;
-		}
 		
-	}
-	
-	
+		List<Note> allNotes = noteService.getAllNotes(user);
 
+		customResponse.setMessage("note found.");
+		customResponse.setNotes(allNotes);
+
+		return ResponseEntity.ok(customResponse.getNotes());
+	}
 }

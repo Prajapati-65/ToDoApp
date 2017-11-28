@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class NoteDaoImpl implements NoteDao {
 	@Override
 	public int createNote(Note note) {
 		int noteId = 0;
-		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 		try {
 			noteId = (Integer) session.save(note);
 		} catch (Exception e) {
@@ -32,40 +31,33 @@ public class NoteDaoImpl implements NoteDao {
 		return noteId;
 	}
 
-	@Override
 	public boolean updateNote(Note note) {
-		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 		try {
 			session.saveOrUpdate(note);
-			session.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
 	}
 
+	
 	public Note getNoteById(int noteId) {
-		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 		Note note = session.get(Note.class, noteId);
 		return note;
 	}
+	
 
-	public boolean deleteNote(Note note) {
-		Session session = factory.openSession();
-		
-		try {
-			
-			session.delete(note);
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public void deleteNote(Note note) {
+		Session session = factory.getCurrentSession();
+		session.delete(note);
 	}
+	
 
 	public List<Note> getAllNotes(User user) {
-		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 		@SuppressWarnings("deprecation")
 		Criteria criteria = session.createCriteria(Note.class);
 		criteria.add(Restrictions.eq("user", user));

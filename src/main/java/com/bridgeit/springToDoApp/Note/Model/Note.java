@@ -12,6 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.bridgeit.springToDoApp.User.Model.User;
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "NOTE_TABLE")
+@DynamicUpdate(true)
 public class Note {
 
 	@Id
@@ -61,6 +63,7 @@ public class Note {
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
+
 
 	public int getNoteId() {
 		return noteId;

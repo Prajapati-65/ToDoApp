@@ -19,7 +19,6 @@ public  class NoteServiceImpl implements NoteService {
 	@Autowired
 	NoteDao noteDao;
 
-	
 	@Transactional
 	public void createNote(Note note, int userId) {
 
@@ -44,9 +43,19 @@ public  class NoteServiceImpl implements NoteService {
 			noteDao.deleteNote(oldNote);
 			return true;
 		}
-		Date modifiedDate = new Date();
-		note.setModifiedDate(modifiedDate);
-
+		Date cuDate = new Date();
+		oldNote.setModifiedDate(cuDate);
+	
+		oldNote.setDescription(note.getDescription());
+		oldNote.setTitle(note.getTitle());
+		oldNote.setArchiveStatus(note.getArchiveStatus());
+		oldNote.setDeleteStatus(note.getDeleteStatus());
+		
+		oldNote.setNoteColor(note.getNoteColor());
+		oldNote.setNoteStatus(note.getNoteStatus());
+		
+		oldNote.setReminderStatus(note.getReminderStatus());
+		
 		noteDao.updateNote(oldNote);
 		return true;
 		
@@ -54,24 +63,27 @@ public  class NoteServiceImpl implements NoteService {
 	
 	@Transactional
 	public boolean deleteNote(int noteId, int userId) {
-
 		Note note = noteDao.getNoteById(noteId);
-
+		System.out.println("Note is :----> "+note);
 		if (note == null) {
 			return false;
 		}
-
 		if (note.getUser().getId() != userId) {
 			return false;
 		}
-
 		noteDao.deleteNote(note);
-
 		return true;
 	}
 	
+
+	@Transactional
+	public List<Note> getAllNotes(User user) {
+
+		return noteDao.getAllNotes(user);
+	}
+
 	
-	
+/*
 	@Transactional
 	public List<Note> getAllNotes(int userId) {
 		User user = new User();
@@ -81,7 +93,7 @@ public  class NoteServiceImpl implements NoteService {
 		
 		return notes;
 	}
-
+*/
 	
 	@Transactional
 	public Note getNoteById(int noteId) {
