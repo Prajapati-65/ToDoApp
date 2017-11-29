@@ -16,23 +16,28 @@
 		<div ng-bind-html="note.description" ng-click="open(note)"></div>
 		<br>
 		
+		
 		<div>
 			<div class="dropdown inline">
-				<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+				<span class="btn dropdown-toggle" id="menu2" data-toggle="dropdown">
 						<img alt="reminder" src="image/reminder.svg" height="17px">
 				</span>
 										
-				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-				<li><input type="text" ng-attr-id="datepicker{{note.noteId}}" class="reminder"></li>
-					<li><button ng-click="openReminder(note)">
-						<span  class="glyphicon glyphicon-calendar"></span>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+					<li>
+						<input type="text" ng-attr-id="datepicker{{note.noteId}}" class="reminder">
+					</li>
+					<li>
+						<button ng-click="openReminder(note)">
+							<span  class="glyphicon glyphicon-calendar"></span>
 						</button>
 					</li>
 				</ul>
+				
 			</div>
 			
 			
-			<img alt="colaburator" src="image/colaburator.png" height="23px">
+			<img alt="colaburator" src="image/colaburator.png" height="23px" ng-click="openCollboarate(note,user,$index)">
 		
 			<div class="dropdown inline">
 				<div class="btn btn-group dropup colorDiv" uib-dropdown>
@@ -56,19 +61,24 @@
 				
 				<span ng-click="archiveNote(note)" class="btn"> 
 					<img alt="archive" src="image/archive.svg" height="20px">	
-				</span>
+				</span>	
 			
 			
 				<div class="dropdown inline">
-					</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-option-vertical"></span>
-					</span>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+						</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-option-vertical"></span>
+						</span>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 						<li><a ng-click="deleteNote(note)">Delete</a></li>
 						<li><a ng-click="">Add label</a></li>
 						<li><a ng-click="copy(note)">Make a Copy</a></li>
+						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
+						
 					</ul>
 				</div>
+				
+				
+				
 		</div>
 	
 		

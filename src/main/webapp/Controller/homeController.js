@@ -1,7 +1,7 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, $state) {
-			// toastr,  $filter, $interval,fileReader
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter) {
+		
 			
 			/*---------------------------------get valid token-----------------------------------*/
 	
@@ -12,25 +12,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 							return token;
 						}
-						
-						
-			/*---------------------------------get user-----------------------------------*/
-						getUser();
-							
-						var getUserDetails = function getUser(){
-							
-							var url = 'getCurrentUser';
-							var method = 'POST';
-							var token = gettingToken();
-							
-							var a = homeService.service(url,method,token,note);
-								a.then(function(response) {
-									$scope.UserDetails=response.data;
-								}, function(response) {
-									
-								});
-							}
-	
+			
 						
 			/*---------------------------------get user-----------------------------------*/
 						
@@ -84,6 +66,9 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*---------------------------------Add reminder-----------------------------------------*/
 						
 						$scope.AddReminder='';
+						
+						
+						$scope.AddReminder='';
 						$scope.openAddReminder=function(){
 						   	$('#datepicker').datetimepicker();
 						   	$scope.AddReminder= $('#datepicker').val();
@@ -94,7 +79,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							   	$('.reminder').datetimepicker();
 							   	 var id = '#datepicker' + note.noteId;
 							   	$scope.reminder = $(id).val();
-							  
+							   	
 							   	if($scope.reminder === "" || $scope.reminder === undefined){
 							   		console.log(note);
 							   		console.log($scope.reminder);
@@ -106,6 +91,103 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							   		$scope.reminder="";
 							   }
 						}
+						
+			/*---------------------------------Collaborator------------------------------*/
+
+						$scope.openCollboarate = function(note, user, index) {
+							$scope.note = note;
+							$scope.user = user;
+							$scope.indexOfNote = index;
+							modalInstance = $uibModal.open({
+								templateUrl : 'Template/Collborate.html',
+								scope : $scope,
+							});
+						}
+						
+						$scope.getUserlist = function(note, user, index) {
+							var obj = {};
+							obj.note = note;
+							obj.ownerId = user;
+							obj.shareId = {};
+
+							var url = 'user/collaborate';
+							var token = gettingToken();
+							var user = homeService.service(url, 'POST', token, obj);
+							user.then(function(response) {
+
+								console.log(response.data);
+								$scope.user = response.data;
+								$scope.note[index].collabratorUsers = response.data;
+
+							}, function(response) {
+								$scope.user = {};
+							
+
+							});
+						
+							console.log(user);
+							
+						}
+
+						$scope.collborate = function(note, user, index) {
+							var obj = {};
+							console.log(note);
+							obj.noteId = note;
+							obj.ownerId = user;
+							obj.shareId = $scope.shareWith;
+
+							var url = 'user/collaborate';
+							var token = gettingToken();
+							var user = homeService.service(url, 'POST', token, obj);
+							user.then(function(response) {
+
+								console.log(response.data);
+								$scope.user = response.data;
+								$scope.note[index].collabratorUsers = response.data;
+
+							}, function(response) {
+								$scope.user = {};
+
+							});
+							
+							console.log(user);
+
+						}
+
+						$scope.getOwner = function(note) {
+							var url = 'user/getOwner';
+							var token = gettingToken();
+							var user = homeService.service(url, 'POST', token, note);
+							user.then(function(response) {
+
+								$scope.owner = response.data;
+
+							}, function(response) {
+								$scope.users = {};
+							});
+						}
+
+						$scope.removeCollborator = function(note, user, index) {
+							var obj = {};
+							var url = 'user/removeCollborator';
+							obj.noteId = note;
+							obj.ownerId = {
+								'email' : ''
+							};
+							obj.shareId = user;
+							var token = localStorage.getItem('token');
+							var user = homeService.service(url, 'POST', token, obj);
+							user.then(function(response) {
+								$scope.collborate(note, $scope.owner);
+
+								console.log(response.data);
+
+							}, function(response) {
+								console.log(response.data);
+
+							});
+						}
+
 						
 						
 						
@@ -199,8 +281,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								});
 							};
 									
-								
-									
 									
 							$scope.changeColorInModal=function(color){
 								$scope.AddNoteColor=color;
@@ -262,7 +342,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.note.title = document.getElementById("notetitle").innerHTML;
 							$scope.note.description = document.getElementById("noteDescription").innerHTML;
 
-							if ($scope.note.title == ""&& $scope.note.description == ""&& $scope.imageSrc == "") {
+							if ($scope.note.title == ""&& $scope.note.description == "") {
 								$scope.pinStatus = false;
 								$scope.AddReminder = '';
 								$scope.AddNoteColor = "#ffffff";
@@ -290,7 +370,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								$scope.pinStatus = false;
 								$scope.AddReminder = '';
 								$scope.AddNoteColor = "#ffffff";
-								$scope.removeImage();
 								toastr.success('Note added','successfully');
 								getAllNotes();
 								}, function(response) {
@@ -299,32 +378,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					}
 					
 		/*----------------------------add a new note to archive --------------------------------*/
-
-					/*$scope.addArchiveNote = function() {
-						$scope.note = {};
-						$scope.note.title = document.getElementById("notetitle").innerHTML;
-						$scope.note.description = document.getElementById("noteDescription").innerHTML;
-						$scope.note.pin = "false";
-						$scope.note.noteStatus = "false";
-						$scope.note.archiveStatus = "true";
-						$scope.note.deleteStatus = "false";
-						$scope.note.reminderStatus = "false";
-						
-						var note = $scope.note;
-						var url = 'user/createNote';
-						var method = 'POST';
-						var token = localStorage.getItem('token');
-						
-						var a = homeService.service(url,method,token,note);
-						
-						a.then(function(response) {
-							document.getElementById("notetitle").innerHTML = "";
-							document.getElementById("noteDescription").innerHTML = "";
-							$scope.pinStatus = false;
-							getAllNotes();
-							}, function(response) {
-						});
-					}*/
 					
 					$scope.addArchiveNote = function() {
 						$scope.note = {};
@@ -375,26 +428,28 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					/* display notes */
 					function getAllNotes() {
-						var b = homePageService.allNotes();
+						
+						var	url='user/getallnotes';
+						var	token = gettingToken();
+		
+						var b = homeService.service(url,'GET',token)
 						b.then(function(response) {
-							$scope.userNotes = response.data;
+							$scope.allGetNotes = response.data;
 							$interval(function(){
 								var i=0;
-								for(i;i<$scope.userNotes.length;i++){
-									if($scope.userNotes[i].reminderStatus!='false'){
+								for(i;i<$scope.allGetNotes.length;i++){
+									if($scope.allGetNotes[i].reminderStatus!='false'){
 										
 										var currentDate=$filter('date')(new Date(),'MM/dd/yyyy h:mm a');
 										
-										if($scope.userNotes[i].reminderStatus === currentDate){
+										if($scope.allGetNotes[i].reminderStatus === currentDate){
 											
 											toastr.success('You have a reminder for a note', 'check it out');
 										}
 									}
 									
 								}
-							},9000);
-							
-							
+							},9000);	
 						}, function(response) {
 							$scope.logout();
 						});
@@ -427,8 +482,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.pinStatus=false;
 						}
 					}
-					
-		/*---------------------------------archive notes--------------------------------------------*/
+		
+/*---------------------------------archive notes--------------------------------------------*/
 					
 					$scope.archiveNote=function(note){
 						note.noteStatus="false";
@@ -446,9 +501,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
+					
 
-
-				
 		/*------------------------------------unarchive notes--------------------------------------------*/
 
 					$scope.unarchiveNote=function(note){
@@ -466,6 +520,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}, function(response) {
 						});
 					}
+					
+
 
 		/*------------------------------------ restore note----------------------------------------------*/
 
@@ -485,6 +541,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						});
 					}
 					
+				
 		/*------------------------------------Add notes to trash---------------------------------------------*/
 
 					
@@ -504,6 +561,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						});
 					}
 					
+					
 		/*------------------------------------ delete note forever----------------------------------------------*/
 
 					$scope.deleteNoteForever = function(id) {
@@ -521,6 +579,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						});
 					}
 					
+					
 		/*------------------------------------ logout user----------------------------------------------*/
 					
 					$scope.logout = function() {
@@ -537,6 +596,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$location.path('/login');
 						})
 					}
+					
+
 
 		/*------------------------------------make a copy of the note-------------------------------------*/
 					
@@ -560,7 +621,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						});
 					}
 				
-					
 			/*-------------------------------------List View and Gride View--------------------------------*/
 					
 					$scope.ListView=true;

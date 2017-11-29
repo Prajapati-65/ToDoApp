@@ -1,14 +1,18 @@
 package com.bridgeit.springToDoApp.Note.Service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.springToDoApp.Note.DAO.NoteDao;
+import com.bridgeit.springToDoApp.Note.Model.Collaborater;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
 
 public class NoteServiceImpl implements NoteService {
@@ -46,4 +50,27 @@ public class NoteServiceImpl implements NoteService {
 		return noteDao.getAllNotes(user);
 	}
 
+	@Transactional
+	public int saveCollborator(Collaborater collborate) {
+		
+		return noteDao.saveCollborator(collborate);
+	}
+
+	@Transactional
+	public List<User> getListOfUser(int noteId) {
+		
+		return noteDao.getListOfUser(noteId);
+	}
+
+	@Transactional
+	public Set<Note> getCollboratedNotes(int userId) {
+		
+		return noteDao.getCollboratedNotes(userId);	
+	}
+	
+	@Transactional
+	public int removeCollborator(int shareWith,int noteId){
+		
+		return noteDao.removeCollborator(shareWith, noteId);
+	}
 }

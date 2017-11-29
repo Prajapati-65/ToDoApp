@@ -1,9 +1,12 @@
 package com.bridgeit.springToDoApp.Note.Service;
 
 import java.util.List;
+import java.util.Set;
 
+import com.bridgeit.springToDoApp.Note.Model.Collaborater;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
+import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 
 public interface NoteService {
 
@@ -17,5 +20,14 @@ public interface NoteService {
 
 	List<Note> getAllNotes(User user);
 	
+	
+	public int saveCollborator(Collaborater collborate);
+
+	public List<User> getListOfUser(int noteId);
+	
+
+	public Set<Note> getCollboratedNotes(int userId);
+	
+	public int removeCollborator(int shareWith,int noteId);
 	
 }

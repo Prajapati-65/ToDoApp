@@ -1,30 +1,10 @@
 <html>
 <head>
 
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
 	
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- 	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-	
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-
-
-<!-- FOR FACEBOOK SHARE -->
-<script src="https://connect.facebook.net/enUS/all.js"></script>
-	
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 <link rel="stylesheet" href="Style/registration.css">
 <link rel="stylesheet" href="Style/login.css">
 <link rel="stylesheet" href="Style/SideNavigationaBar.css">
@@ -34,6 +14,35 @@
 <link rel="stylesheet" href="Style/home.css">
 <link rel="stylesheet" href="Style/AddNote.css">
 <link rel="stylesheet" href="Style/style.css">
+
+	
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+
+	
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+
+
+
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
+<!-- FOR FACEBOOK SHARE -->
+<script src="https://connect.facebook.net/enUS/all.js"></script>
+
+<script src="bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
 
 <script type="text/javascript"
 	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -61,4 +70,7 @@
 <body ng-app="toDoApp">
 	<div ui-view></div>
 </body>
+
+
+
 </html>

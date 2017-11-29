@@ -1,7 +1,9 @@
 package com.bridgeit.springToDoApp.Note.DAO;
 
 import java.util.List;
+import java.util.Set;
 
+import com.bridgeit.springToDoApp.Note.Model.Collaborater;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
 
@@ -17,5 +19,12 @@ public interface NoteDao {
 	Note getNoteById(int noteId);
 
 	List<Note> getAllNotes(User user);
-
+	
+	public int saveCollborator(Collaborater collborate);
+	
+	public List<User> getListOfUser(int noteId);
+	
+	public Set<Note> getCollboratedNotes(int userId);
+	
+	public int removeCollborator(int shareWith,int noteId);
 }
