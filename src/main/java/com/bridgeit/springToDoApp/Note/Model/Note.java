@@ -56,82 +56,15 @@ public class Note {
 	@Column(name = "NOTE_COLOR")
 	private String noteColor;	
 	
-	@Column(name="Reminder")
-	private String reminder;
+	@Column(name="IMAGE")
+	private String image;
 	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
 
-	public int getNoteId() {
-		return noteId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public String getPin() {
-		return pin;
-	}
-
-	public String getArchiveStatus() {
-		return archiveStatus;
-	}
-
-	public String getDeleteStatus() {
-		return deleteStatus;
-	}
-
-	public String getReminderStatus() {
-		return reminderStatus;
-	}
-
-	public String getNoteStatus() {
-		return noteStatus;
-	}
-
-	public String getNoteColor() {
-		return noteColor;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
+	
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
 			this.pin = pin;
@@ -150,32 +83,101 @@ public class Note {
 		}
 	}
 
-	public void setReminderStatus(String reminderStatus) {
-		if (reminderStatus.equals("true") || reminderStatus.equals("false")) {
-			this.reminderStatus = reminderStatus;
-		}
-	}
-
 	public void setNoteStatus(String noteStatus) {
 		if (noteStatus.equals("true") || noteStatus.equals("false")) {
 			this.noteStatus = noteStatus;
 		}
 	}
 
+	public int getNoteId() {
+		return noteId;
+	}
+
+	public void setNoteId(int noteId) {
+		this.noteId = noteId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public String getReminderStatus() {
+		return reminderStatus;
+	}
+
+	public void setReminderStatus(String reminderStatus) {
+		this.reminderStatus = reminderStatus;
+	}
+
+	public String getNoteColor() {
+		return noteColor;
+	}
+
 	public void setNoteColor(String noteColor) {
 		this.noteColor = noteColor;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdDate="
-				+ createdDate + ", modifiedDate=" + modifiedDate + ", pin=" + pin + ", archiveStatus=" + archiveStatus
-				+ ", deleteStatus=" + deleteStatus + ", reminderStatus=" + reminderStatus + ", noteStatus=" + noteStatus
-				+ ", noteColor=" + noteColor + ", user=" + user + "]";
+	public String getPin() {
+		return pin;
 	}
+
+	public String getArchiveStatus() {
+		return archiveStatus;
+	}
+
+	public String getDeleteStatus() {
+		return deleteStatus;
+	}
+
+	public String getNoteStatus() {
+		return noteStatus;
+	}
+	
+
+	
 
 }
