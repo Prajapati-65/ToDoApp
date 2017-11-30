@@ -98,7 +98,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.note = note;
 							$scope.user = user;
 							$scope.indexOfNote = index;
-							modalInstance = $uibModal.open({
+							$scope.modalInstance = $uibModal.open({
 								templateUrl : 'Template/Collborate.html',
 								scope : $scope,
 							});
@@ -293,7 +293,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								note.description = document.getElementById("modifieddescreption").innerHTML;
 								note.noteColor=$scope.AddNoteColor;
 								$scope.updateNote(note);
-								modalInstance.close('resetmodel');
+								$scope.modalInstance.close('resetmodel');
 							}
 			/*------------------------------archive a note from a modal------------------------------*/
 						
@@ -306,13 +306,13 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								note.noteStatus="false";
 								note.pin="false";
 								$scope.updateNote(note);
-								modalInstance.close('resetmodel');
+								$scope.modalInstance.close('resetmodel');
 								}
 								else{
 									note.archiveStatus="false";
 									note.noteStatus="true";
 									$scope.updateNote(note);
-									modalInstance.close('resetmodel');
+									$scope.modalInstance.close('resetmodel');
 								}
 							}
 									
@@ -464,7 +464,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var a = homeService.service(url,method,token,note);
 						
 						a.then(function(response) {
-							modalInstance.close();
+							$scope.modalInstance.close();
 							getAllNotes();
 						}, function(response) {
 						});
