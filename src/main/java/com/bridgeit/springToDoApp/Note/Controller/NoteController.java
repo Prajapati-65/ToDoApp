@@ -141,6 +141,7 @@ public class NoteController {
 
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
+	
 	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/	
 
 	@RequestMapping(value = "/collaborate", method = RequestMethod.POST)
@@ -155,9 +156,8 @@ public class NoteController {
 		
 		shareUser=userService.emailValidate(shareUser.getEmail());
 		
-		
-		String token=request.getHeader("token");
-		User user=userService.getUserById(VerifiedJWT.verify(token));
+		String accessToken=request.getHeader("token");
+		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
 		
 		userList =	noteService.getListOfUser(note.getNoteId());
 		
@@ -166,16 +166,16 @@ public class NoteController {
 			if(shareUser!=null && shareUser.getId()!=owner.getId()) 
 			{
 					int i=0;
-					int flag=0;
+					int variable=0;
 					while(userList.size()>i) 
 					{
 						if(userList.get(i).getId()==shareUser.getId())
 						{
-							flag=1;
+							variable=1;
 						}
 						i++;
 					}
-					if(flag==0) 
+					if(variable==0) 
 					{
 						collaborate.setNoteId(note);
 						collaborate.setOwnerId(owner);
@@ -195,8 +195,8 @@ public class NoteController {
 	@RequestMapping(value = "/getOwner", method = RequestMethod.POST)
 	public ResponseEntity<User> getOwner(@RequestBody Note note, HttpServletRequest request){
 		
-		String token=request.getHeader("token");
-		User user=userService.getUserById(VerifiedJWT.verify(token));
+		String accessToken=request.getHeader("token");
+		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
 		
 		if(user!=null)
 		{
