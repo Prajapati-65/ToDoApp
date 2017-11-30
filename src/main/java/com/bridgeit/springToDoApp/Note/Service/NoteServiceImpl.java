@@ -63,7 +63,7 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	
-	public Set<Note> getCollboratedNotes(int userId) {
+	public List<Note> getCollboratedNotes(int userId) {
 		
 		return noteDao.getCollboratedNotes(userId);	
 	}
@@ -72,5 +72,9 @@ public class NoteServiceImpl implements NoteService {
 	public int removeCollborator(int shareWith,int noteId){
 		
 		return noteDao.removeCollborator(shareWith, noteId);
+	}
+	
+	public void deleteScheduleNote(){
+		noteDao.deleteScheduleNote();
 	}
 }

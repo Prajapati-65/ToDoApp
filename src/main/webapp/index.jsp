@@ -5,10 +5,7 @@
 <link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
 <link rel="stylesheet" href="Style/loginAndRegistration.css">
-<link rel="stylesheet" href="Style/SideNavigationaBar.css">
-<link rel="stylesheet" href="Style/TopNavigationBar.css">
-<link rel="stylesheet" href="Style/forgetpassword.css">
-<link rel="stylesheet" href="Style/resetpassword.css">
+<link rel="stylesheet" href="Style/NavigationaBar.css">
 <link rel="stylesheet" href="Style/home.css">
 <link rel="stylesheet" href="Style/AddNote.css">
 <link rel="stylesheet" href="Style/style.css">

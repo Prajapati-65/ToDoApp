@@ -1,5 +1,6 @@
 package com.bridgeit.springToDoApp.Note.DAO;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -80,6 +81,7 @@ public class NoteDaoImpl implements NoteDao {
 		List<Note> notes = criteria.list();
 		return notes;
 	}
+
 	
 	
 	public int saveCollborator(Collaborater collborate) {
@@ -108,15 +110,13 @@ public class NoteDaoImpl implements NoteDao {
 		return listOfSharedCollaborators;	
 	}
 	
-	public Set<Note> getCollboratedNotes(int userId) {
+	public List<Note> getCollboratedNotes(int userId) {
 		// TODO Auto-generated method stub
 		Session session = factory.openSession();
 		Query query = session.createQuery("select c.noteId from Collaborater c where c.shareId= " + userId);
 		List<Note> colllboratedNotes = query.list();
-		Set<Note> notes=new HashSet<Note>(colllboratedNotes);
-	
 		session.close();
-		return notes;
+		return colllboratedNotes;
 	}
 	
 	public int removeCollborator(int shareWith,int noteId) {
@@ -127,6 +127,31 @@ public class NoteDaoImpl implements NoteDao {
 		int status=query.executeUpdate();
 		session.close();
 		return status;
+	}
+	
+	public void deleteScheduleNote() {
+		Session session = factory.openSession();
+
+		System.out.println("jhdbvj ");
+		
+		Date deleteTime = new Date(System.currentTimeMillis() - 60*1000);
+		String trash= "true";
+		Transaction transaction = session.beginTransaction();
+		try {
+			
+			Query deleteNote = session.createQuery("delete from Note where modifiedDate<:deleteTime and deleteStatus=:trash");
+			deleteNote.setParameter("deleteTime", deleteTime);
+			deleteNote.setParameter("trash", trash);
+
+			int count = deleteNote.executeUpdate();
+			System.out.println("Number of notes deleted: " + count);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}
 	}
 	
 }

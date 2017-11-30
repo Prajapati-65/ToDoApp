@@ -26,8 +26,10 @@ public interface NoteService {
 	public List<User> getListOfUser(int noteId);
 	
 
-	public Set<Note> getCollboratedNotes(int userId);
+	public List<Note> getCollboratedNotes(int userId);
 	
 	public int removeCollborator(int shareWith,int noteId);
 	
+	
+	public void deleteScheduleNote();
 }

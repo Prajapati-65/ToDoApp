@@ -3,6 +3,7 @@ package com.bridgeit.springToDoApp.Note.Controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -110,12 +111,6 @@ public class NoteController {
 		}
 	}
 
-	/**
-	 * @param note(note who's color has to be changes)
-	 * @param user(user who is login)
-	 * @return OK Status
-	 */
-	
 	@RequestMapping(value = "/changeColor", method = RequestMethod.POST)
 	public ResponseEntity<Response> updateColor(@RequestBody Note note, @RequestAttribute("loginedUser") User user) {
 		CustomResponse customResponse = new CustomResponse();
@@ -135,9 +130,18 @@ public class NoteController {
 		CustomResponse customResponse = new CustomResponse();
 		
 		List<Note> allNotes = noteService.getAllNotes(user);
-
+		List<Note> collborated =noteService.getCollboratedNotes(user.getId());
+		List<Note> listNote = new ArrayList<Note>();
+		for (int i = 0; i < allNotes.size(); i++) {
+			listNote.add(allNotes.get(i));
+		}
+		
+		for (int j = 0; j < collborated.size(); j++) {
+			listNote.add(collborated.get(j));
+		}
+		
 		customResponse.setMessage("note found.");
-		customResponse.setNotes(allNotes);
+		customResponse.setNotes(listNote);
 
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
@@ -157,6 +161,7 @@ public class NoteController {
 		shareUser=userService.emailValidate(shareUser.getEmail());
 		
 		String accessToken=request.getHeader("token");
+		
 		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
 		
 		userList =	noteService.getListOfUser(note.getNoteId());
@@ -196,6 +201,7 @@ public class NoteController {
 	public ResponseEntity<User> getOwner(@RequestBody Note note, HttpServletRequest request){
 		
 		String accessToken=request.getHeader("token");
+		
 		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
 		
 		if(user!=null)
@@ -214,6 +220,7 @@ public class NoteController {
 	public ResponseEntity<CustomResponse> removeCollborator(@RequestBody Collaborater collborator, HttpServletRequest request) {
 		
 		CustomResponse response=new CustomResponse();
+		
 		int shareWith=collborator.getShareId().getId();
 		int noteId=collborator.getNoteId().getNoteId();
 		Note note=noteService.getNoteById(noteId);
@@ -250,7 +257,7 @@ public class NoteController {
 			return ResponseEntity.ok(response);
 	    }
 	}
+	
 	/*-------------------------------------------------Collaborator end-----------------------------------------------*/	
-
 
 }

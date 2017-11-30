@@ -11,3 +11,17 @@
 	margin-top: 40px;
 	padding-bottom: 25px;
 }
+
+#forget {
+	background-color: #ccccff;
+	margin-top: 50px;
+	max-width: 550px;
+	padding-bottom: 50px;
+}
+
+#reset {
+	background-color: #ccccff;
+	margin-top: 50px;
+	max-width: 550px;
+	padding-bottom: 50px;
+}

@@ -1,6 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter ,fileReader) {
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter ) {
 		
 										
 			/*---------------------------------get valid token-----------------------------------*/
@@ -65,7 +65,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						};
 			/*---------------------------------File Upload--------------------------------------*/
 						
-						$scope.imageSrc = "";
+						/*$scope.imageSrc = "";
 						
 						$scope.$on("fileProgress", function(e, progress) {
 							$scope.progress = progress.loaded / progress.total;
@@ -115,7 +115,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						});
 						
-						
+						*/
 			/*---------------------------------Add reminder-------------------------------------*/
 						
 						$scope.AddReminder='';
