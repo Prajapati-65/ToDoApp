@@ -50,25 +50,25 @@ public class NoteServiceImpl implements NoteService {
 		return noteDao.getAllNotes(user);
 	}
 
-	@Transactional
+
 	public int saveCollborator(Collaborater collborate) {
 		
 		return noteDao.saveCollborator(collborate);
 	}
 
-	@Transactional
+
 	public List<User> getListOfUser(int noteId) {
 		
 		return noteDao.getListOfUser(noteId);
 	}
 
-	@Transactional
+	
 	public Set<Note> getCollboratedNotes(int userId) {
 		
 		return noteDao.getCollboratedNotes(userId);	
 	}
 	
-	@Transactional
+	
 	public int removeCollborator(int shareWith,int noteId){
 		
 		return noteDao.removeCollborator(shareWith, noteId);

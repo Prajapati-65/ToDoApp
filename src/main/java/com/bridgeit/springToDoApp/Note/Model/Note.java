@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "NOTE_TABLE")
 public class Note {
 
+
 	@Id
 	@GenericGenerator(strategy = "native", name = "noteGen")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "noteGen")
@@ -177,6 +178,13 @@ public class Note {
 		return noteStatus;
 	}
 	
+	@Override
+	public String toString() {
+		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdDate="
+				+ createdDate + ", modifiedDate=" + modifiedDate + ", pin=" + pin + ", archiveStatus=" + archiveStatus
+				+ ", deleteStatus=" + deleteStatus + ", reminderStatus=" + reminderStatus + ", noteStatus=" + noteStatus
+				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + "]";
+	}
 
 	
 

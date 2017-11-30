@@ -106,18 +106,18 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						$scope.getUserlist = function(note, user, index) {
 							var obj = {};
-							obj.note = note;
+							obj.noteId = note;
 							obj.ownerId = user;
 							obj.shareId = {};
 
 							var url = 'user/collaborate';
 							var token = gettingToken();
-							var user = homeService.service(url, 'POST', token, obj);
-							user.then(function(response) {
+							var userDetails = homeService.service(url, 'POST', token, obj);
+							userDetails.then(function(response) {
 
 								console.log(response.data);
-								$scope.user = response.data;
-								$scope.note[index].collabratorUsers = response.data;
+								$scope.users = response.data;
+								note.collabratorUsers = response.data;
 
 							}, function(response) {
 								$scope.user = {};
@@ -138,12 +138,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 							var url = 'user/collaborate';
 							var token = gettingToken();
-							var user = homeService.service(url, 'POST', token, obj);
-							user.then(function(response) {
+							var userDetails = homeService.service(url, 'POST', token, obj);
+							userDetails.then(function(response) {
 
 								console.log(response.data);
-								$scope.user = response.data;
-								$scope.note[index].collabratorUsers = response.data;
+								$scope.users = response.data;
+								note.collabratorUsers = response.data;
 
 							}, function(response) {
 								$scope.user = {};
