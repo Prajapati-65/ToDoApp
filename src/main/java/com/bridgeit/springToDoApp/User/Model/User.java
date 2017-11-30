@@ -38,8 +38,8 @@ public class User {
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
 	
-	//@Lob
-	//@Column(name="PROFILE_IMAGE",columnDefinition = "LONGBLOB")
+	@Lob
+	@Column(name="PROFILE_IMAGE",columnDefinition = "LONGBLOB")
 	private String profileImage;
 
 	

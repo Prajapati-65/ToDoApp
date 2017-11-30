@@ -220,5 +220,17 @@ public class UserController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/profileChange")
+	public ResponseEntity<String> changeProfile(@RequestBody User user ,HttpServletRequest request) throws IOException {
+		
+		int userId = VerifiedJWT.verify(request.getHeader("token"));
+		if(userId==0){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+		}
+		userService.updateUser(user);
+		return ResponseEntity.ok("");
+	}
+	
+	
 	
 }

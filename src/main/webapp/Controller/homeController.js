@@ -1,8 +1,8 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter) {
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter ,fileReader) {
 		
-			
+										
 			/*---------------------------------get valid token-----------------------------------*/
 	
 						var gettingToken = function() {
@@ -23,6 +23,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var method = "POST";
 							var url = 'getUserDetails';
 							var a = homeService.service(url,method,token);
+							
 							a.then(function(response) {
 								$scope.UserDetails=response.data;
 								console.log($scope.UserDetails);
@@ -62,8 +63,60 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								}
 							});
 						};
-
-			/*---------------------------------Add reminder-----------------------------------------*/
+			/*---------------------------------File Upload--------------------------------------*/
+						
+						$scope.imageSrc = "";
+						
+						$scope.$on("fileProgress", function(e, progress) {
+							$scope.progress = progress.loaded / progress.total;
+						});
+					
+						$scope.openImageUploader = function(type) {
+							$scope.type = type;
+							$('#imageuploader').trigger('click');
+						}
+					
+					
+						$scope.changeProfile = function(user) {
+							
+							var url ='profileChange';
+							var method ="POST";
+							var token = gettingToken();
+						
+							var a = homeService.service(url, method, token, user);
+							a.then(function(response) {
+					
+							}, function(response) {
+					
+							});
+						}
+					
+						
+						$scope.removeImage = function() {
+							$scope.AddNoteBox = false;
+							$scope.addimg = undefined;
+						}
+					
+						$scope.type = {};
+						$scope.type.image = '';
+					
+						$scope.$watch('imageSrc', function(newimg, oldimg) {
+							if ($scope.imageSrc != '') {
+								if ($scope.type === 'input') {
+									$scope.addimg = $scope.imageSrc;
+								} else if ($scope.type === 'user') {
+									$scope.User.profileImage = $scope.imageSrc;
+									$scope.changeProfile($scope.User);
+								} else {
+									console.log();
+									$scope.type.image = $scope.imageSrc;
+									$scope.updateNote($scope.type);
+								}
+							}
+						});
+						
+						
+			/*---------------------------------Add reminder-------------------------------------*/
 						
 						$scope.AddReminder='';
 						
@@ -428,7 +481,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					/* display notes */
 					function getAllNotes() {
-						
 						var	url='user/getallnotes';
 						var	token = gettingToken();
 		
@@ -545,7 +597,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		/*------------------------------------Add notes to trash---------------------------------------------*/
 
 					
-					$scope.deleteNote=function(note){
+					$scope.deleteNote=function(note){		
+						
+					
+
 						note.pin="false";
 						note.deleteStatus="true";
 						note.reminderStatus="false";
@@ -565,7 +620,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		/*------------------------------------ delete note forever----------------------------------------------*/
 
 					$scope.deleteNoteForever = function(id) {
-						
+						toastr.success('Note deleted','successfully');
 						console.log("id is ..." +id);
 						var url = 'user/delete/'+id;
 						var method = 'DELETE';

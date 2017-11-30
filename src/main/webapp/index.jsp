@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="Style/home.css">
 <link rel="stylesheet" href="Style/AddNote.css">
 <link rel="stylesheet" href="Style/style.css">
+<link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
 
 	
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
@@ -30,6 +31,7 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
 <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
 
 <!-- FOR FACEBOOK SHARE -->
 <script src="https://connect.facebook.net/enUS/all.js"></script>

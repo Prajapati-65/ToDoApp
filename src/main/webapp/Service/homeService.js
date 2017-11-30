@@ -17,5 +17,4 @@ todoApp.factory('homeService', function($http, $location){
 		});
 	}
 	return cards;
-
 });
