@@ -1,54 +1,35 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-
 <link rel="stylesheet" href="Style/loginAndRegistration.css">
 <link rel="stylesheet" href="Style/NavigationaBar.css">
 <link rel="stylesheet" href="Style/home.css">
 <link rel="stylesheet" href="Style/AddNote.css">
 <link rel="stylesheet" href="Style/style.css">
 <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
+<link rel="stylesheet" href="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
-	
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular/angular.js"></script>
 
-	
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>  
 <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
-<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-
-
-
-
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-
-<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
-
-
-<!-- FOR FACEBOOK SHARE -->
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="https://connect.facebook.net/enUS/all.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/adonespitogo/angular-base64-upload/master/src/angular-base64-upload.js"></script>
+<script src="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="bower_components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-
-<script type="text/javascript"
-	src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script type="text/javascript"
-	src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	
+	
 <script type="text/javascript" src="Script/app.js"></script>
 <script type="text/javascript" src="Script/SideBarNavShow.js"></script>
-
-
 
 <script type="text/javascript" src="Controller/RegistrationController.js"></script>
 <script type="text/javascript" src="Controller/loginController.js"></script>

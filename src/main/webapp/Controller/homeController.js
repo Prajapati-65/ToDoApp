@@ -2,7 +2,6 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter ) {
 		
-										
 			/*---------------------------------get valid token-----------------------------------*/
 	
 						var gettingToken = function() {
@@ -63,64 +62,14 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								}
 							});
 						};
-			/*---------------------------------File Upload--------------------------------------*/
+			/*---------------------------------------------------------------------------------*/
 						
-						/*$scope.imageSrc = "";
 						
-						$scope.$on("fileProgress", function(e, progress) {
-							$scope.progress = progress.loaded / progress.total;
-						});
-					
-						$scope.openImageUploader = function(type) {
-							$scope.type = type;
-							$('#imageuploader').trigger('click');
-						}
-					
-					
-						$scope.changeProfile = function(user) {
-							
-							var url ='profileChange';
-							var method ="POST";
-							var token = gettingToken();
-						
-							var a = homeService.service(url, method, token, user);
-							a.then(function(response) {
-					
-							}, function(response) {
-					
-							});
-						}
-					
-						
-						$scope.removeImage = function() {
-							$scope.AddNoteBox = false;
-							$scope.addimg = undefined;
-						}
-					
-						$scope.type = {};
-						$scope.type.image = '';
-					
-						$scope.$watch('imageSrc', function(newimg, oldimg) {
-							if ($scope.imageSrc != '') {
-								if ($scope.type === 'input') {
-									$scope.addimg = $scope.imageSrc;
-								} else if ($scope.type === 'user') {
-									$scope.User.profileImage = $scope.imageSrc;
-									$scope.changeProfile($scope.User);
-								} else {
-									console.log();
-									$scope.type.image = $scope.imageSrc;
-									$scope.updateNote($scope.type);
-								}
-							}
-						});
-						
-						*/
+		
 			/*---------------------------------Add reminder-------------------------------------*/
 						
 						$scope.AddReminder='';
-						
-						
+					
 						$scope.AddReminder='';
 						$scope.openAddReminder=function(){
 						   	$('#datepicker').datetimepicker();
@@ -144,6 +93,34 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							   		$scope.reminder="";
 							   }
 						}
+						
+						$scope.removeReminder=function(note){
+							console.log($scope.file);
+							note.reminderStatus=null;
+							update(note);
+						}
+						
+			/*-----------------------------------------------------------------------------------*/		
+							function interVal() {
+									$interval(function(){
+										var i=0;
+										for(i;i<$scope.allGetNotes.length;i++){
+											if($scope.allGetNotes[i].reminderStatus!='false'){
+												
+												var currentDate=$filter('date')(new Date(),'MM/dd/yyyy h:mm a');
+												
+												if($scope.allGetNotes[i].reminderStatus === currentDate){
+													toastr.success($scope.allGetNotes[i].title, 'Reminder');
+													$scope.allGetNotes[i].reminderStatus=null;
+													update($scope.allGetNotes[i]);
+												}
+											}
+											
+										}
+									},9000);
+							}
+	
+						
 						
 			/*---------------------------------Collaborator------------------------------*/
 
@@ -174,8 +151,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 							}, function(response) {
 								$scope.user = {};
-							
-
 							});
 						
 							console.log(user);
@@ -487,21 +462,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var b = homeService.service(url,'GET',token)
 						b.then(function(response) {
 							$scope.allGetNotes = response.data;
-							$interval(function(){
-								var i=0;
-								for(i;i<$scope.allGetNotes.length;i++){
-									if($scope.allGetNotes[i].reminderStatus!='false'){
-										
-										var currentDate=$filter('date')(new Date(),'MM/dd/yyyy h:mm a');
-										
-										if($scope.allGetNotes[i].reminderStatus === currentDate){
-											
-											toastr.success('You have a reminder for a note', 'check it out');
-										}
-									}
-									
-								}
-							},9000);	
+							
 						}, function(response) {
 							$scope.logout();
 						});

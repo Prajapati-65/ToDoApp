@@ -101,7 +101,6 @@ public class NoteDaoImpl implements NoteDao {
 	}
 
 	public List<User> getListOfUser(int noteId) {
-
 		Session session = factory.openSession();
 		Query querycollab = session.createQuery("select c.shareId from Collaborater c where c.noteId= " + noteId);
 		List<User> listOfSharedCollaborators = querycollab.list();
@@ -111,7 +110,6 @@ public class NoteDaoImpl implements NoteDao {
 	}
 	
 	public List<Note> getCollboratedNotes(int userId) {
-		// TODO Auto-generated method stub
 		Session session = factory.openSession();
 		Query query = session.createQuery("select c.noteId from Collaborater c where c.shareId= " + userId);
 		List<Note> colllboratedNotes = query.list();
@@ -123,7 +121,6 @@ public class NoteDaoImpl implements NoteDao {
 		Session session = factory.openSession();
 		Transaction transaction=session.beginTransaction();
 		Query query = session.createQuery("delete  Collaborater c where c.shareId= "+shareWith+" and c.noteId="+noteId );
-	
 		int status=query.executeUpdate();
 		session.close();
 		return status;
@@ -131,20 +128,14 @@ public class NoteDaoImpl implements NoteDao {
 	
 	public void deleteScheduleNote() {
 		Session session = factory.openSession();
-
-		System.out.println("jhdbvj ");
-		
-		Date deleteTime = new Date(System.currentTimeMillis() - 60*1000);
+		Date deleteTime = new Date(System.currentTimeMillis() - 7*24*60*60*1000);
 		String trash= "true";
 		Transaction transaction = session.beginTransaction();
 		try {
-			
 			Query deleteNote = session.createQuery("delete from Note where modifiedDate<:deleteTime and deleteStatus=:trash");
 			deleteNote.setParameter("deleteTime", deleteTime);
 			deleteNote.setParameter("trash", trash);
-
 			int count = deleteNote.executeUpdate();
-			System.out.println("Number of notes deleted: " + count);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) {

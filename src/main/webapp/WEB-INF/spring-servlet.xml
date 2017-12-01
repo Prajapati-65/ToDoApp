@@ -144,7 +144,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	
 	
 	<task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="noteSchedule" method="noteSchedule" fixed-delay="5000" />
+        <task:scheduled ref="noteSchedule" method="noteSchedule" fixed-delay="50000" />
     </task:scheduled-tasks>
  
     <task:scheduler id="myScheduler"/>
