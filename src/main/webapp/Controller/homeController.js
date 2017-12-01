@@ -379,6 +379,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								$scope.note.noteStatus = "true";
 								$scope.note.reminderStatus = $scope.AddReminder;
 								$scope.note.archiveStatus = "false";
+								$scope.note.reminderStatus = null;
 								$scope.note.deleteStatus = "false";
 								$scope.note.image = $scope.imageSrc;
 								$scope.imageSrc = "";
@@ -475,7 +476,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var a = homeService.service(url,method,token,note);
 						
 						a.then(function(response) {
-							$scope.modalInstance.close();
+							$scope.modalInstance;
 							getAllNotes();
 						}, function(response) {
 						});
