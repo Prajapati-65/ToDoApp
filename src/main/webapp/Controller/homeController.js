@@ -63,19 +63,17 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						};
 			/*---------------------------------------------------------------------------------*/
-						
-						
-		
-			/*---------------------------------Add reminder-------------------------------------*/
-						
 						$scope.AddReminder='';
-					
+						
 						$scope.AddReminder='';
 						$scope.openAddReminder=function(){
 						   	$('#datepicker').datetimepicker();
 						   	$scope.AddReminder= $('#datepicker').val();
 						}
 						
+			/*---------------------------------Add reminder-------------------------------------*/
+						
+					
 						$scope.reminder ="";
 						$scope.openReminder=function(note){
 							   	$('.reminder').datetimepicker();
@@ -97,7 +95,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						$scope.removeReminder=function(note){
 							console.log($scope.file);
 							note.reminderStatus=null;
-							update(note);
+							$scope.updateNote(note);
 						}
 						
 			/*-----------------------------------------------------------------------------------*/		

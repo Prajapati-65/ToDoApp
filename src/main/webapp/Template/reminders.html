@@ -14,8 +14,8 @@
 						
 								<div>
 									<br> <br>
-									<div class="card" style="background-color: {{note.noteColor}}" 
-										ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'}">
+									<div class="card" style="background-color: {{note.noteColor}}"  
+										ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'false' , deleteStatus:'false'}">
 								
 										<div id="moreOptions" style="float: right">
 											<span ng-click="note.pin='true'; updateNote(note)"> 
@@ -34,6 +34,7 @@
 										
 										<div>
 											<div class="dropdown inline">
+											
 												<span class="btn dropdown-toggle" id="menu2" data-toggle="dropdown">
 														<img alt="reminder" src="image/reminder.svg" height="17px">
 												</span>
@@ -48,6 +49,7 @@
 														</button>
 													</li>
 												</ul>
+												
 											</div>
 											
 											
