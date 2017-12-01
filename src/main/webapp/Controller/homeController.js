@@ -622,7 +622,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						note.noteStatus="true";
 						note.archiveStatus="false";
 						note.deleteStatus="false";
-						note.reminderStatus="false";
 						note.pin = "false";
 						
 						var url = 'user/createNote';
