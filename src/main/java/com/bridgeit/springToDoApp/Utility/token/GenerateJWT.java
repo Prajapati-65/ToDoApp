@@ -22,10 +22,8 @@ public class GenerateJWT {
 	public static String generate(int id){
 		
 		Date issueDate = new Date();
-		logger.info("Issue date ->"+issueDate);
 		
 		Date expireDate = new Date(issueDate.getTime()+1000*60*60);
-		logger.info("Expire date ->"+expireDate);
 	
 		JwtBuilder builder = Jwts.builder();
 		builder.setSubject("accessToken");
@@ -35,11 +33,9 @@ public class GenerateJWT {
 		builder.setExpiration(expireDate);
 		
 		builder.setIssuer(String.valueOf(id));
-		logger.info("Issue id -->"+id);
 		
 		builder.signWith(SignatureAlgorithm.HS256, KEY);
 		String compactJwt = builder.compact();
-		logger.info("Generated jwt : " + compactJwt);
 		return compactJwt;
 	}
 	

@@ -31,7 +31,6 @@ public class GoogleController {
 	@RequestMapping(value = "/googleConnection", method = RequestMethod.GET)
 	public void beforeGoogle(HttpServletResponse response) throws IOException {
 		String googleLoginPageUrl = GoogleLogin.generateLoginUrl();
-		logger.info("Url is : " + googleLoginPageUrl);
 		response.sendRedirect(googleLoginPageUrl);
 	}
 
@@ -48,13 +47,10 @@ public class GoogleController {
 
 			String code;
 			code = request.getParameter("code");
-			logger.info("Code is :-->" + code);
 
 			String googleAccessToken = GoogleLogin.getAccessToken(code);
-			logger.info("Google Access Token is :--> " + googleAccessToken);
 
 			String profileData = GoogleLogin.getProfileData(googleAccessToken);
-			logger.info("Profile data is : --> " + profileData);
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			String email = objectMapper.readTree(profileData).get("email").asText();

@@ -1,18 +1,18 @@
-<div>
+<div class="row container-fluid">
 	<br> <br>
+	<div class="col-12 container-fluid">
 	<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>  
-	<div class="card" 
+	<div class="card col-sm-4" 
 		style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 
-		
 		<div ng-click="open(note)">
-				<div style="position: relative;">
+				<div style="position: relative; margin: -10px;">
 				<span class="glyphicon glyphicon-pushpin" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" style="position: absolute; right: 0;"></span>
 					<img ng-src="{{note.image}}"  style="width:100%"/>
 					
 				</div>
-				<div style="padding: 10px;">
+				<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
 					
 					<div ng-bind-html="note.title"></div>
 					<br>
@@ -88,7 +88,7 @@
 						
 					</ul>
 				</div>
-				
+			</div>
 		</div>
 	</div>
 </div>

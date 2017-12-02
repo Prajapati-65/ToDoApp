@@ -2,7 +2,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" href="Style/loginAndRegistration.css">
 <link rel="stylesheet" href="Style/NavigationaBar.css">
 <link rel="stylesheet" href="Style/home.css">

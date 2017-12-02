@@ -50,18 +50,15 @@ public class UserController {
 		{
 			try {
 				userService.saveUser(user, request);
-				logger.info("User registered successfully");
 				customResponse.setMessage("User registered successfully");
 				customResponse.setStatus(2);
 				return customResponse;
 			} catch (Exception e) {
-				logger.error("Could not registered user");
 				customResponse.setMessage("User could not be registered");
 				customResponse.setStatus(-1);
 				return customResponse;
 			}
 		} else {
-			logger.warn("User could not be registered, validation failed");
 
 			customResponse.setMessage(isValidator);
 			customResponse.setStatus(-6);
@@ -79,11 +76,9 @@ public class UserController {
 		try 
 		{
 			user = userService.getUserById(id);
-			logger.info("User details " + user);
 		} 
 		catch (Exception e) 
 		{
-			logger.error("user not found ");
 			e.printStackTrace();
 		}
 		
@@ -91,11 +86,9 @@ public class UserController {
 		try 
 		{
 			userService.updateUser(user);
-			logger.info("Account is activated ");
 		} 
 		catch (Exception e) 
 		{
-			logger.error("Account is not activated");
 			e.printStackTrace();
 		}
 		customResponse.setStatus(200);
@@ -113,7 +106,6 @@ public class UserController {
 		try {
 			int userId = userService.loginUser(user);
 			if (userId == 0) {
-				logger.warn("Invalid details");
 				response.setMessage("Invalid details");
 				response.setStatus(-5);
 				return response;
@@ -125,7 +117,6 @@ public class UserController {
 				return response;
 			}
 		} catch (Exception e) {
-			logger.error("User from database is showing error");
 			response.setMessage("User from database is showing error");
 			response.setStatus(-1);
 			return response;
@@ -169,7 +160,6 @@ public class UserController {
 			customResponse.setStatus(-1);
 			return customResponse;
 		}
-		logger.info("Forgot password seccessful");
 		customResponse.setMessage("Forgot password seccessful");
 		customResponse.setStatus(1);
 		return customResponse;
@@ -189,13 +179,11 @@ public class UserController {
 		boolean reset= userService.resetpassword(user);
 		if(reset==true)
 		{
-			logger.info("Password update is successful ");
 			customResponse.setMessage("Reset password is success :");
 			customResponse.setStatus(2);
 			return customResponse;
 		}
 		else {
-			logger.error("Reset password unseccessful");
 			customResponse.setMessage("Password could not be changed");
 			customResponse.setStatus(-2);
 			return customResponse;

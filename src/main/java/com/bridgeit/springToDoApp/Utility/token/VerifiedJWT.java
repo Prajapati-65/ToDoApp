@@ -17,7 +17,6 @@ public class VerifiedJWT {
 			Claims claims = Jwts.parser().setSigningKey(KEY).parseClaimsJws(token).getBody();
 			
 			claims.getExpiration();
-			logger.info("Claims--->"+claims.getExpiration());
 			return Integer.parseInt(claims.getIssuer());
 			
 		} catch (Exception e) {

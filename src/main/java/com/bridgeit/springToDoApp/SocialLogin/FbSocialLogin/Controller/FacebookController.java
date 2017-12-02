@@ -30,7 +30,6 @@ public class FacebookController {
 	@RequestMapping(value = "/facebookConnection", method = RequestMethod.GET)
 	public void beforeFbLogin(HttpServletResponse response) throws IOException {
 		String fbUrl = FbLogin.getFbLoginUrl();
-		logger.info(fbUrl);
 		response.sendRedirect(fbUrl);
 	}
 
@@ -40,13 +39,10 @@ public class FacebookController {
 
 		String code;
 		code = request.getParameter("code");
-		logger.info("Code : ---> " + code);
 
 		String fbAccessToken = FbLogin.getFbAccessToken(code);
-		logger.info("FBAccess token : " + fbAccessToken);
 
 		String profileData = FbLogin.getProfileData(fbAccessToken);
-		logger.info("profile is : " + profileData);
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String email = objectMapper.readTree(profileData).get("email").asText();

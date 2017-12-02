@@ -31,7 +31,6 @@ public class FbLogin {
 	}
 
 	public static String getFbLoginUrl() {
-		logger.info("fb url is : " + facebookUrl);
 		return facebookUrl;
 	}
 
@@ -57,7 +56,6 @@ public class FbLogin {
 		}
 		ObjectMapper objectMapper = new ObjectMapper();
 		String fbAccessToken = objectMapper.readTree(fbResponse).get("access_token").asText();
-		logger.info("Access token: " + fbAccessToken);
 		return fbAccessToken;
 	}
 
@@ -66,20 +64,17 @@ public class FbLogin {
 		URL url = new URL(profileUrl);
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
-		logger.info("Connection is :" + connection);
 		
 		BufferedReader bufferedReader = null;
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		} catch (Exception E) {
-			logger.error("Exceptions..");
 		}
 		String line = "";
 		String profileData = "";
 		while ((line = bufferedReader.readLine()) != null) {
 			profileData = profileData + line;
 		}
-		logger.info("Profile data is : "+profileData);
 		return profileData;
 	}
 }

@@ -36,7 +36,6 @@ public class GoogleLogin {
 	}
 
 	public static String generateLoginUrl() {
-		logger.info("Google url is : "+googleLoginUrl);
 		return googleLoginUrl;
 	}
 
@@ -69,7 +68,6 @@ public class GoogleLogin {
 		
 		URLConnection connection = urlInfo.openConnection();
 		connection.setDoOutput(true);
-		logger.info("Connection is :" + connection);
 		BufferedReader bufferedReader = null;
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -81,7 +79,6 @@ public class GoogleLogin {
 		while ((line = bufferedReader.readLine()) != null) {
 			googleResponse = googleResponse + line;
 		}
-		logger.info("Google response : "+googleResponse);
 		return googleResponse;
 	}
 	
