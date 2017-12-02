@@ -1,6 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter ) {
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter,fileReader ) {
 		
 			/*---------------------------------get valid token-----------------------------------*/
 	
@@ -30,7 +30,59 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-			
+			/*------------------------------------------------------------------------*/
+						$scope.imageSrc = "";
+
+						$scope.$on("fileProgress", function(e, progress) {
+							$scope.progress = progress.loaded / progress.total;
+						});
+
+						$scope.openImageUploader = function(type) {
+							$scope.type = type;
+							$('#imageuploader').trigger('click');
+						}
+						
+						$scope.changeProfile=function(user){
+							var token = gettingToken();
+							var method = 'PUT';
+							var url = 'profileChange';
+							
+							var a = homeService.service(url,method,token,user);
+							
+							a.then(function(response) {
+							
+								},function(response){
+								
+							});
+						}
+							
+						$scope.removeImage = function() {
+							$scope.AddNoteBox = false;
+							$scope.addimg = undefined;
+						}
+							
+							
+							
+						$scope.type = {};
+						$scope.type.image = '';
+
+						$scope.$watch('imageSrc', function(newimg, oldimg) {
+							if ($scope.imageSrc != '') {
+								if ($scope.type === 'input') {
+									$scope.addimg = $scope.imageSrc;
+								} 
+								else if($scope.type === 'user'){
+									$scope.UserDetails.profileImage=$scope.imageSrc;
+									$scope.changeProfile($scope.UserDetails);
+								}
+								else {
+									console.log();
+									$scope.type.image = $scope.imageSrc;
+									$scope.updateNote($scope.type);
+								}
+							}
+
+						});
 			/*---------------------------------Social Share-----------------------------------------*/
 						
 						// SOCIAL SHARE
@@ -396,14 +448,14 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								document.getElementById("noteDescription").innerHTML = "";
 								$scope.pinStatus = false;
 								$scope.AddReminder = '';
-								$scope.AddNoteColor = "#ffffff";
+								$scope.AddNoteColor = "#ffffff";s
 								toastr.success('Note added','successfully');
 								getAllNotes();
 								}, function(response) {
 							});
 						}
 					}
-					
+						
 		/*----------------------------add a new note to archive --------------------------------*/
 					
 					$scope.addArchiveNote = function() {

@@ -220,7 +220,7 @@ public class UserController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/profileChange")
+	@RequestMapping(value = "/profileChange", method = RequestMethod.PUT)
 	public ResponseEntity<String> changeProfile(@RequestBody User user ,HttpServletRequest request) throws IOException {
 		
 		int userId = VerifiedJWT.verify(request.getHeader("token"));

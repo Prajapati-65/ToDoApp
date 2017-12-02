@@ -4,16 +4,16 @@
 	<div class="card" ng-click="showModal(note)" style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 
-		<div id="moreOptions" style="float: right;">
-			<span ng-click="note.pin=false; updateNote(note)"> <img
-				alt="pin" style="height: 17px" src="image/bluepin.svg"></img>
-			</span>
+		<div ng-click="open(note)" >
+				<div>
+					<img ng-src="{{note.image}}"  style="width:100%" />
+				</div>
+					<span class="glyphicon glyphicon-pushpin"  ng-click="note.pin=false; updateNote(note)" style="float: right;"></span>
+				<div ng-bind-html="note.title"></div>
+				<br>
+				<div ng-bind-html="note.description" ></div>
+				<br>
 		</div>
-
-		<div ng-bind-html="note.title" ng-click="open(note)"></div>
-		<br>
-		<div ng-bind-html="note.description" ng-click="open(note)"></div>
-		<br>
 		
 		<div id="reminder" ng-if="note.reminderStatus!=null">{{note.reminderStatus}}
 			<span class="closebtn" ng-click="removeReminder(note)">&#x274C;</span>

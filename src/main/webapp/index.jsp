@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="Style/AddNote.css">
 <link rel="stylesheet" href="Style/style.css">
 <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
 <script src="bower_components/angular/angular.js"></script>

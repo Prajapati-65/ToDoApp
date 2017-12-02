@@ -1,21 +1,18 @@
 <div id="editNoteModal" style="background-color: {{AddNoteColor}}">
-		<div style="float: right">
-			<span style="cursor: pointer" ng-click="note.pin=!note.pin"> 
-			<img ng-hide="note.pin" style="height: 17px" alt="pin" src="image/pin.svg"><img ng-show="note.pin" style="height: 17px" alt="pin" src="image/bluepin.svg">
-			</span>
-		</div>
 		
+		
+		<div>
+			<img ng-src="{{note.image}}"  style="width:100%" />
+		</div>
+		<span class="glyphicon glyphicon-pushpin"  ng-click="note.pin=!note.pin; updateNote(note)" style="float: right;"></span>
 		<div contenteditable="true" ng-bind-html="note.title" id="modifiedtitle">
-		
 		</div>
-
 		<br>
 		<div contenteditable="true" ng-bind-html="note.description" id="modifieddescreption"></div>
 		<br>
 		
 		
 	<div>
-		
 		<div  width="30" height="15">
 				Created :{{note.createdDate|date:'MMM dd'}}
 			 <div class="pull-right">
@@ -24,23 +21,68 @@
 		</div>
 		
 		
-		<div class="btn-group dropup colorDiv" uib-dropdown>
-			<img id ="dropdown" class="dropdown-toggle" data-toggle="dropdown" alt="color" src="image/colorpallete.svg"  uib-dropdown-toggle height="20px">
-					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body" style="background-color: #000000">
-							<a ng-repeat="color in colors"   role="menuitem">
-								<img ng-src="{{color.path}}"  height="25px" ng-click="changeColorInModal(color.color)">
-							</a>
-					</ul>
-		</div>
 		
-		<span style="cursor: pointer" ng-click="UnarchiveandArchiveFromModal(note)"> 
-			<img ng-hide="note.archiveStatus" style="height: 17px" alt="pin" src="image/unarchive.png"><img ng-show="note.archiveStatus" style="height: 17px" alt="pin" src="image/archive.svg">
-		</span>
+			<div class="dropdown inline">
+				<span class="btn dropdown-toggle" id="menu2" data-toggle="dropdown">
+						<img alt="reminder" src="image/reminder.svg" height="17px">
+				</span>					
+				<ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+					<li>
+						<input type="text" ng-attr-id="datepicker{{note.noteId}}" class="reminder">
+					</li>
+					<li>
+						<button ng-click="openReminder(note)">
+							<span  class="glyphicon glyphicon-calendar"></span>
+						</button>
+					</li>
+				</ul>
+				
+			</div>
 			
-		<div style="float: right">
-			<div id="edit">
-          	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateNoteModal(note)">DONE</button>
-      	  	</div>
+			
+			<img alt="colaburator" class="btn" src="image/colaburator.png" height="40px" ng-click="openCollboarate(note,UserDetails,$index)">
+			
+			
+			<div class="dropdown inline">
+				<div class="btn btn-group dropup colorDiv" uib-dropdown>
+					<img id ="dropdown" class="dropdown-toggle" data-toggle="dropdown" alt="color" src="image/colorpallete.svg"  uib-dropdown-toggle height="20px">
+						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body" style="background-color: #000000">
+								<a ng-repeat="color in colors"   role="menuitem">
+									<img ng-src="{{color.path}}"  height="25px" ng-click="changeColorInModal(color.color)">
+								</a>
+						</ul>
+				</div>
+			</div>	
+			
+				<span ng-click="openImageUploader(note)" class="btn"> 
+					<img alt="image" src="image/image.svg" height="20px">	
+				</span>
+	
+				
+				<span style="cursor: pointer" ng-click="UnarchiveandArchiveFromModal(note)" class="btn"> 
+					<img ng-hide="note.archiveStatus" height="20px" alt="pin" src="image/unarchive.png">
+					<img ng-show="note.archiveStatus"  height="20px" alt="pin" src="image/archive.svg">
+				</span>
+			
+			
+				<div class="dropdown inline">
+						</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-option-vertical"></span>
+						</span>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+						<li><a ng-click="deleteNote(note)">Delete</a></li>
+						<li><a ng-click="">Add label</a></li>
+						<li><a ng-click="copy(note)">Make a Copy</a></li>
+						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
+						
+					</ul>
+				</div>
+				
+				<div style="float: right">
+					<div id="edit">
+		          	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="updateNoteModal(note)">DONE</button>
+		      	  	</div>
+				</div>
 		</div>
 	</div>
 </div>

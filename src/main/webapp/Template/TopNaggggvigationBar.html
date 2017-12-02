@@ -1,0 +1,49 @@
+<nav class="navbar">
+	<div class="container-fluid" id="topNavigation" ng-style="{'background-color': navBarColor}">
+		<!-- <form class="navbar-form navbar-center"> -->
+		<ul class="nav navbar-nav">
+			<li><i class="glyphicons glyphicons-show-lines"></i></li>
+			<li ng-click="sidebarToggle()">
+			<span style="font-size: 25px; cursor: pointer">&#9776;</span></li>
+			<li><h4 ng-bind="navBarHeading"></h4></li>
+			<li><span style="padding-top: 10px" class="glyphicon glyphicon-search"></span></li>
+			<li>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+			</li>
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+		<li ng-click="ListViewToggle()"><img ng-if="!ListView" height="30px" alt="gride" src="image/gridePxart.png"><img ng-if="ListView" height="30px" alt="list" src="image/list1.png"></li>
+			<li>
+				<div class="imagedropdown">
+					<span class="btn dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+						
+						<img alt="{{User.firstName.charAt(0)}}" class="img-circle" ng-src="{{User.profile}}" height="35px">
+					</span>
+					
+					<ul class="dropdown-menu" role="menu" style="background-color: white; padding-left: 10px" aria-labelledby="menu1">
+						<li     style="height: 150px;width: 200px;">
+						
+						<img alt="{{User.firstName.charAt(0)}}" title="{{User.firstName.charAt(0)}}" class="img-circle" ng-src="{{User.profile}}" height="100px" width="100px">
+						
+						<img alt="ChangeProfile" ng-click="openImageUploader('user')" src="" height="20px">
+						
+						 <input id="imageuploader" ng-show="false"  type="file" ng-file-select="onFileSelect($files)" ng-model="imageSrc">
+						
+						{{User.firstName}}
+						{{User.email}}
+						
+						</li>
+						<button style="float: right">
+						<li ng-click="logout()">logout</li>
+						</button>
+						
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<!-- </form> -->
+	</div>
+</nav>

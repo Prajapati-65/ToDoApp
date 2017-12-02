@@ -5,22 +5,29 @@
 		style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 
-		<div id="moreOptions" style="float: right">
-			<span ng-click="note.pin='true'; updateNote(note)"> 
-			<img alt="pin" style="height: 17px" src="image/pin.svg"></img>
-			</span>
+		
+		<div ng-click="open(note)">
+				<div style="position: relative;">
+				<span class="glyphicon glyphicon-pushpin" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" style="position: absolute; right: 0;"></span>
+					<img ng-src="{{note.image}}"  style="width:100%"/>
+					
+				</div>
+				<div style="padding: 10px;">
+					
+					<div ng-bind-html="note.title"></div>
+					<br>
+					<div ng-bind-html="note.description"></div>
+					<br>
+				</div>
 		</div>
 
-		<div ng-bind-html="note.title" ng-click="open(note)"></div>
-		<br>
-		<div ng-bind-html="note.description" ng-click="open(note)"></div>
-		<br>
+		
 		
 		<div id="reminder" ng-if="note.reminderStatus!=null">
 			{{note.reminderStatus}}<span class="closebtn" ng-click="removeReminder(note)">&#x274C;</span>
 		</div> 
 		
-		<div>
+		<div id="moreOptions">
 			<div class="dropdown inline">
 				<span class="btn dropdown-toggle" id="menu2" data-toggle="dropdown">
 						<img alt="reminder" src="image/reminder.svg" height="17px">
@@ -60,8 +67,9 @@
 			
 			
 				<span ng-click="openImageUploader(note)" class="btn"> 
-						<img alt="image" src="image/image.svg" height="20px">	
-				</span>				
+					<img alt="image" src="image/image.svg" height="20px">	
+				</span>
+	
 				
 				<span ng-click="archiveNote(note)" class="btn"> 
 					<img alt="archive" src="image/archive.svg" height="20px">	
@@ -69,7 +77,7 @@
 			
 			
 				<div class="dropdown inline">
-						</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+						 <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-option-vertical"></span>
 						</span>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
@@ -82,8 +90,5 @@
 				</div>
 				
 		</div>
-	
-		
-		
 	</div>
 </div>
