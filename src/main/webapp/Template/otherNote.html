@@ -1,9 +1,10 @@
-<div class="row container-fluid">
-	<br> <br>
-	<div class="col-12 container-fluid">
+<div class="container">
+	<div class="row">
+	  <div class="col-12">
+		<br> <br>
+	
 	<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>  
-	<div class="card col-sm-4" 
-		style="background-color: {{note.noteColor}}"
+	<div class="card col-sm-4" style="background-color: {{note.noteColor}}"
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 
 		<div ng-click="open(note)">
@@ -88,7 +89,11 @@
 						
 					</ul>
 				</div>
-			</div>
+		</div>
+	</div>
+			
+		
+			
 		</div>
 	</div>
 </div>

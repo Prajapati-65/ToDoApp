@@ -25,7 +25,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							
 							a.then(function(response) {
 								$scope.UserDetails=response.data;
-								console.log($scope.UserDetails);
 							}, function(response) {
 								
 							});
@@ -76,7 +75,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 									$scope.changeProfile($scope.UserDetails);
 								}
 								else {
-									console.log();
 									$scope.type.image = $scope.imageSrc;
 									$scope.updateNote($scope.type);
 								}
@@ -87,8 +85,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						// SOCIAL SHARE
 						$scope.fbAsyncSocialShare = function(note) {
-							console.log(note.title);
-							console.log('inside fbAsyncInit');
 							FB.init({
 								appId : '1845582508804612',
 								status : true,
@@ -133,11 +129,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							   	$scope.reminder = $(id).val();
 							   	
 							   	if($scope.reminder === "" || $scope.reminder === undefined){
-							   		console.log(note);
-							   		console.log($scope.reminder);
+							   		
 							   	}
 							   	else{
-							   		console.log($scope.reminder);
+							   		
 							   		note.reminderStatus=$scope.reminder;
 							   		$scope.updateNote(note);
 							   		$scope.reminder="";
@@ -145,7 +140,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						$scope.removeReminder=function(note){
-							console.log($scope.file);
 							note.reminderStatus=null;
 							$scope.updateNote(note);
 						}
@@ -195,7 +189,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var userDetails = homeService.service(url, 'POST', token, obj);
 							userDetails.then(function(response) {
 
-								console.log(response.data);
+								
 								$scope.users = response.data;
 								note.collabratorUsers = response.data;
 
@@ -203,13 +197,11 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								$scope.user = {};
 							});
 						
-							console.log(user);
 							
 						}
 
 						$scope.collborate = function(note, user, index) {
 							var obj = {};
-							console.log(note);
 							obj.noteId = note;
 							obj.ownerId = user;
 							obj.shareId = $scope.shareWith;
@@ -219,7 +211,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var userDetails = homeService.service(url, 'POST', token, obj);
 							userDetails.then(function(response) {
 
-								console.log(response.data);
+								
 								$scope.users = response.data;
 								note.collabratorUsers = response.data;
 
@@ -228,7 +220,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 							});
 							
-							console.log(user);
 
 						}
 
@@ -258,10 +249,9 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							user.then(function(response) {
 								$scope.collborate(note, $scope.owner);
 
-								console.log(response.data);
+								
 
 							}, function(response) {
-								console.log(response.data);
 
 							});
 						}
@@ -633,7 +623,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					$scope.deleteNoteForever = function(id) {
 						toastr.success('Note deleted','successfully');
-						console.log("id is ..." +id);
+						
 						var url = 'user/delete/'+id;
 						var method = 'DELETE';
 						var token = gettingToken();

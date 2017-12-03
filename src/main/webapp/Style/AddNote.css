@@ -1,9 +1,10 @@
 @CHARSET "UTF-8";
 
-#addNoteForm {
-	margin-top: 10px;
-	margin-bottom: 25px;
-	margin-left: 20%;
+#addForm {
+	float: right;
+	margin-right: 25%;
+	margin-top: 10%;
+	
 }
 
 #noteDescription {

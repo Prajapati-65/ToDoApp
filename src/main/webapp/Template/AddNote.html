@@ -1,15 +1,12 @@
 <div class="container">
 	<div class="row">
-		<div class="col-sm-5" id="addNoteForm" style="background-color: {{AddNoteColor}}">
+		<div class="col-sm-5" id="addForm" style="background-color: {{AddNoteColor}}">
 			<div class="form-group" >
-	
 
 				<div ng-show="AddNoteBox" data-text="Title" contentEditable="true" id="notetitle"></div>
 				<br>
 				<div contentEditable="true" data-text="Take a note..." ng-click="ShowAddNote()" id="noteDescription"></div>
-				<br>
-			
-								
+				<br>	
 						<div ng-show="AddNoteBox">
 								<div class="dropdown inline">
 									<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">

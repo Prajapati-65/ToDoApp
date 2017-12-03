@@ -1,23 +1,37 @@
-<div>
-	<top-bar></top-bar>
-	<div class="row">
-		<div class="col-sm-2">
-			<side-bar></side-bar>
-		</div>
+<top-bar></top-bar>
+<side-bar></side-bar>
 
-		<div id="noteContainer">
-			<div class="mainHome">
-				<div class="col-sm-10">
-					<add-notes></add-notes>
-					<br> <br>
+<div id="noteContainer" class="container-fluid">
+
+	<add-notes></add-notes>
+	
+		<div class="container">
+			<div class="row">
+	 		 <div class="col-12">
+				<br> <br>
 					<div class="card"
 						style="width: 27%; background-color: {{note.noteColor"
 						ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{deleteStatus:'true'}">
-
-						<div ng-bind-html="note.title" ng-click="open(note)"></div>
-						<br>
-						<div ng-bind-html="note.description" ng-click="open(note)"></div>
-						<br>
+						
+						<div ng-click="open(note)">
+								<div style="position: relative; margin: -10px;">
+								<span class="glyphicon glyphicon-pushpin" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" style="position: absolute; right: 0;"></span>
+									<img ng-src="{{note.image}}"  style="width:100%"/>
+									
+								</div>
+								<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
+									
+									<div ng-bind-html="note.title"></div>
+									<br>
+									<div ng-bind-html="note.description"></div>
+									<br>
+								</div>
+						</div>
+						
+						
+						
+						
+						
 						<div id="moreOptions">
 							<div class="dropdown">
 
@@ -37,5 +51,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </div>

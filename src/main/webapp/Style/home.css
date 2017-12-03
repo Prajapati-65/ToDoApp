@@ -19,6 +19,8 @@
 	margin:5px;
 	background-color: white;
 	box-shadow: 0px 1px 2px black;
+	display: inline-block;
+	word-break: break-all;
 }
 
 
@@ -55,5 +57,7 @@ body {
 	visibility: hidden;
 }
 */
+
+
  
  
