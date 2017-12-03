@@ -92,7 +92,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		customResponse.setStatus(200);
-		logger.info("user Email id verified successfully now plzz login....");
+		
 		customResponse.setMessage("user Email id verified successfully");
 		response.sendRedirect("http://localhost:8080/ToDoApp/#!/login");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.OK);

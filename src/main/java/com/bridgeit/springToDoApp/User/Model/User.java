@@ -1,14 +1,21 @@
 package com.bridgeit.springToDoApp.User.Model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.bridgeit.springToDoApp.Label.Model.Label;
+import com.bridgeit.springToDoApp.Note.Model.Note;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USER_TABLE")
@@ -17,33 +24,39 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "gen")
 	@GenericGenerator(name = "gen", strategy = "native")
-	@Column(name="USER_ID")
+	@Column(name = "USER_ID")
 	private int id;
 
-	@Column(name="FIRST_NAME")
+	@Column(name = "FIRST_NAME")
 	private String firstName;
-	
-	@Column(name="LAST_NAME")
+
+	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Column(unique = true,name="USER_EMAIL")
+	@Column(unique = true, name = "USER_EMAIL")
 	private String email;
 
-	@Column(name="MOBILE_NUMBER")
+	@Column(name = "MOBILE_NUMBER")
 	private long mobileNumber;
 
-	@Column(name="PASSWORD")
+	@Column(name = "PASSWORD")
 	private String password;
-	
-	@Column(name="IS_ACTIVE")
+
+	@Column(name = "IS_ACTIVE")
 	private boolean isActive;
-	
+
 	@Lob
-	@Column(name="PROFILE_IMAGE",columnDefinition = "LONGBLOB")
+	@Column(name = "PROFILE_IMAGE", columnDefinition = "LONGBLOB")
 	private String profileImage;
 
-	
-	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Label> labels;
+
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Note> notes;
+
 	public boolean isActive() {
 		return isActive;
 	}
@@ -108,16 +121,27 @@ public class User {
 		this.profileImage = profileImage;
 	}
 
+	public List<Label> getLabels() {
+		return labels;
+	}
+
+	public List<Note> getNotes() {
+		return notes;
+	}
+
+	public void setLabels(List<Label> labels) {
+		this.labels = labels;
+	}
+
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", mobileNumber=" + mobileNumber + ", password=" + password + ", isActive=" + isActive
-				+ ", profileImage=" + profileImage + "]";
+				+ ", profileImage=" + profileImage + ", labels=" + labels + ", notes=" + notes + "]";
 	}
 
-	
-
-	
-	
-	
 }

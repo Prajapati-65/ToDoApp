@@ -1,26 +1,30 @@
 package com.bridgeit.springToDoApp.Note.Model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "NOTE_TABLE")
 public class Note {
-
 
 	@Id
 	@GenericGenerator(strategy = "native", name = "noteGen")
@@ -56,18 +60,41 @@ public class Note {
 	private String noteStatus;
 
 	@Column(name = "NOTE_COLOR")
-	private String noteColor;	
-	
+	private String noteColor;
+
 	@Lob
-	@Column(name="IMAGE",columnDefinition="LONGBLOB")
+	@Column(name = "IMAGE", columnDefinition = "LONGBLOB")
 	private String image;
-	
+
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
 
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "Note_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "Label_ID") })
+	private List<Label> labels;
+
+	@Column(name = "Is_Labeled", nullable = false)
+	private boolean labeled;
+
+	public List<Label> getLabels() {
+		return labels;
+	}
+
+	public boolean isLabeled() {
+		return labeled;
+	}
+
+	public void setLabels(List<Label> labels) {
+		this.labels = labels;
+	}
+
+	public void setLabeled(boolean labeled) {
+		this.labeled = labeled;
+	}
+
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
 			this.pin = pin;
@@ -179,15 +206,14 @@ public class Note {
 	public String getNoteStatus() {
 		return noteStatus;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdDate="
 				+ createdDate + ", modifiedDate=" + modifiedDate + ", pin=" + pin + ", archiveStatus=" + archiveStatus
 				+ ", deleteStatus=" + deleteStatus + ", reminderStatus=" + reminderStatus + ", noteStatus=" + noteStatus
-				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + "]";
+				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + ", labels=" + labels
+				+ ", labeled=" + labeled + "]";
 	}
-
-	
 
 }

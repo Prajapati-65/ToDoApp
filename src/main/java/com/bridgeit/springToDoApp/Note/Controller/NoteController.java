@@ -30,17 +30,16 @@ import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
 @RestController
 @RequestMapping(value = "/user")
 public class NoteController {
-	
+
 	@Autowired
 	NoteService noteService;
-	
+
 	@Autowired
 	UserService userService;
-	
-	
+
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
 	public ResponseEntity<Response> createNote(@RequestBody Note note, HttpServletRequest request) {
-		
+
 		int userId = (int) request.getAttribute("userId");
 		User user = userService.getUserById(userId);
 		note.setUser(user);
@@ -49,12 +48,12 @@ public class NoteController {
 			note.setCreatedDate(date);
 			note.setModifiedDate(date);
 			noteService.createNote(note);
-			CustomResponse  customResponse = new CustomResponse();
+			CustomResponse customResponse = new CustomResponse();
 			customResponse.setMessage("Note create successfully");
 			return new ResponseEntity<Response>(customResponse, HttpStatus.OK);
 		}
-        CustomResponse customResponse = new CustomResponse();
-        customResponse.setMessage("Please login first");  
+		CustomResponse customResponse = new CustomResponse();
+		customResponse.setMessage("Please login first");
 		return new ResponseEntity<Response>(customResponse, HttpStatus.CONFLICT);
 	}
 
@@ -62,18 +61,18 @@ public class NoteController {
 	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
 		Note note = new Note();
 		note.setNoteId(noteId);
-		
+
 		boolean delete = noteService.deleteNote(note);
-		
+
 		CustomResponse customResponse = new CustomResponse();
-		
+
 		if (delete != true) {
-	
-			customResponse.setMessage("Note could not be deleted");  
+
+			customResponse.setMessage("Note could not be deleted");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customResponse);
-			
+
 		} else {
-			
+
 			customResponse.setMessage("Note deleted successfully");
 			return ResponseEntity.ok(customResponse);
 		}
@@ -82,30 +81,30 @@ public class NoteController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<Response> update(@RequestBody Note note) {
 
-		int noteid =note.getNoteId();
+		int noteid = note.getNoteId();
 		System.out.println("noteid: " + noteid);
 		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
 		note.setCreatedDate(createDate);
-		
+
 		User user = noteById.getUser();
 		note.setUser(user);
-		
+
 		Date modifiedDate = new Date();
 		note.setModifiedDate(modifiedDate);
-		
+
 		boolean isUpdated = noteService.updateNote(note);
-		
+
 		CustomResponse customResponse = new CustomResponse();
-		System.out.println("is update "+isUpdated);
+		System.out.println("is update " + isUpdated);
 		if (isUpdated != true) {
-			
-			customResponse.setMessage("Note could not be updated..."); 
+
+			customResponse.setMessage("Note could not be updated...");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customResponse);
-			
+
 		} else {
-			
+
 			customResponse.setMessage("Note updated successfully...");
 			return ResponseEntity.ok(customResponse);
 		}
@@ -121,143 +120,127 @@ public class NoteController {
 		return ResponseEntity.ok(customResponse);
 	}
 
-
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
 	public ResponseEntity<List> getAllNotes(HttpServletRequest request) {
-		
+
 		int userId = (int) request.getAttribute("userId");
 		User user = userService.getUserById(userId);
 		CustomResponse customResponse = new CustomResponse();
-		
+
 		List<Note> allNotes = noteService.getAllNotes(user);
-		List<Note> collborated =noteService.getCollboratedNotes(user.getId());
+		List<Note> collborated = noteService.getCollboratedNotes(user.getId());
 		List<Note> listNote = new ArrayList<Note>();
 		for (int i = 0; i < allNotes.size(); i++) {
 			listNote.add(allNotes.get(i));
 		}
-		
+
 		for (int j = 0; j < collborated.size(); j++) {
 			listNote.add(collborated.get(j));
 		}
-		
+
 		customResponse.setMessage("note found.");
 		customResponse.setNotes(listNote);
 
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
-	
-	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/	
+
+	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/
 
 	@RequestMapping(value = "/collaborate", method = RequestMethod.POST)
-	public ResponseEntity<List<User>> getNotes(@RequestBody Collaborater collborator, HttpServletRequest request){
-		List<User> userList=new ArrayList<User>();
-		
-		Collaborater collaborate =new Collaborater();
-		
-		Note note= (Note) collborator.getNoteId();
-		User shareUser= (User) collborator.getShareId();
-		User owner= (User) collborator.getOwnerId();
-		
-		shareUser=userService.emailValidate(shareUser.getEmail());
-		
-		String accessToken=request.getHeader("token");
-		
-		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
-		
-		userList =	noteService.getListOfUser(note.getNoteId());
-		
-		if(user!=null) 
-		{
-			if(shareUser!=null && shareUser.getId()!=owner.getId()) 
-			{
-					int i=0;
-					int variable=0;
-					while(userList.size()>i) 
-					{
-						if(userList.get(i).getId()==shareUser.getId())
-						{
-							variable=1;
-						}
-						i++;
+	public ResponseEntity<List<User>> getNotes(@RequestBody Collaborater collborator, HttpServletRequest request) {
+		List<User> userList = new ArrayList<User>();
+
+		Collaborater collaborate = new Collaborater();
+
+		Note note = (Note) collborator.getNoteId();
+		User shareUser = (User) collborator.getShareId();
+		User owner = (User) collborator.getOwnerId();
+
+		shareUser = userService.emailValidate(shareUser.getEmail());
+
+		String accessToken = request.getHeader("token");
+
+		User user = userService.getUserById(VerifiedJWT.verify(accessToken));
+
+		userList = noteService.getListOfUser(note.getNoteId());
+
+		if (user != null) {
+			if (shareUser != null && shareUser.getId() != owner.getId()) {
+				int i = 0;
+				int variable = 0;
+				while (userList.size() > i) {
+					if (userList.get(i).getId() == shareUser.getId()) {
+						variable = 1;
 					}
-					if(variable==0) 
-					{
-						collaborate.setNoteId(note);
-						collaborate.setOwnerId(owner);
-						collaborate.setShareId(shareUser);
-						if(noteService.saveCollborator(collaborate)>0) {
-							userList.add(shareUser);
-						}
-						else{
-							 ResponseEntity.ok(userList);
-						}
+					i++;
+				}
+				if (variable == 0) {
+					collaborate.setNoteId(note);
+					collaborate.setOwnerId(owner);
+					collaborate.setShareId(shareUser);
+					if (noteService.saveCollborator(collaborate) > 0) {
+						userList.add(shareUser);
+					} else {
+						ResponseEntity.ok(userList);
 					}
+				}
 			}
 		}
 		return ResponseEntity.ok(userList);
 	}
-	
+
 	@RequestMapping(value = "/getOwner", method = RequestMethod.POST)
-	public ResponseEntity<User> getOwner(@RequestBody Note note, HttpServletRequest request){
-		
-		String accessToken=request.getHeader("token");
-		
-		User user=userService.getUserById(VerifiedJWT.verify(accessToken));
-		
-		if(user!=null)
-		{
-			Note noteComplete=noteService.getNoteById(note.getNoteId());
-			User owner=noteComplete.getUser();
+	public ResponseEntity<User> getOwner(@RequestBody Note note, HttpServletRequest request) {
+
+		String accessToken = request.getHeader("token");
+
+		User user = userService.getUserById(VerifiedJWT.verify(accessToken));
+
+		if (user != null) {
+			Note noteComplete = noteService.getNoteById(note.getNoteId());
+			User owner = noteComplete.getUser();
 			return ResponseEntity.ok(owner);
-		}
-		else
-		{
+		} else {
 			return ResponseEntity.ok(null);
 		}
 	}
-	
+
 	@RequestMapping(value = "/removeCollborator", method = RequestMethod.POST)
-	public ResponseEntity<CustomResponse> removeCollborator(@RequestBody Collaborater collborator, HttpServletRequest request) {
-		
-		CustomResponse response=new CustomResponse();
-		
-		int shareWith=collborator.getShareId().getId();
-		int noteId=collborator.getNoteId().getNoteId();
-		Note note=noteService.getNoteById(noteId);
-		
-		User owner=note.getUser();
-		String token=request.getHeader("token");
-		
-		User user=userService.getUserById(VerifiedJWT.verify(token));
-		if(user!=null)
-		{
-				if(owner.getId()!=shareWith)
-				{
-					if(noteService.removeCollborator(shareWith, noteId)>0){
-						response.setMessage("Collborator removed");
-						return ResponseEntity.ok(response);
-					
-					}else
-					{
-						response.setMessage("database problem");
-						return ResponseEntity.ok(response);
-					}
-				}
-				
-				else
-				{
-					response.setMessage("Can't remove owner");
+	public ResponseEntity<CustomResponse> removeCollborator(@RequestBody Collaborater collborator,
+			HttpServletRequest request) {
+
+		CustomResponse response = new CustomResponse();
+
+		int shareWith = collborator.getShareId().getId();
+		int noteId = collborator.getNoteId().getNoteId();
+		Note note = noteService.getNoteById(noteId);
+
+		User owner = note.getUser();
+		String token = request.getHeader("token");
+
+		User user = userService.getUserById(VerifiedJWT.verify(token));
+		if (user != null) {
+			if (owner.getId() != shareWith) {
+				if (noteService.removeCollborator(shareWith, noteId) > 0) {
+					response.setMessage("Collborator removed");
+					return ResponseEntity.ok(response);
+
+				} else {
+					response.setMessage("database problem");
 					return ResponseEntity.ok(response);
 				}
-	    }
-		
-		else
-		{
-	    	response.setMessage("Token expired");
+			} else {
+				response.setMessage("Can't remove owner");
+				return ResponseEntity.ok(response);
+			}
+		}
+
+		else {
+			response.setMessage("Token expired");
 			return ResponseEntity.ok(response);
-	    }
+		}
 	}
-	
-	/*-------------------------------------------------Collaborator end-----------------------------------------------*/	
+
+	/*-------------------------------------------------Collaborator end-----------------------------------------------*/
 
 }
