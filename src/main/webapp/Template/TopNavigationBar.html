@@ -11,13 +11,14 @@
 				
 				<li>
 					<div class="form-group" style="padding-top: 6px; padding-left: 50px;">
-  						<input type="text" name="search" placeholder="Search..">
+  						<input type="text" name="search" placeholder="Search.." ng-model="searchText" ui-sref="search">
 					</div>
 				</li>
 			</ul>
 		</div>
+
 		<div>
-			<ul class="nav navbar-nav" style="padding-left: 35%;margin: 19px; ">
+			<ul class="nav navbar-nav" style="padding-left: 35%;">
 				<li ng-click="ListViewToggle()" ><img
 					ng-if="!ListView" height="30px" alt="gride"
 					src="image/gridePxart.png"> <img ng-if="ListView"
@@ -30,7 +31,7 @@
 		<ul>
 		<div class="imagedropdown">
 					<span class="btn dropdown-toggle" id="menu1" type="button"
-						data-toggle="dropdown" style="margin-top: 7px; float: right;"> 
+						data-toggle="dropdown" style="float: right;"> 
 						<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" width="40px" height="40px" class="img-circle">
 					</span>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="right: 0;left: auto;">

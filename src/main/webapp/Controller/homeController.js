@@ -31,29 +31,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-			/*-----------------------------------Search Content--------------------------------------*/			
-						function mySearch()
-						{
-							$scope.note = {};
-							$scope.note.title = document.getElementById("notetitle").innerHTML;
-							$scope.note.description = document.getElementById("noteDescription").innerHTML;
-							var filter = $scope.note.title.value.toUpperCase() || $scope.note.description.value.toUpperCase();
-							var ul = document.getElementById(getAllNotes());
-							var li = ul.getElementsByTagName("li");
-
-							for (i = 0; i < li.length; i++) 
-							{
-						        a = li[i].getElementsByTagName("a")[0];
-						        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) 		{
-						            li[i].style.display = "";
-						        } 
-						        else
-						        {
-						            li[i].style.display = "none";
-						        }
-						    }
-						}
-						
+			/*-----------------------------------------------------------------------*/			
+					
 						
 			/*------------------------------------------------------------------------*/
 						$scope.imageSrc = "";
@@ -412,7 +391,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*---------------------------------------------------------------------------------*/
 						if($state.current.name=="home"){
 							$scope.topBarColor= "#ffbb33";
-							$scope.navBarHeading="Fundoo Keep";
+							$scope.navBarHeading="Google Keep";
 						}
 						else if($state.current.name=="archive"){
 							$scope.topBarColor= "#669999";
@@ -425,6 +404,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						else if($state.current.name=="reminders"){
 							$scope.topBarColor= "#669999";
 							$scope.navBarHeading="Reminders";
+						}
+						else if($state.current.name=="search"){
+							$scope.topBarColor= "#1a8cff";
+							$scope.navBarHeading="Google Keep";
 						}
 						
 		/*--------------------------------add a new note ------------------------------------*/
@@ -518,7 +501,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 		/*-----------------------------------display notes ---------------------------------*/
 					
-					getAllNotes();
+					getAllNotes()
 
 					/* display notes */
 					function getAllNotes() {

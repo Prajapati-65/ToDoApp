@@ -46,6 +46,11 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl : 'Template/reminders.html',
 		controller: 'homeController'
 	})
+	.state('search',{
+		url : '/search',
+		templateUrl : 'Template/search.html',
+		controller: 'homeController'
+	})
 	.state('dummy',{
 		url : '/dummy',
 		controller: 'dummyController'

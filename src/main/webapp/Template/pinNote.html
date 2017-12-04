@@ -7,8 +7,8 @@
 		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 
 		<div ng-click="open(note)">
-				<div style="position: relative; margin: -10px;">
-				<span class="glyphicon glyphicon-pushpin" id="moreOptions"  ng-click="note.pin='false'; updateNote(note)" style="position: absolute; right: 0;"></span>
+				<div class="pinCss1">
+				<span class="glyphicon glyphicon-pushpin pinCss2" id="moreOptions"  ng-click="note.pin='false'; updateNote(note)"></span>
 					<img ng-src="{{note.image}}"  style="width:100%"/>
 					
 				</div>
