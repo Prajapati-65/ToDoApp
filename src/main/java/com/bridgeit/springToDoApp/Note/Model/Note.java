@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -70,30 +69,6 @@ public class Note {
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "Note_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "Label_ID") })
-	private List<Label> labels;
-
-	@Column(name = "Is_Labeled", nullable = false)
-	private boolean labeled;
-
-	public List<Label> getLabels() {
-		return labels;
-	}
-
-	public boolean isLabeled() {
-		return labeled;
-	}
-
-	public void setLabels(List<Label> labels) {
-		this.labels = labels;
-	}
-
-	public void setLabeled(boolean labeled) {
-		this.labeled = labeled;
-	}
 
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
@@ -212,8 +187,7 @@ public class Note {
 		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdDate="
 				+ createdDate + ", modifiedDate=" + modifiedDate + ", pin=" + pin + ", archiveStatus=" + archiveStatus
 				+ ", deleteStatus=" + deleteStatus + ", reminderStatus=" + reminderStatus + ", noteStatus=" + noteStatus
-				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + ", labels=" + labels
-				+ ", labeled=" + labeled + "]";
+				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + "]";
 	}
 
 }

@@ -30,7 +30,10 @@
 .card:hover #moreOptions{
 	visibility:visible;
 }
-
+#noteContainer{
+		transition: 0.3s;
+	
+}
 
 .card li{
 	background-color: white;

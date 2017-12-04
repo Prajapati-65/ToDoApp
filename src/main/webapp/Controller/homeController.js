@@ -2,8 +2,10 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter,fileReader ) {
 		
+					document.getElementById("noteContainer").style.marginLeft = "250px";
 			/*---------------------------------get valid token-----------------------------------*/
-	
+    	
+
 						var gettingToken = function() {
 							var token =  localStorage.getItem('token');
 							if(token==null){
@@ -29,6 +31,30 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
+			/*-----------------------------------Search Content--------------------------------------*/			
+						function mySearch()
+						{
+							$scope.note = {};
+							$scope.note.title = document.getElementById("notetitle").innerHTML;
+							$scope.note.description = document.getElementById("noteDescription").innerHTML;
+							var filter = $scope.note.title.value.toUpperCase() || $scope.note.description.value.toUpperCase();
+							var ul = document.getElementById(getAllNotes());
+							var li = ul.getElementsByTagName("li");
+
+							for (i = 0; i < li.length; i++) 
+							{
+						        a = li[i].getElementsByTagName("a")[0];
+						        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) 		{
+						            li[i].style.display = "";
+						        } 
+						        else
+						        {
+						            li[i].style.display = "none";
+						        }
+						    }
+						}
+						
+						
 			/*------------------------------------------------------------------------*/
 						$scope.imageSrc = "";
 
@@ -79,7 +105,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 									$scope.updateNote($scope.type);
 								}
 							}
-
 						});
 			/*---------------------------------Social Share-----------------------------------------*/
 						
@@ -159,7 +184,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 													update($scope.allGetNotes[i]);
 												}
 											}
-											
 										}
 									},9000);
 							}
@@ -438,7 +462,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								document.getElementById("noteDescription").innerHTML = "";
 								$scope.pinStatus = false;
 								$scope.AddReminder = '';
-								$scope.AddNoteColor = "#ffffff";s
+								$scope.AddNoteColor = "#ffffff";
 								toastr.success('Note added','successfully');
 								getAllNotes();
 								}, function(response) {
@@ -478,6 +502,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.AddNoteColor = "#ffffff";
 							$scope.AddReminder = '';
 								getAllNotes();
+								$state.reload();
 							}, function(response) {
 						});
 					}
@@ -508,6 +533,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.logout();
 						});
 					}
+					
+					
 		/*--------------------------------update the note-------------------------------------*/
 					
 					$scope.updateNote = function(note) {
