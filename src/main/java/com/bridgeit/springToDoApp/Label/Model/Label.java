@@ -1,6 +1,5 @@
 package com.bridgeit.springToDoApp.Label.Model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table
+@Table(name = "LABEL_TABLE")
 public class Label {
 
 	@Id
@@ -35,11 +34,11 @@ public class Label {
 	@ManyToOne
 	@JoinColumn(name = "USER_ID")
 	@JsonIgnore
-	private User user;
+	private User userLabel;
 
-	@ManyToMany(mappedBy = "allLabels")
+	@ManyToMany(mappedBy = "labels")
 	@JsonIgnore
-	private Set<Note> allNote = new HashSet<>();
+	private Set<Note> labelNotesId;
 
 	public int getLabelId() {
 		return labelId;
@@ -49,12 +48,12 @@ public class Label {
 		return labelName;
 	}
 
-	public User getUser() {
-		return user;
+	public User getUserLabel() {
+		return userLabel;
 	}
 
-	public Set<Note> getAllNote() {
-		return allNote;
+	public Set<Note> getLabelNotesId() {
+		return labelNotesId;
 	}
 
 	public void setLabelId(int labelId) {
@@ -65,18 +64,12 @@ public class Label {
 		this.labelName = labelName;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserLabel(User userLabel) {
+		this.userLabel = userLabel;
 	}
 
-	public void setAllNote(Set<Note> allNote) {
-		this.allNote = allNote;
-	}
-
-	@Override
-	public String toString() {
-		return "Label [labelId=" + labelId + ", labelName=" + labelName + ", user=" + user + ", allNote=" + allNote
-				+ "]";
+	public void setLabelNotesId(Set<Note> labelNotesId) {
+		this.labelNotesId = labelNotesId;
 	}
 
 }

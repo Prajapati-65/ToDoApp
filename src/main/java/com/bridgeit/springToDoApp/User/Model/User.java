@@ -1,16 +1,23 @@
 package com.bridgeit.springToDoApp.User.Model;
 
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.bridgeit.springToDoApp.Label.Model.Label;
+import com.bridgeit.springToDoApp.Note.Model.Note;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USER_TABLE")
@@ -43,6 +50,14 @@ public class User {
 	@Lob
 	@Column(name = "PROFILE_IMAGE", columnDefinition = "LONGBLOB")
 	private String profileImage;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "userLabel", fetch = FetchType.EAGER)
+	private Set<Label> labels;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<Note> notes = new HashSet<Note>();
 
 	public int getId() {
 		return id;
@@ -108,11 +123,20 @@ public class User {
 		this.profileImage = profileImage;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", mobileNumber=" + mobileNumber + ", password=" + password + ", isActive=" + isActive
-				+ ", profileImage=" + profileImage + "]";
+	public Set<Label> getLabels() {
+		return labels;
+	}
+
+	public Set<Note> getNotes() {
+		return notes;
+	}
+
+	public void setLabels(Set<Label> labels) {
+		this.labels = labels;
+	}
+
+	public void setNotes(Set<Note> notes) {
+		this.notes = notes;
 	}
 
 }

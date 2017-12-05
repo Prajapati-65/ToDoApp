@@ -2,6 +2,7 @@ package com.bridgeit.springToDoApp.Note.Model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -69,6 +71,19 @@ public class Note {
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Set<Label> labels;
+	
+	
+
+	public Set<Label> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(Set<Label> labels) {
+		this.labels = labels;
+	}
 
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
@@ -182,12 +197,5 @@ public class Note {
 		return noteStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "Note [noteId=" + noteId + ", title=" + title + ", description=" + description + ", createdDate="
-				+ createdDate + ", modifiedDate=" + modifiedDate + ", pin=" + pin + ", archiveStatus=" + archiveStatus
-				+ ", deleteStatus=" + deleteStatus + ", reminderStatus=" + reminderStatus + ", noteStatus=" + noteStatus
-				+ ", noteColor=" + noteColor + ", image=" + image + ", user=" + user + "]";
-	}
 
 }

@@ -1,53 +1,45 @@
 package com.bridgeit.springToDoApp.Label.Service;
 
-import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.springToDoApp.Label.DAO.LabelDao;
 import com.bridgeit.springToDoApp.Label.Model.Label;
-import com.bridgeit.springToDoApp.User.Model.User;
 
 public class LabelServiceImplementation implements LabelService {
 
 	@Autowired
 	LabelDao labelDoa;
-	
+
 	@Override
-	public void saveLabel(Label labels) {
-		labelDoa.saveLabel(labels);
+	@Transactional
+	public int addLabel(Label label) {
+
+		return labelDoa.addLabel(label);
 	}
 
 	@Override
-	public boolean deleteLabelById(int id) {
-		
-		return labelDoa.deleteLabelById(id);
+	@Transactional
+	public boolean deleteLable(Label label) {
+
+		return labelDoa.deleteLable(label);
 	}
 
 	@Override
-	public List<Label> getLabels(User user) {
-		
-		return labelDoa.getLabels(user);
+	@Transactional
+	public boolean updateLable(Label label) {
+
+		return labelDoa.updateLable(label);
 	}
 
 	@Override
-	public Label getLabelById(int labelId) {
-		
-		return labelDoa.getLabelById(labelId);
-	}
+	@Transactional
+	public Set<Label> getAllLabels(int userId) {
 
-	@Override
-	public Label getLabelByName(String labelName) {
-		
-		return labelDoa.getLabelByName(labelName);
+		return labelDoa.getAllLabels(userId);
 	}
-
-	@Override
-	public boolean editLabel(Label label) {
-		
-		return labelDoa.editLabel(label);
-	}
-
-	
 
 }

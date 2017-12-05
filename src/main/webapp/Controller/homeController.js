@@ -3,6 +3,7 @@ var toDoApp = angular.module('toDoApp');
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter,fileReader ) {
 		
 					document.getElementById("noteContainer").style.marginLeft = "250px";
+					
 			/*---------------------------------get valid token-----------------------------------*/
     	
 
@@ -20,7 +21,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						getUser();
 						
 						function getUser(){
-							var token =  localStorage.getItem('token');
+							var token =  gettingToken();
 							var method = "POST";
 							var url = 'getUserDetails';
 							var a = homeService.service(url,method,token);
@@ -30,8 +31,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}, function(response) {
 								
 							});
-						}
-			/*-----------------------------------------------------------------------*/			
+						}	
 					
 						
 			/*------------------------------------------------------------------------*/
@@ -59,13 +59,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-							
-						$scope.removeImage = function() {
-							$scope.AddNoteBox = false;
-							$scope.addimg = undefined;
-						}
-							
-							
+						
 							
 						$scope.type = {};
 						$scope.type.image = '';

@@ -47,6 +47,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 				<value>com.bridgeit.springToDoApp.User.Model.User</value>
 				<value>com.bridgeit.springToDoApp.Note.Model.Note</value>
 				<value>com.bridgeit.springToDoApp.Note.Model.Collaborater</value>
+				<value>com.bridgeit.springToDoApp.Label.Model.Label</value>
 				
 			</list>
 		</property>
@@ -99,6 +100,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<bean id="noteDao" class="com.bridgeit.springToDoApp.Note.DAO.NoteDaoImpl" />
 
 	<bean id="noteService" class="com.bridgeit.springToDoApp.Note.Service.NoteServiceImpl" />
+	
+	<bean id="labelDao" class="com.bridgeit.springToDoApp.Label.DAO.LabelDaoImplement" />
+	
+	<bean id="labelService" class="com.bridgeit.springToDoApp.Label.Service.LabelServiceImplementation" />
 
 	<bean id="validator" class="com.bridgeit.springToDoApp.Utility.Validator" />
 
