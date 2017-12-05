@@ -1,6 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,$interval ,$filter,fileReader ) {
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,fileReader ) {
 		
 					document.getElementById("noteContainer").style.marginLeft = "250px";
 					
@@ -20,7 +20,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						getUser();
 						
-						function getUser(){
+						function getUser() {
 							var token =  gettingToken();
 							var method = "POST";
 							var url = 'getUserDetails';
@@ -32,9 +32,53 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}	
-					
+			/*--------------------------------Labels------------------------------------*/
 						
-			/*------------------------------------------------------------------------*/
+						$scope.addLabelModal=function() {
+							modalInstance = $uibModal.open({
+								templateUrl : 'Template/LabelModal.html',
+								scope : $scope,
+								size:"md"
+							});
+						}
+						
+						$scope.addlabel=function(){
+							var url = 'addLabel';
+							var newLabel = $scope.newLabel;
+							var a = homeService.service(url,'POST',newLabel);
+							a.then(function(response) {
+								newLabel.labelName="";
+								getUser();
+							},function(response){
+								console.log(response.data);
+							});
+						}
+						
+						$scope.deleteLabel=function(label){
+							var url = 'deleteLabel';
+							var a = homeService.service(url,'DELETE',label);
+							a.then(function(response) {
+								getUser();
+							},function(response){
+								
+							});
+						}
+						
+						$scope.updatelabel=function(label){
+							var url = 'updateLabel';
+							var a = homeService.service(url,'PUT',label);
+							a.then(function(response) {
+								
+							},function(response){
+								
+							});
+						}
+						
+						
+						
+						
+						
+			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
 
 						$scope.$on("fileProgress", function(e, progress) {
@@ -45,21 +89,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.type = type;
 							$('#imageuploader').trigger('click');
 						}
-						
-						$scope.changeProfile=function(user){
-							var token = gettingToken();
-							var method = 'PUT';
-							var url = 'profileChange';
-							
-							var a = homeService.service(url,method,token,user);
-							
-							a.then(function(response) {
-							
-								},function(response){
-								
-							});
-						}
-						
 							
 						$scope.type = {};
 						$scope.type.image = '';
@@ -79,6 +108,27 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								}
 							}
 						});
+						
+						
+						$scope.changeProfile=function(user){
+							var token = gettingToken();
+							var method = 'PUT';
+							var url = 'profileChange';
+							
+							var a = homeService.service(url,method,token,user);
+							
+							a.then(function(response) {
+							
+								},function(response){
+								
+							});
+						}
+						
+						
+						$scope.removeReminder=function(note){
+							note.reminderStatus=null;
+							$scope.updateNote(note);
+						}
 			/*---------------------------------Social Share-----------------------------------------*/
 						
 						// SOCIAL SHARE
@@ -137,35 +187,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							   }
 						}
 						
-						$scope.removeReminder=function(note){
-							note.reminderStatus=null;
-							$scope.updateNote(note);
-						}
 						
-			/*-----------------------------------------------------------------------------------*/		
-							function interVal() {
-									$interval(function(){
-										var i=0;
-										for(i;i<$scope.allGetNotes.length;i++){
-											if($scope.allGetNotes[i].reminderStatus!='false'){
-												
-												var currentDate=$filter('date')(new Date(),'MM/dd/yyyy h:mm a');
-												
-												if($scope.allGetNotes[i].reminderStatus === currentDate){
-													toastr.success($scope.allGetNotes[i].title, 'Reminder');
-													$scope.allGetNotes[i].reminderStatus=null;
-													update($scope.allGetNotes[i]);
-												}
-											}
-										}
-									},9000);
-							}
-	
-						
-						
-			/*---------------------------------Collaborator------------------------------*/
+			/*---------------------------------Colaburator------------------------------*/
 
-						$scope.openCollboarate = function(note, user, index) {
+						$scope.openColaburator = function(note, user, index) {
 							$scope.note = note;
 							$scope.user = user;
 							$scope.indexOfNote = index;
@@ -245,9 +270,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var user = homeService.service(url, 'POST', token, obj);
 							user.then(function(response) {
 								$scope.collborate(note, $scope.owner);
-
-								
-
 							}, function(response) {
 
 							});
@@ -383,27 +405,27 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 									
 						
 			/*---------------------------------------------------------------------------------*/
-						if($state.current.name=="home"){
-							$scope.topBarColor= "#ffbb33";
-							$scope.navBarHeading="Google Keep";
-						}
-						else if($state.current.name=="archive"){
-							$scope.topBarColor= "#669999";
-							$scope.navBarHeading="Archive";
-						}
-						else if($state.current.name=="trash"){
-							$scope.topBarColor= "#636363";
-							$scope.navBarHeading="Trash";
-						}
-						else if($state.current.name=="reminders"){
-							$scope.topBarColor= "#669999";
-							$scope.navBarHeading="Reminders";
-						}
-						else if($state.current.name=="search"){
-							$scope.topBarColor= "#1a8cff";
-							$scope.navBarHeading="Google Keep";
-						}
-						
+							if($state.current.name=="home"){
+								$scope.topBarColor= "#ffbb33";
+								$scope.navBarHeading="Google Keep";
+							}
+							else if($state.current.name=="archive"){
+								$scope.topBarColor= "#669999";
+								$scope.navBarHeading="Archive";
+							}
+							else if($state.current.name=="trash"){
+								$scope.topBarColor= "#636363";
+								$scope.navBarHeading="Trash";
+							}
+							else if($state.current.name=="reminders"){
+								$scope.topBarColor= "#669999";
+								$scope.navBarHeading="Reminders";
+							}
+							else if($state.current.name=="search"){
+								$scope.topBarColor= "#1a8cff";
+								$scope.navBarHeading="Google Keep";
+							}
+							
 		/*--------------------------------add a new note ------------------------------------*/
 						
 						$scope.addNote = function() {

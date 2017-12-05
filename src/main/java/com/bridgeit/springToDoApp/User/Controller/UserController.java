@@ -38,8 +38,6 @@ public class UserController {
 
 	@Autowired
 	Encryption encryption;
-
-	private Logger logger = (Logger) LogManager.getLogger(UserController.class);
 	
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public Response saveUser(@RequestBody User user, HttpServletRequest request) {

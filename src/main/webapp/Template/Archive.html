@@ -9,7 +9,10 @@
 							
 							<div ng-click="open(note)">
 								<div class="pinCss1">
-								<span class="glyphicon glyphicon-pushpin pinCss2" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" ></span>
+								<span class="pinCss2" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" >
+									<img alt="pin" src="image/pin.svg">
+								</span>
+									
 									<img ng-src="{{note.image}}"  style="width:100%"/>
 									
 								</div>

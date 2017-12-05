@@ -9,20 +9,22 @@
 
 		<div ng-click="open(note)">
 				<div class="pinCss1">
-				<span class="glyphicon glyphicon-pushpin pinCss2" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" ></span>
-					
+					<span class="pinCss2" id="moreOptions"  ng-click="note.pin='true'; updateNote(note)" >
+						<img alt="pin" src="image/pin.svg">
+					</span>
+			
 					<a>
-					<img ng-src="{{note.image}}"  style="width:100%"/>
+						<img ng-src="{{note.image}}"  style="width:100%"/>
 					</a>
-					
-				</div>
-				<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
-					
-					<div ng-bind-html="note.title"></div>
-					<br>
-					<div ng-bind-html="note.description"></div>
-					<br>
-				</div>
+				
+					<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
+						
+						<div ng-bind-html="note.title"></div>
+						<br>
+						<div ng-bind-html="note.description"></div>
+						<br>
+					</div>
+			</div>	
 		</div>
 
 		
@@ -51,7 +53,7 @@
 			</div>
 			
 			
-			<img alt="colaburator" src="image/colaburator.png" height="23px" ng-click="openCollboarate(note,UserDetails,$index)">
+			<img alt="colaburator" src="image/colaburator.png" height="23px" ng-click="openColaburator(note,UserDetails,$index)">
 		
 			<div class="dropdown inline">
 				<div class="btn btn-group dropup colorDiv" uib-dropdown>
@@ -86,7 +88,7 @@
 						</span>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 						<li><a ng-click="deleteNote(note)">Delete</a></li>
-						<li><a ng-click="">Add label</a></li>
+						<li><a ng-click="addLabelModal()">Add label</a></li>
 						<li><a ng-click="copy(note)">Make a Copy</a></li>
 						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
 						

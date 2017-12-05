@@ -63,7 +63,6 @@ toDoApp.directive('contenteditable', [ '$sce', function($sce) {
 	};
 } ]);
 
-
 toDoApp.directive("ngFileSelect", function(fileReader, $timeout) {
 	return {
 		scope : {
@@ -86,8 +85,8 @@ toDoApp.directive("ngFileSelect", function(fileReader, $timeout) {
 	};
 });
 
-
 toDoApp.factory('fileReader', function($q, $log) {
+
 	var onLoad = function(reader, deferred, scope) {
 		return function() {
 			scope.$apply(function() {

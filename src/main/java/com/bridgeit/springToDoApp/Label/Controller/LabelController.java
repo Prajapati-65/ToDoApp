@@ -68,7 +68,7 @@ public class LabelController {
 		}
 	}
 
-	@RequestMapping(value = "/deleteLabel", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteLabel", method = RequestMethod.DELETE)
 	public Response deleteLabel(@RequestBody Label label, HttpServletRequest request) {
 		
 		CustomResponse customResponse = new CustomResponse();
@@ -87,7 +87,7 @@ public class LabelController {
 		}
 	}
 
-	@RequestMapping(value = "/updateLabel", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateLabel", method = RequestMethod.PUT)
 	public Response updateLabel(@RequestBody Label label, HttpServletRequest request) {
 		
 		CustomResponse customResponse = new CustomResponse();
