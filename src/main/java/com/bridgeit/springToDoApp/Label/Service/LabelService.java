@@ -1,17 +1,25 @@
 package com.bridgeit.springToDoApp.Label.Service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.bridgeit.springToDoApp.Label.Model.Label;
+import com.bridgeit.springToDoApp.User.Model.User;
 
 public interface LabelService {
 
-	public int addLabel(Label label);
+	void saveLabel(Label labels);
 
-	public boolean deleteLable(Label label);
+	boolean deleteLabelById(int id);
 
-	public boolean updateLable(Label label);
+	List<Label> getLabels(User user);
 
-	public Set<Label> getAllLabels(int userId);
+	Label getLabelById(int labelId);
+
+	Label getLabelByName(String labelName);
+
+	boolean editLabel(Label label);
+	
+	boolean removeNoteId(int id);
 
 }

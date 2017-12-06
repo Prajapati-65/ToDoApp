@@ -1,17 +1,26 @@
 package com.bridgeit.springToDoApp.Label.DAO;
 
+import java.util.List;
 import java.util.Set;
 
 import com.bridgeit.springToDoApp.Label.Model.Label;
+import com.bridgeit.springToDoApp.Note.Model.Note;
+import com.bridgeit.springToDoApp.User.Model.User;
 
 public interface LabelDao {
 
-	public int addLabel(Label label);
+	void saveLabel(Label labels);
 
-	public boolean deleteLable(Label label);
+	void deleteById(int id);
 
-	public boolean updateLable(Label label);
+	List<Label> getLabels(User user);
 
-	public Set<Label> getAllLabels(int userId);
+	Label getLabelById(int labelId);
 
+
+	Label getLabelByName(String labelName);
+
+	public boolean removeNoteId(int id);
+
+	boolean editLabel(Label label);
 }

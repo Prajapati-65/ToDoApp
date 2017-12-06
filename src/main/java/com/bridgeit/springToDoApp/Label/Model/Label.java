@@ -1,5 +1,6 @@
 package com.bridgeit.springToDoApp.Label.Model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Label {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "gen")
-	@GenericGenerator(name = "gen", strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "mygen")
+	@GenericGenerator(name = "mygen", strategy = "native")
 	@Column(name = "LABEL_ID")
 	private int labelId;
 
@@ -32,44 +33,47 @@ public class Label {
 	private String labelName;
 
 	@ManyToOne
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name="USER_ID")
 	@JsonIgnore
-	private User userLabel;
+	private User user;
 
-	@ManyToMany(mappedBy = "labels")
+	@ManyToMany(mappedBy = "alLabels")
 	@JsonIgnore
-	private Set<Note> labelNotesId;
+	private Set<Note> alNote = new HashSet<>();
 
 	public int getLabelId() {
 		return labelId;
-	}
-
-	public String getLabelName() {
-		return labelName;
-	}
-
-	public User getUserLabel() {
-		return userLabel;
-	}
-
-	public Set<Note> getLabelNotesId() {
-		return labelNotesId;
 	}
 
 	public void setLabelId(int labelId) {
 		this.labelId = labelId;
 	}
 
+	public String getLabelName() {
+		return labelName;
+	}
+
 	public void setLabelName(String labelName) {
 		this.labelName = labelName;
 	}
 
-	public void setUserLabel(User userLabel) {
-		this.userLabel = userLabel;
+	public User getUser() {
+		return user;
 	}
 
-	public void setLabelNotesId(Set<Note> labelNotesId) {
-		this.labelNotesId = labelNotesId;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	public Set<Note> getAlNote() {
+		return alNote;
+	}
+
+	public void setAlNote(Set<Note> alNote) {
+		this.alNote = alNote;
+	}
+	
+	
+	
 
 }
