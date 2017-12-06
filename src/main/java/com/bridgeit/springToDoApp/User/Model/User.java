@@ -20,7 +20,7 @@ import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "USER_TABLE")
+@Table(name = "USER")
 public class User {
 
 	@Id
@@ -57,7 +57,7 @@ public class User {
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	@JsonIgnore
-	private Set<Note> notes = new HashSet<Note>();
+	private Set<Note> note = new HashSet<Note>();
 
 	public int getId() {
 		return id;
@@ -89,6 +89,14 @@ public class User {
 
 	public String getProfileImage() {
 		return profileImage;
+	}
+
+	public Set<Label> getLabels() {
+		return labels;
+	}
+
+	public Set<Note> getNote() {
+		return note;
 	}
 
 	public void setId(int id) {
@@ -123,20 +131,14 @@ public class User {
 		this.profileImage = profileImage;
 	}
 
-	public Set<Label> getLabels() {
-		return labels;
-	}
-
-	public Set<Note> getNotes() {
-		return notes;
-	}
-
 	public void setLabels(Set<Label> labels) {
 		this.labels = labels;
 	}
 
-	public void setNotes(Set<Note> notes) {
-		this.notes = notes;
+	public void setNote(Set<Note> note) {
+		this.note = note;
 	}
+
+	
 
 }

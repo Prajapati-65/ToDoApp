@@ -2,12 +2,33 @@
 	<div class="modal-header">
 		<font size="6px">Edit Labels</font>
 	</div>
-	<div class="modal-body">
-		<div contenteditable="true"  class="col-sm-10"></div>
-	</div>
-	<div class="modal-footer">
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+		<div class="input-group">
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-remove" onclick=""></i>
+				</span> 
+				
+				<input type="text" class="form-control" placeholder="Create New Label" data-ng-model="label.labelName" id="cleanField">
+				
+				<span class="input-group-addon">
+					<i class="glyphicon glyphicon-ok" data-ng-click="saveLabel(label)"></i>
+				</span>
 		</div>
-	</div>
+	
+		<div data-ng-repeat="label in labels">
+			<div class="input-group">
+				<span class="input-group-addon"><i
+					class="glyphicon glyphicon-trash" data-ng-click="removeLabel(label)"></i></span>
+				<div contenteditable="true" class="form-control"
+					data-ng-bind="label.labelName" data-ng-model="label.labelName"></div>
+				<span class="input-group-addon"><i
+					class="glyphicon glyphicon-ok" data-ng-click="updateLabel(label)"></i></span>
+			</div>
+		</div>
+	
+		<div class="modal-footer">
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
 </div>

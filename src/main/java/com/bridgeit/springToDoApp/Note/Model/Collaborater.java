@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.bridgeit.springToDoApp.User.Model.User;
 
 @Entity
-@Table
+@Table(name="COLLABORATER")
 public class Collaborater {
 	
 	@Id

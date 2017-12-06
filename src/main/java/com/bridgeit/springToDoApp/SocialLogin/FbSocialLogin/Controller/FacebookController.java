@@ -50,7 +50,7 @@ public class FacebookController {
 		User user = userService.emailValidate(email);
 
 		if (user == null) {
-
+			
 			user = new User();
 			String firstName = objectMapper.readTree(profileData).get("first_name").asText();
 			user.setFirstName(firstName);

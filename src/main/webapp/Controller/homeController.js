@@ -42,41 +42,20 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						}
 						
-						$scope.addlabel=function(){
-							var url = 'addLabel';
-							var newLabel = $scope.newLabel;
-							var a = homeService.service(url,'POST',newLabel);
-							a.then(function(response) {
-								newLabel.labelName="";
-								getUser();
-							},function(response){
-								console.log(response.data);
-							});
-						}
 						
-						$scope.deleteLabel=function(label){
-							var url = 'deleteLabel';
-							var a = homeService.service(url,'DELETE',label);
+						$scope.saveLabel = function(label) {
+							
+							var token = gettingToken();
+							var method = 'POST';
+							var url = 'user/saveLabel';
+							var a = homeService.service(url,method,token,label);
 							a.then(function(response) {
-								getUser();
-							},function(response){
+								console.log(response.data)
+							}, function(response) {
 								
 							});
 						}
-						
-						$scope.updatelabel=function(label){
-							var url = 'updateLabel';
-							var a = homeService.service(url,'PUT',label);
-							a.then(function(response) {
-								
-							},function(response){
-								
-							});
-						}
-						
-						
-						
-						
+	
 						
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";

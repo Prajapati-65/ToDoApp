@@ -1,7 +1,7 @@
 package com.bridgeit.springToDoApp.Note.Model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,7 +24,7 @@ import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "NOTE_TABLE")
+@Table(name = "NOTE")
 public class Note {
 
 	@Id
@@ -67,23 +67,15 @@ public class Note {
 	@Column(name = "IMAGE", columnDefinition = "LONGBLOB")
 	private String image;
 
-	@ManyToOne
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "NOTE_LABEL", joinColumns = { @JoinColumn(name = "NOTE_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "LABEL_ID") })
+	private Set<Label> labels;
+
+	@ManyToOne()
 	@JsonIgnore
 	@JoinColumn(name = "USER_ID")
 	private User user;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	private Set<Label> labels;
-	
-	
-
-	public Set<Label> getLabels() {
-		return labels;
-	}
-
-	public void setLabels(Set<Label> labels) {
-		this.labels = labels;
-	}
 
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
@@ -113,72 +105,20 @@ public class Note {
 		return noteId;
 	}
 
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
-	}
-
 	public String getTitle() {
 		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	public Date getModifiedDate() {
 		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public String getReminderStatus() {
-		return reminderStatus;
-	}
-
-	public void setReminderStatus(String reminderStatus) {
-		this.reminderStatus = reminderStatus;
-	}
-
-	public String getNoteColor() {
-		return noteColor;
-	}
-
-	public void setNoteColor(String noteColor) {
-		this.noteColor = noteColor;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public String getPin() {
@@ -193,9 +133,68 @@ public class Note {
 		return deleteStatus;
 	}
 
+	public String getReminderStatus() {
+		return reminderStatus;
+	}
+
 	public String getNoteStatus() {
 		return noteStatus;
 	}
 
+	public String getNoteColor() {
+		return noteColor;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public Set<Label> getLabels() {
+		return labels;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setNoteId(int noteId) {
+		this.noteId = noteId;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public void setReminderStatus(String reminderStatus) {
+		this.reminderStatus = reminderStatus;
+	}
+
+	public void setNoteColor(String noteColor) {
+		this.noteColor = noteColor;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setLabels(Set<Label> labels) {
+		this.labels = labels;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }
