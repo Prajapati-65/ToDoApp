@@ -82,7 +82,7 @@ public class LabelController {
 		}
 	}
 
-	@RequestMapping(value = "/editLabel", method = RequestMethod.POST)
+	@RequestMapping(value = "/editLabel", method = RequestMethod.PUT)
 	public Response editNotes(@RequestBody Label label, HttpServletRequest request) {
 
 		CustomResponse customResponse = new CustomResponse();

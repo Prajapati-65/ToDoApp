@@ -4,6 +4,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 					document.getElementById("noteContainer").style.marginLeft = "250px";
 					
+					$scope.labels = {};
+					
 			/*---------------------------------get valid token-----------------------------------*/
     	
 
@@ -33,6 +35,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						}	
 			/*--------------------------------Labels------------------------------------*/
+						var path = $location.path();
+						var labelName = path.substr(path.lastIndexOf("/") + 1);
 						
 						$scope.addLabelModal=function() {
 							modalInstance = $uibModal.open({
@@ -43,21 +47,113 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						$scope.saveLabel = function(label) {
-		
 							var token = gettingToken();
 							var method = 'POST';
 							var url = 'user/saveLabel';
 							var a = homeService.service(url,method,token,label);
 							a.then(function(response) {
 								console.log(response.data)
+								
+								$scope.labels = response.data;
 							}, function(response) {
 								
 							});
 						}
 						
+						getlabels();
+						function getlabels() {
+							
+							var url = "user/getLabelNotes/";
+							var token = gettingToken();
+		
+							var httpGetLabels = homeService.service(url,'GET',token,labelName);
+							httpGetLabels.then(function(response) {
+								$scope.labels = response.data;
+							}, function(response) {
+								
+							});
+						}
+						$scope.toggleLabelOfNote = function(note, label) {
+							var index = -1;
+							var i = 0;
+							for (i = 0, len = note.labels.length; i < len; i++) {
+								if (note.labels[i].labelName === label.labelName) {
+									index = i;
+									break;
+								}
+							}
+
+							if (index == -1) {
+								note.labels.push(label);
+							} else {
+								note.labels.splice(index, 1);
+							}
+						}
+						
+
+	/*					$scope.toggleLabelOfNote = function(note, label) {
+							var index = -1;
+							var i = 0;
+							for (i = 0, len = note.labels.length; i < len; i++) {
+								if (note.labels[i].labelName === label.labelName) {
+									index = i;
+									break;
+								}
+							}
+
+							if (index == -1) {
+								note.labels.push(label);
+							} else {
+								note.labels.splice(index, 1);
+							}
+						}
+
+						$scope.editLabel = function(label) {
+							var url = 'user/editLabel'
+							var token = gettingToken();
+							homeService.service(url,'PUT',token,label);
+							getlabels();
+						}
+						
+						$scope.deleteLabel = function(label) {
+							var url = 'user/deleteLabels/'+label.labelId;
+							var method = 'DELETE';
+							var token = gettingToken();
+							homeService.service(url,'DELETE',token,label);
+							getlabels();
+						}
+						
+					
+						getlabels();
+						function getlabels() {
+							
+							var url = "user/getLabelNotes/" + labelName;
+							var token = gettingToken();
+		
+							var httpGetLabels = homeService.service(url,'GET',token,labelName);
+							httpGetLabels.then(function(response) {
+								$scope.labels = response.data;
+							}, function(response) {
+								
+							});
+						}
+						
+						$scope.removeLabel = function (note, item) {
+					    	$scope.note = note;
+					    	var comparator = angular.equals;
+					        if (angular.isArray($scope.note.labels)) {
+					          for (var i = $scope.note.labels.length; i--;) {
+					            if (comparator($scope.note.labels[i],item)) {
+					            	$scope.note.labels.splice(i, 1);
+					              break;
+					            }
+					          }
+					        }
+					        $scope.updateNote(note);
+						}
 						
 	
-						
+	*/
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
 
@@ -507,7 +603,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						var b = homeService.service(url,'GET',token)
 						b.then(function(response) {
 							$scope.allGetNotes = response.data;
-							
+							console.log(response.data)
 						}, function(response) {
 							$scope.logout();
 						});

@@ -4,7 +4,18 @@
 			<li><a ui-sref="home">Notes</a></li>
 			<li><a ui-sref="reminders">Reminder</a></li>
 			
-			<li><a ng-click="addLabelModal()">Create Label</a></li>
+			<hr id="break">
+				<div>
+					<span id="font">Labels <a id="font" ng-click="addLabelModal()">Edit</a></span>
+				</div>
+				<div ng-repeat="label in labels">
+					<a id="labelList" ui-sref="labels({id:label.labelName})">{{label.labelName}}</a>
+				</div>
+				
+				<a id="font" ng-click="addLabelModal()">Create Label</a>
+			<hr id="break">
+			 
+			
 			<li><a ui-sref="trash">Trash</a></li>
 			<li><a ui-sref="archive">Archive</a></li>
 		</ul>
