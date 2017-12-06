@@ -42,9 +42,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						}
 						
-						
 						$scope.saveLabel = function(label) {
-							
+		
 							var token = gettingToken();
 							var method = 'POST';
 							var url = 'user/saveLabel';
@@ -55,6 +54,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
+						
+						
 	
 						
 			/*--------------------------------Image Upload--------------------------------*/
