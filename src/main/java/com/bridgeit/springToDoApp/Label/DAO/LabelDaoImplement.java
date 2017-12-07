@@ -56,7 +56,8 @@ public class LabelDaoImplement implements LabelDao {
 	public List<Label> getLabels(User user) {
 		Session session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(Label.class);
-		criteria.add(Restrictions.eqOrIsNull("user", user));
+		criteria.add(Restrictions.eq("userLabel", user));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Label> labels = criteria.list();
 		return labels;
 	}
@@ -86,17 +87,20 @@ public class LabelDaoImplement implements LabelDao {
 	@Override
 	public boolean editLabel(Label label) {
 		Session session = sessionFactory.openSession();
-
-		try {
-			transaction = session.beginTransaction();
-			session.update(label);			
-			transaction.commit();
-			return true;
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
+		if(label!=null){
+			try {
+				transaction = session.beginTransaction();
+				session.update(label);			
+				transaction.commit();
+				return true;
+			} catch (Exception e) {
+				if (transaction != null) {
+					transaction.rollback();
+				}
+				e.printStackTrace();
+				return false;
 			}
-			e.printStackTrace();
+		}else{
 			return false;
 		}
 	}
@@ -107,6 +111,7 @@ public class LabelDaoImplement implements LabelDao {
 		Session session = sessionFactory.openSession();
 		Criteria criteria = session.createCriteria(Label.class);
 		criteria.add(Restrictions.eq("labelName", labelName));
+		
 		Label objLabel = (Label) criteria.uniqueResult();
 		session.close();
 		return objLabel;

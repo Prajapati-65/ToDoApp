@@ -59,10 +59,12 @@ public class LabelController {
 	}
 
 	@RequestMapping(value = "getLabelNotes/{label}", method = RequestMethod.GET)
-	public List<Label> getLabels(@PathVariable String label, HttpServletRequest request) {
+	public List<Label> getLabels(@PathVariable("label") String label, HttpServletRequest request) {
 		int id = (int) request.getAttribute("userId");
 		User user = userService.getUserById(id);
 		List<Label> allNotes = labelService.getLabels(user);
+		
+		allNotes.forEach(System.out::println);
 		return allNotes;
 	}
 
@@ -88,16 +90,22 @@ public class LabelController {
 		CustomResponse customResponse = new CustomResponse();
 		int id = (int) request.getAttribute("userId");
 		User user = userService.getUserById(id);
-		label.setUserLabel(user);
 		
-		boolean isEdited = labelService.editLabel(label);
-		if (isEdited) {
-			customResponse.setMessage("Editing note are successfull");
-			customResponse.setStatus(2);
-			return customResponse;
+		if(label!=null) {
+			
+			label.setUserLabel(user);
+			boolean isEdited = labelService.editLabel(label);
+			if (isEdited) {
+				customResponse.setMessage("Editing note are successfull");
+				customResponse.setStatus(2);
+				return customResponse;
+			} else {
+				customResponse.setMessage("edition is not possible");
+				customResponse.setStatus(-1);
+				return customResponse;
+			}
 		} else {
-			customResponse.setMessage("edition is not possible");
-			customResponse.setStatus(-1);
+			customResponse.setMessage("Label is null");
 			return customResponse;
 		}
 	}

@@ -4,7 +4,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 					document.getElementById("noteContainer").style.marginLeft = "250px";
 					
-					$scope.labels = {};
+					
 					
 			/*---------------------------------get valid token-----------------------------------*/
     	
@@ -30,6 +30,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							
 							a.then(function(response) {
 								$scope.UserDetails=response.data;
+								$scope.labels=$scope.UserDetails.labels;
 							}, function(response) {
 								
 							});
@@ -37,12 +38,13 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*--------------------------------Labels------------------------------------*/
 						var path = $location.path();
 						var labelName = path.substr(path.lastIndexOf("/") + 1);
+						$scope.labels = {};
 						
 						$scope.addLabelModal=function() {
 							modalInstance = $uibModal.open({
 								templateUrl : 'Template/LabelModal.html',
 								scope : $scope,
-								size:"md"
+								size:"sm"
 							});
 						}
 						
@@ -53,8 +55,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							var a = homeService.service(url,method,token,label);
 							a.then(function(response) {
 								console.log(response.data)
-								
-								$scope.labels = response.data;
 							}, function(response) {
 								
 							});
@@ -62,88 +62,59 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						getlabels();
 						function getlabels() {
-							
-							var url = "user/getLabelNotes/";
+							var url = "user/getLabelNotes/"+labelName;
 							var token = gettingToken();
-		
-							var httpGetLabels = homeService.service(url,'GET',token,labelName);
-							httpGetLabels.then(function(response) {
+							var a = homeService.service(url,'GET',token,labelName);
+							a.then(function(response) {
 								$scope.labels = response.data;
 							}, function(response) {
-								
 							});
 						}
-						$scope.toggleLabelOfNote = function(note, label) {
-							var index = -1;
-							var i = 0;
-							for (i = 0, len = note.labels.length; i < len; i++) {
-								if (note.labels[i].labelName === label.labelName) {
-									index = i;
-									break;
-								}
-							}
-
-							if (index == -1) {
-								note.labels.push(label);
-							} else {
-								note.labels.splice(index, 1);
-							}
-						}
 						
-
-	/*					$scope.toggleLabelOfNote = function(note, label) {
-							var index = -1;
-							var i = 0;
-							for (i = 0, len = note.labels.length; i < len; i++) {
-								if (note.labels[i].labelName === label.labelName) {
-									index = i;
-									break;
-								}
-							}
-
-							if (index == -1) {
-								note.labels.push(label);
-							} else {
-								note.labels.splice(index, 1);
-							}
-						}
-
 						$scope.editLabel = function(label) {
-							var url = 'user/editLabel'
-							var token = gettingToken();
-							homeService.service(url,'PUT',token,label);
-							getlabels();
+							if(label!=null){
+								var url = 'user/editLabel'
+								var token = gettingToken();
+								homeService.service(url,'PUT',token,label);
+								getlabels();
+							}
 						}
 						
 						$scope.deleteLabel = function(label) {
-							var url = 'user/deleteLabels/'+label.labelId;
-							var method = 'DELETE';
-							var token = gettingToken();
-							homeService.service(url,'DELETE',token,label);
-							getlabels();
+							if(label!=null){
+								var url = 'user/deleteLabels/'+label.labelId;
+								var method = 'DELETE';
+								var token = gettingToken();
+								homeService.service(url,'DELETE',token,label);
+								getlabels();
+							}
 						}
 						
-					
-						getlabels();
-						function getlabels() {
+						
+					$scope.toggleLabelOfNote = function(note, label) {
+							var index = -1;
+							var i = 0;
+							var len = note.labels.length;
 							
-							var url = "user/getLabelNotes/" + labelName;
-							var token = gettingToken();
-		
-							var httpGetLabels = homeService.service(url,'GET',token,labelName);
-							httpGetLabels.then(function(response) {
-								$scope.labels = response.data;
-							}, function(response) {
-								
-							});
+							for (i = 0;  i < len; i++) {
+								if (note.labels[i].labelName === label.labelName) {
+									index = i;
+									break;
+								}
+							}
+							if (index == -1) {
+								note.labels.push(label);
+							} else {
+								note.labels.splice(index, 1);
+							}
 						}
-						
-						$scope.removeLabel = function (note, item) {
+	
+						$scope.removeLabel = function (note, labelItem) {
 					    	$scope.note = note;
 					    	var comparator = angular.equals;
 					        if (angular.isArray($scope.note.labels)) {
 					          for (var i = $scope.note.labels.length; i--;) {
-					            if (comparator($scope.note.labels[i],item)) {
+					            if (comparator($scope.note.labels[i],labelItem)) {
 					            	$scope.note.labels.splice(i, 1);
 					              break;
 					            }
@@ -152,8 +123,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					        $scope.updateNote(note);
 						}
 						
-	
-	*/
+						
+						
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
 
@@ -502,6 +473,9 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								$scope.navBarHeading="Google Keep";
 							}
 							
+						
+
+							
 		/*--------------------------------add a new note ------------------------------------*/
 						
 						$scope.addNote = function() {
@@ -597,13 +571,30 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					/* display notes */
 					function getAllNotes() {
+						
 						var	url='user/getallnotes';
 						var	token = gettingToken();
-		
 						var b = homeService.service(url,'GET',token)
 						b.then(function(response) {
+							
 							$scope.allGetNotes = response.data;
-							console.log(response.data)
+							
+							if($state.current.name == "labels") {
+								
+								$scope.topBarColor = "#669999";
+								$scope.navBarHeading = labelName;
+								var temp=[];
+								for(var i=0; i < $scope.allGetNotes.length; i++){
+									var labels = $scope.allGetNotes[i].labels;
+									for(var j=0; j < labels.length; j++){
+										if(labels[j].labelName==labelName){
+											temp.push($scope.allGetNotes[i]);
+										}
+									}
+								}
+								$scope.allGetNotes=temp;
+							}
+							
 						}, function(response) {
 							$scope.logout();
 						});
@@ -810,6 +801,5 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						}
 					}
-			/*--------------------------------------------------------------------------*/				
 	});
 				

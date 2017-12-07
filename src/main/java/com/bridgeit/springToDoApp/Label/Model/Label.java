@@ -74,5 +74,11 @@ public class Label {
 		this.noteId = noteId;
 	}
 
+	@Override
+	public String toString() {
+		return "Label [labelId=" + labelId + ", labelName=" + labelName + ", userLabel=" + userLabel + ", noteId="
+				+ noteId + "]";
+	}
 
+	
 }

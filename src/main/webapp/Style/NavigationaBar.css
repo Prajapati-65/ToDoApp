@@ -8,7 +8,6 @@
 	overflow-x: hidden;
 	transition: 0.3s;
 	padding-top: 7%;
-	
 }
 
 ul{
@@ -22,7 +21,7 @@ ul{
 	color: black;
 	display: block;
 	transition: 0.3s;
-	padding-top: 25px;
+	
 }
 
 .sideNav a:hover {
@@ -86,7 +85,7 @@ input[type=text] {
     box-sizing: border-box;
     border-radius: 4px;
     background-color: #ffffff;
-    background-image: url('searchicon.png');
+   /*  background-image: url('searchicon.png'); */
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;

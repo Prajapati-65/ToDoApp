@@ -51,7 +51,7 @@ public class User {
 	@Column(name = "PROFILE_IMAGE", columnDefinition = "LONGBLOB")
 	private String profileImage;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "userLabel", fetch = FetchType.EAGER)
 	private Set<Label> labels;
 

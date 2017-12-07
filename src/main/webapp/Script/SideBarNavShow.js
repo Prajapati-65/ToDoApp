@@ -18,3 +18,7 @@ function closeNav() {
     document.getElementById("sideNavContent").style.width = "0px";
     document.getElementById("noteContainer").style.marginLeft = "0px";
 }
+
+var cleanUp = function() {
+	document.getElementById("ab").value='';
+}

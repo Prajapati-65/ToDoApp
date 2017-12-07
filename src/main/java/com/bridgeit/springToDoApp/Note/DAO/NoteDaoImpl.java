@@ -77,6 +77,7 @@ public class NoteDaoImpl implements NoteDao {
 		Criteria criteria = session.createCriteria(Note.class);
 		criteria.add(Restrictions.eq("user", user));
 		criteria.addOrder(Order.desc("modifiedDate"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		@SuppressWarnings("unchecked")
 		List<Note> notes = criteria.list();
 		return notes;
