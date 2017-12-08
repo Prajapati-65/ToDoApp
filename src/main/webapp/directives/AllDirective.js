@@ -30,6 +30,18 @@ toDoApp.directive("otherNote", function() {
 	};
 });
 
+toDoApp.directive("drapDown", function() {
+	return {
+		templateUrl : 'Template/drapdown.html'
+	};
+});
+
+toDoApp.directive("urlImage", function() {
+	return {
+		templateUrl : 'Template/urlimage.html'
+	};
+});
+
 toDoApp.directive('contenteditable', [ '$sce', function($sce) {
 
 	return {
@@ -132,3 +144,5 @@ toDoApp.factory('fileReader', function($q, $log) {
 		readAsDataUrl : readAsDataURL
 	};
 });
+
+

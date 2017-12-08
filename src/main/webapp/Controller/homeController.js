@@ -122,8 +122,47 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					        }
 					        $scope.updateNote(note);
 						}
+			/*-----------------------------URL With Image--------------------------------*/		
 						
-						
+						var urls=[];
+						 $scope.checkUrl=function(note){
+							
+							var urlPattern=/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+							var url=note.description.match(urlPattern);
+							var link=[];
+							
+							note.url=[];
+							note.link=[];
+							console.log(urls);
+							if(url!=null || url!=undefined){
+								for(var i=0;i<url.length;i++) {
+									
+									note.url[i]=url[i];
+									addlabel = homeService.getUrlData(url[i]);
+									addlabel.then(function(response) {
+											
+											if(note.size==undefined){
+												note.size=0;
+											}
+											
+											var responseData=response.data;
+											link[note.size]={
+													title:responseData.title,
+													url:note.url[note.size],
+													imageUrl:responseData.imageUrl,
+													domain:responseData.domain
+													}
+										
+											note.link[note.size]=link[note.size];
+											note.size=note.size+1;
+											console.log(note.link);
+									},function(response){
+									
+									});
+								
+								}
+							}
+						 }
 						
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
@@ -170,7 +209,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-						
 						
 						$scope.removeReminder=function(note){
 							note.reminderStatus=null;
@@ -771,9 +809,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					}
 				
 			/*-------------------------------------List View and Gride View--------------------------------*/
+				
+					
 					
 					$scope.ListView=true;
-					
 					$scope.ListViewToggle=function(){
 						if($scope.ListView==true){
 							$scope.ListView=false;
@@ -801,5 +840,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						}
 					}
+					
+					
 	});
 				

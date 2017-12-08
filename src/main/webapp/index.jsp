@@ -44,6 +44,8 @@
 <script type="text/javascript" src="Service/homeService.js"></script>
 
 <script type="text/javascript" src="directives/AllDirective.js"></script>
+<script type="text/javascript" src="directives/filter.js"></script>
+
 
 </head>
 <body ng-app="toDoApp">

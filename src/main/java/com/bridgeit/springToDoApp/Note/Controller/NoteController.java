@@ -23,6 +23,8 @@ import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
+import com.bridgeit.springToDoApp.Utility.Jsoup.LinkScrapper;
+import com.bridgeit.springToDoApp.Utility.Jsoup.UrlData;
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
 
 @RestController
@@ -204,7 +206,7 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/removeCollborator", method = RequestMethod.POST)
-	public ResponseEntity<CustomResponse> removeCollborator(@RequestBody Collaborater collborator,
+	public ResponseEntity<Response> removeCollborator(@RequestBody Collaborater collborator,
 			HttpServletRequest request) {
 
 		CustomResponse response = new CustomResponse();
@@ -239,6 +241,27 @@ public class NoteController {
 		}
 	}
 
-	/*-------------------------------------------------Collaborator end-----------------------------------------------*/
+	/*-----------------------------------------Jsoup UrlData----------------------------------*/
+	@RequestMapping(value = "/getUrlData", method = RequestMethod.POST)
+	public ResponseEntity<?> getUrlData(HttpServletRequest request){
+		
+		String urlmap=request.getHeader("url");
+		LinkScrapper link=new LinkScrapper();
+		
+		UrlData urlData=null;
+		
+		try {
+			urlData = link.getUrlMetaData(urlmap);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			CustomResponse customResponse = new CustomResponse();
+			customResponse.setMessage("URL is not found");
+			customResponse.setStatus(-2);
+			return ResponseEntity.badRequest().body(customResponse);
+		}
+		
+		return ResponseEntity.ok(urlData);
+	}
 
 }

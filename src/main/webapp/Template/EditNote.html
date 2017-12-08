@@ -5,10 +5,10 @@
 			<img ng-src="{{note.image}}"  style="width:100%" />
 		</div>
 		<span class="glyphicon glyphicon-pushpin"  ng-click="note.pin=!note.pin; updateNote(note)" style="float: right;"></span>
-		<div contenteditable="true" ng-bind-html="note.title" id="modifiedtitle">
+		<div contenteditable="true" ng-bind-html="note.title | parseUrlFilter" id="modifiedtitle">
 		</div>
 		<br>
-		<div contenteditable="true" ng-bind-html="note.description" id="modifieddescreption"></div>
+		<div contenteditable="true" ng-bind-html="note.description | parseUrlFilter" id="modifieddescreption"></div>
 		<br>
 		
 		
@@ -65,7 +65,7 @@
 				</span>
 			
 			
-				<div class="dropdown inline">
+				<!-- <div class="dropdown inline">
 						</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
 								<span class="glyphicon glyphicon-option-vertical"></span>
 						</span>
@@ -76,7 +76,12 @@
 						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
 						
 					</ul>
-				</div>
+				</div> -->
+				
+				<drap-down></drap-down>
+					
+						<url-image></url-image>	
+				
 				
 				<div style="float: right">
 					<div id="edit">

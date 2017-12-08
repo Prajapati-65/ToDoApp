@@ -1,32 +1,40 @@
 <div class="sideNav" id="sideNavContent">
- 	<div class="col-3 container-fluid">
- 		
- 		<ul>
-			<li><a ui-sref="home">Notes</a></li>
-			<li><a ui-sref="reminders">Reminder</a></li>
-			
-			<hr id="break">
-				<div>
-					<span id="font">Labels</span> <span id="font" class="btn" style="margin-left: 50px;" ng-click="addLabelModal()">Edit</span>
+	<div class="container-fluid">
+		<a ui-sref="home">Notes</a> <a ui-sref="reminders">Reminder</a>
+
+		<hr id="break">
+		<div class="row">
+			<div class="col-sm-6">
+				<a ui-sref="home">Labels</a>
+			</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-4">
+				<a ng-click="addLabelModal()" style="font-size: 15px">Edit</a>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+
+
+		<div ng-repeat="label in labels">
+			<div class="row">
+				<div class="col-sm-1"></div>
+
+				<div class="col-sm-6">
+					<a id="labelList" ui-sref="labels({id:label.labelName})">{{label.labelName}}</a>
 				</div>
-				<div ng-repeat="label in labels">
-					<div class="row">
-						<div class="col-sm-3">
-							<a id="labelList" ui-sref="labels({id:label.labelName})">{{label.labelName}}</a>
-						</div>
-					</div>
-				</div>
-				
-				
-				 	<a id="font" ng-click="addLabelModal()">Create Label</a>
-				
-			<hr id="break">
-			 
-			<li><a ui-sref="trash">Trash</a></li>
-			<li><a ui-sref="archive">Archive</a></li>
-		</ul>
-		
- 	</div>
- </div>
- 
- 
+			</div>
+		</div>
+
+
+		<a ng-click="addLabelModal()">Create Label</a>
+
+		<hr id="break">
+
+		<a ui-sref="trash">Trash</a> 
+		<a ui-sref="archive">Archive</a>
+
+
+	</div>
+</div>
+
+

@@ -21,7 +21,7 @@
 						
 						<div ng-bind-html="note.title"></div>
 						<br>
-						<div ng-bind-html="note.description"></div>
+						<div ng-bind-html="note.description | parseUrlFilter"></div>
 						<br>
 					</div>
 			</div>	
@@ -86,47 +86,11 @@
 				<span ng-click="archiveNote(note)" class="btn"> 
 					<img alt="archive" src="image/archive.svg" height="20px">	
 				</span>	
-			
-			
-				<div class="dropdown inline">
-						 <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
-								<span class="glyphicon glyphicon-option-vertical"></span>
-						</span>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						<li><a ng-click="deleteNote(note)">Delete</a></li>
-							
-							
-							
-							<li class="dropdown-submenu">
-									<a tabindex="-1" href="">Add label</a>
-										<ul class="dropdown-menu">
-											<li><a tabindex="-1" href="">Create label</a></li>
-												<li><input class="input-label" placeholder="Enter label name"  ng-blur="saveLabel(label)">
-												</li>
-													<li>
-														<div ng-repeat="label in labels" class="dropdown-submenu-item checkbox">
-															<label> 
-																	<input type="checkbox" ng-click="toggleLabelOfNote(note,label); updateNote(note);">
-																	{{label.labelName}}
-															</label>
-														</div>
-													</li>
-													<li style="cursor: pointer; background: rgba(0, 0, 0, .2)" ng-if="label" ng-click="saveLabel(label)">
-														<div>
-															Create <b>"{{label.labelName}}"</b>
-														</div>
-													</li>
-											</ul>
-								</li>
-												
-						
-						
-						
-						<li><a ng-click="copy(note)">Make a Copy</a></li>
-						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
-						
-					</ul>
-				</div>
+					
+					<drap-down></drap-down>
+					
+						<url-image></url-image>					
+				
 		</div>
 	</div>
 			

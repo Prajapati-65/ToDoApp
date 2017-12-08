@@ -27,7 +27,7 @@
 	
 								<div ng-bind-html="note.title"></div>
 								<br>
-								<div ng-bind-html="note.description"></div>
+								<div ng-bind-html="note.description | parseUrlFilter"></div>
 								<br>
 							</div>
 						</div>
