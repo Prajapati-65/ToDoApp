@@ -618,7 +618,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.allGetNotes = response.data;
 							
 							if($state.current.name == "labels") {
-								
 								$scope.topBarColor = "#669999";
 								$scope.navBarHeading = labelName;
 								var temp=[];
@@ -632,6 +631,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								}
 								$scope.allGetNotes=temp;
 							}
+							
 							
 						}, function(response) {
 							$scope.logout();

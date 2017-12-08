@@ -130,6 +130,7 @@ public class NoteDaoImpl implements NoteDao {
 	public void deleteScheduleNote() {
 		Session session = factory.openSession();
 		Date deleteTime = new Date(System.currentTimeMillis() - 7*24*60*60*1000);
+		System.out.println("delete time is : "+deleteTime);
 		String trash= "true";
 		Transaction transaction = session.beginTransaction();
 		try {

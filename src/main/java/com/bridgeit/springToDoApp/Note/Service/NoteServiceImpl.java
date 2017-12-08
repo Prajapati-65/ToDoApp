@@ -74,7 +74,8 @@ public class NoteServiceImpl implements NoteService {
 		return noteDao.removeCollborator(shareWith, noteId);
 	}
 	
-	public void deleteScheduleNote() {
+	public void deleteScheduleNote() { 
+		
 		noteDao.deleteScheduleNote();
 	}
 }
