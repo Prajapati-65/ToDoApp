@@ -1,78 +1,59 @@
 <div class="container">
 	<div class="row">
-	  <div class="col-12">
-		<br> <br>
-	<h4 ng-show="pinnedNotes.length">Pinned</h4> 
-	<div class="card col-sm-4" ng-click="showModal(note)" style="background-color: {{note.noteColor}}"
-		ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
+		<div class="col-12">
+			<br> <br>
+			<h4 ng-show="pinnedNotes.length">Pinned</h4>
+			<div class="card col-sm-4" ng-click="showModal(note)"
+				style="background-color: {{note.noteColor}}"
+				ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 
-		<div ng-click="open(note)">
-				<div class="pinCss1">
-				<span class="pinCss2" id="moreOptions"  ng-click="note.pin='false'; updateNote(note)">
-				<img alt="pin" src="image/bluepin.svg">
-				</span>
-					<img ng-src="{{note.image}}"  style="width:100%"/>
-					
-				</div>
-				<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
-					<div ng-bind-html="note.title"></div>
-					<br>
-					<div ng-bind-html="note.description | parseUrlFilter"></div>
-					<br>
-				</div>
-		</div>
-		
-		
-		
-		<div id="reminder" ng-if="note.reminderStatus!=null">{{note.reminderStatus}}
-			<span class="closebtn" ng-click="removeReminder(note)">&#x274C;</span>
-		</div>
-		
-		<div>
-			<div class="dropdown inline">
-				<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
-						<img alt="reminder" src="image/reminder.svg" height="17px">
-				</span>
-										
-				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-				<li><input type="text" ng-attr-id="datepicker{{note.noteId}}" class="reminder"></li>
-					<li><button ng-click="openReminder(note)"><span  class="glyphicon glyphicon-calendar"></span></button></li>
-				</ul>
-			</div>
-			
-			
-				<img alt="colaburator" src="image/colaburator.png" height="23px" ng-click="openCollboarate(note,UserDetails,$index)">
-		
-				<div class="dropdown inline">
-					<div class="btn btn-group dropup colorDiv" uib-dropdown>
-						<img id="dropdown" class="dropdown-toggle" data-toggle="dropdown"
-							alt="color" src="image/colorpallete.svg" uib-dropdown-toggle
-							height="20px">
-						<ul class="dropdown-menu" uib-dropdown-menu role="menu"
-							aria-labelledby="btn-append-to-body"
-							style="background-color: #f9fbff">
-							<a ng-repeat="color in colors" role="menuitem"> <img
-								ng-src="{{color.path}}" height="25px"
-								ng-click="note.noteColor =color.color; addNoteColorChange(color.color)">
-							</a>
-						</ul>
+				<div ng-click="open(note)">
+					<div class="pinCss1">
+						<span class="pinCss2" id="moreOptions"
+							ng-click="note.pin='false'; updateNote(note)"> <img
+							alt="pin" src="image/bluepin.svg">
+						</span> <img ng-src="{{note.image}}" style="width: 100%" />
+
+					</div>
+					<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
+						<div ng-bind-html="note.title"></div>
+						<br>
+						<div ng-bind-html="note.description | parseUrlFilter"></div>
+						<br>
 					</div>
 				</div>
-				
-			
-				<img alt="image" src="image/image.svg" height="20px">
-				
-				
-				<span ng-click="archiveNote(note)" class="btn"> 
-					<img alt="archive" src="image/archive.svg" height="20px">	
-				</span>
-			
-			
-				<drap-down></drap-down>
-					
-						<url-image></url-image>		
+
+
+
+				<div id="reminder" ng-if="note.reminderStatus!=null">
+					{{note.reminderStatus}} <span class="closebtn"
+						ng-click="removeReminder(note)">&#x274C;</span>
+				</div>
+
+				<div class="note-icons card-margin" id="hide-Options">
+					<reminder-option class="icons-margin"></reminder-option>
+
+					<img alt="colaburator" src="image/colaburator.png" height="23px"
+						ng-click="openColaburator(note,UserDetails,$index)"
+						class="icons-margin">
+
+					<color-pallet class="icons-margin"></color-pallet>
+
+					<span ng-click="openImageUploader(note)" class="btn"> <img
+						alt="image" src="image/image.svg" height="20px"
+						class="icons-margin">
+					</span> <span ng-click="archiveNote(note)" class="btn"> <img
+						alt="archive" src="image/archive.svg" height="20px"
+						class="icons-margin">
+					</span>
+
+					<drap-down></drap-down>
+				</div>
+				{{note.title}}
+				<url-image></url-image>
+
+			</div>
 		</div>
 	</div>
-	</div>
-	</div>
+</div>
 </div>

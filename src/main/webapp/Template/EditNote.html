@@ -5,12 +5,11 @@
 			<img ng-src="{{note.image}}"  style="width:100%" />
 		</div>
 		<span class="glyphicon glyphicon-pushpin"  ng-click="note.pin=!note.pin; updateNote(note)" style="float: right;"></span>
-		<div contenteditable="true" ng-bind-html="note.title | parseUrlFilter" id="modifiedtitle">
+		<div contenteditable="true" ng-bind-html="note.title" id="modifiedtitle">
 		</div>
 		<br>
-		<div contenteditable="true" ng-bind-html="note.description | parseUrlFilter" id="modifieddescreption"></div>
+		<div contenteditable="true" ng-bind-html="note.description" id="modifieddescreption"></div>
 		<br>
-		
 		
 	<div>
 		<div  width="30" height="15">
@@ -19,7 +18,6 @@
 				Modified :{{note.modifiedDate|date:'MMM dd'}}
 			</div>
 		</div>
-		
 		
 		
 			<div class="dropdown inline">
@@ -64,20 +62,6 @@
 					<img ng-show="note.archiveStatus"  height="20px" alt="pin" src="image/archive.svg">
 				</span>
 			
-			
-				<!-- <div class="dropdown inline">
-						</span> <span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
-								<span class="glyphicon glyphicon-option-vertical"></span>
-						</span>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						<li><a ng-click="deleteNote(note)">Delete</a></li>
-						<li><a ng-click="">Add label</a></li>
-						<li><a ng-click="copy(note)">Make a Copy</a></li>
-						<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
-						
-					</ul>
-				</div> -->
-				
 				<drap-down></drap-down>
 					
 						<url-image></url-image>	

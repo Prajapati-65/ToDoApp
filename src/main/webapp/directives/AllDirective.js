@@ -42,6 +42,22 @@ toDoApp.directive("urlImage", function() {
 	};
 });
 
+toDoApp.directive("reminderOption", function() {
+	return {
+		templateUrl : 'Template/reminderOption.html'
+	};
+});
+
+toDoApp.directive("colorPallet", function() {
+	return {
+		templateUrl : 'Template/colorPallet.html'
+	};
+});
+
+
+
+
+
 toDoApp.directive('contenteditable', [ '$sce', function($sce) {
 
 	return {

@@ -1,19 +1,5 @@
 @CHARSET "UTF-8";
 
-.mainHome{
-	width: 100%;
-	height: 100%;
-	background-color: #e8e8e8;
-}
-
-#mainWrapper{
-	background-color:#e8e8e8;
-    padding-left:300px; 
- 	position: absolute;
-	height:100%;
-	width:100%;
-}
-
 .card {
 	border-radius: 1px 1px 1px 1px;
 	box-shadow: 2px 2px 1px 1px lightgrey;
@@ -28,14 +14,28 @@
 .card:hover{
 	 box-shadow: 2px 2px 1px 1px #53c68c;
 }
-
  
-.card:hover #moreOptions{
+.card:hover #hide-Options{
 	visibility:visible;
 }
+
+.note-icons > img{
+	height: 27px;
+	width:22px;
+}
+
+.card-margin{
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom: 3px;
+}
+
+.icons-margin{
+	margin-right: 18px;
+}
+
 #noteContainer{
 		transition: 0.3s;
-	
 }
 
 .card li{
@@ -57,12 +57,10 @@ body {
 	display: inline-block;
 }
 
-
-/* #moreOptions{
+ 
+#hide-Options{
 	visibility: hidden;
 }
- */
-
 
 
 .dropdown-submenu {

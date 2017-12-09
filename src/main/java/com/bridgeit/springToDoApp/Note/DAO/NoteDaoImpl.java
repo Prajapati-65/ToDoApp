@@ -45,6 +45,7 @@ public class NoteDaoImpl implements NoteDao {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(note);
 			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

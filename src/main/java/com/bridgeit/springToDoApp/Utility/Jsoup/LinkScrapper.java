@@ -1,5 +1,6 @@
 package com.bridgeit.springToDoApp.Utility.Jsoup;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LinkScrapper {
 
-	public UrlData getUrlMetaData(String url) throws Exception {
+	public UrlData getUrlMetaData(String url) throws IOException {
 
 		String title = null;
 		String imageUrl = null;
@@ -27,8 +28,8 @@ public class LinkScrapper {
 			e.printStackTrace();
 		}
 		
-		Connection con = Jsoup.connect(url);
-		Document document = con.get();
+		
+		Document document =Jsoup.connect(url).get();
 		
 		Elements metaOgTitle = document.select("meta[property=og:title]");
 

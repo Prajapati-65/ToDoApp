@@ -164,7 +164,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
-	public Response resetPassword(@RequestBody User user, HttpSession session ,HttpServletRequest request) {
+	public Response resetPassword(@RequestBody User user, HttpServletRequest request) {
 
 		String	generateOTP=request.getHeader("token"); 
 		

@@ -1,6 +1,6 @@
 var toDoApp = angular.module('toDoApp');
 
-toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,fileReader ) {
+toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,fileReader ,$filter ) {
 		
 					document.getElementById("noteContainer").style.marginLeft = "250px";
 					
@@ -126,43 +126,46 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						var urls=[];
 						 $scope.checkUrl=function(note){
-							
+							console.log(note)
 							var urlPattern=/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
 							var url=note.description.match(urlPattern);
 							var link=[];
 							
-							note.url=[];
-							note.link=[];
-							console.log(urls);
-							if(url!=null || url!=undefined){
-								for(var i=0;i<url.length;i++) {
+							if(note.size==undefined){
+								note.size=0;
+								note.url=[];
+								note.link=[];
+							}
+						
+							if((url!=null || url!=undefined) && note.size<url.length){
+								for(var i=0;i<url.length;i++){
 									
 									note.url[i]=url[i];
 									addlabel = homeService.getUrlData(url[i]);
 									addlabel.then(function(response) {
-											
-											if(note.size==undefined){
-												note.size=0;
-											}
-											
-											var responseData=response.data;
-											link[note.size]={
-													title:responseData.title,
-													url:note.url[note.size],
-													imageUrl:responseData.imageUrl,
-													domain:responseData.domain
-													}
 										
-											note.link[note.size]=link[note.size];
-											note.size=note.size+1;
-											console.log(note.link);
-									},function(response){
+										var responseData=response.data;
+										if(responseData.title.length>35){
+											responseData.title=responseData.title.substr(0,35)+'...';
+										}
+										link[note.size]={
+												title:responseData.title,
+												url:note.url[note.size],
+												imageUrl:responseData.imageUrl,
+												domain:responseData.domain
+												}
 									
-									});
+										note.link[note.size]=link[note.size];
+										note.size=note.size+1;
 								
-								}
+								},function(response){
+									
+								});
 							}
-						 }
+						}
+					}
+							
+						 
 						
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
@@ -273,6 +276,49 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						
+						/*set tomorrows reminder*/
+						$scope.tomorrowsReminder=function(note){
+							var currentTime=$filter('date')(new Date().getTime() + 24 * 60 * 60 * 1000,'MM/dd/yyyy');
+							notes.reminderStatus=currentTime+" 8:00 AM";
+							$scope.updateNote(note);
+						}
+						
+						/*set next week reminder*/
+						$scope.NextweekReminder=function(note){
+							$scope.currentTime=$filter('date')(new Date().getTime() + 7 * 24 * 60 * 60 * 1000,'MM/dd/yyyy');
+							notes.reminderStatus=$scope.currentTime+" 8:00 AM";
+							$scope.updateNote(note);
+						}
+						
+						/*set later todays reminder*/
+						$scope.todaysReminder=function(note){
+							$scope.currentTime=$filter('date')(new Date(), 'MM/dd/yyyy');
+							var currentHour=new Date().getHours();
+							if(currentHour >= 7){
+								notes.reminderStatus=$scope.currentTime+" 8:00 PM";	
+							}
+							if(currentHour < 7){
+								notes.reminderStatus=$scope.currentTime+" 8:00 AM";
+							}
+							
+							$scope.updateNote(note);
+						}
+						
+
+						$scope.TodaylaterReminder=true;
+						
+						/*check weather to display later todays reminder or not*/
+						function checktime(){
+							var currentDate=new Date().getHours();
+							if(currentDate > 19){
+								$scope.TodaylaterReminder=false;
+							}
+							if(currentDate > 1){
+								$scope.TodaylaterReminder=true;
+							}
+						}
+						
+						
 			/*---------------------------------Colaburator------------------------------*/
 
 						$scope.openColaburator = function(note, user, index) {
@@ -367,7 +413,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						$scope.changeColor=function(note){
 		
-							var url = 'user/changeColor';
+							var url = 'user/update';
 							var method = 'POST';
 							var token = gettingToken();
 							
@@ -731,8 +777,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					
 					$scope.deleteNote=function(note){		
-						
-					
 
 						note.pin="false";
 						note.deleteStatus="true";

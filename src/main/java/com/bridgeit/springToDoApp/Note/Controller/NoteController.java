@@ -1,5 +1,6 @@
 package com.bridgeit.springToDoApp.Note.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,7 @@ public class NoteController {
 	public ResponseEntity<Response> update(@RequestBody Note note) {
 
 		int noteid = note.getNoteId();
-		System.out.println("noteid: " + noteid);
+		
 		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
@@ -97,7 +98,7 @@ public class NoteController {
 		boolean isUpdated = noteService.updateNote(note);
 
 		CustomResponse customResponse = new CustomResponse();
-		System.out.println("is update " + isUpdated);
+		
 		if (isUpdated != true) {
 
 			customResponse.setMessage("Note could not be updated...");
@@ -253,15 +254,14 @@ public class NoteController {
 		try {
 			urlData = link.getUrlMetaData(urlmap);
 			
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-			CustomResponse customResponse = new CustomResponse();
-			customResponse.setMessage("URL is not found");
-			customResponse.setStatus(-2);
-			return ResponseEntity.badRequest().body(customResponse);
 		}
 		
 		return ResponseEntity.ok(urlData);
 	}
+	
+	
+	
 
 }
