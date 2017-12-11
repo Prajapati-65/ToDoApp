@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="Style/style.css">
 <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="bower_components/bower_components/datetimepicker/build/jquery.datetimepicker.min.css">
 
 <script src="bower_components/angular/angular.js"></script>
 
@@ -23,7 +23,7 @@
 <script src="https://connect.facebook.net/enUS/all.js"></script>
 <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/adonespitogo/angular-base64-upload/master/src/angular-base64-upload.js"></script>
-<script src="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="bower_components/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>

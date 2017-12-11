@@ -1,6 +1,8 @@
 package com.bridgeit.springToDoApp.User.Service;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.bridgeit.springToDoApp.User.Model.User;
@@ -21,4 +23,6 @@ public interface UserService {
 	boolean updateUser(User user);
 
 	public User emailValidate(String email);
+	
+	public List<User> getUserEmailId();
 }

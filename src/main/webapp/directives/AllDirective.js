@@ -42,7 +42,7 @@ toDoApp.directive("urlImage", function() {
 	};
 });
 
-toDoApp.directive("reminderOption", function() {
+toDoApp.directive("reminder", function() {
 	return {
 		templateUrl : 'Template/reminderOption.html'
 	};

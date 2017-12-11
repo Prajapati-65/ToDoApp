@@ -1,6 +1,7 @@
 package com.bridgeit.springToDoApp.User.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -217,6 +218,18 @@ public class UserController {
 		return ResponseEntity.ok("");
 	}
 	
+	@RequestMapping(value = "/listOfUserEmail" , method =RequestMethod.GET)
+	public ResponseEntity<List<User>> getAllUserEmail(HttpServletRequest request) {
+		 
+		int userId = VerifiedJWT.verify(request.getHeader("token"));
+		if(userId == 0){
+			return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
+		}
+		else {
+			List<User> list = userService.getUserEmailId();
+			return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+		}
+	}
 	
 	
 }

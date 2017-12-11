@@ -1,5 +1,7 @@
 package com.bridgeit.springToDoApp.User.Service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -106,4 +108,8 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	@Transactional
+	public List<User> getUserEmailId(){
+		return userDao.getUserEmailId();
+	}
 }

@@ -13,7 +13,6 @@
 							ng-click="note.pin='false'; updateNote(note)"> <img
 							alt="pin" src="image/bluepin.svg">
 						</span> <img ng-src="{{note.image}}" style="width: 100%" />
-
 					</div>
 					<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
 						<div ng-bind-html="note.title"></div>
@@ -31,7 +30,7 @@
 				</div>
 
 				<div class="note-icons card-margin" id="hide-Options">
-					<reminder-option class="icons-margin"></reminder-option>
+					<reminder class="icons-margin"></reminder>
 
 					<img alt="colaburator" src="image/colaburator.png" height="23px"
 						ng-click="openColaburator(note,UserDetails,$index)"

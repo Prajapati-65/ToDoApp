@@ -5,30 +5,23 @@
 	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 		<li><a ng-click="deleteNote(note)">Delete</a></li>
 
-
-
-		<li class="dropdown-submenu"><a tabindex="-1" href="">Add
-				label</a>
-			<ul class="dropdown-menu">
+		<li class="dropdown-submenu"><a tabindex="-1" href="">Add Label</a>
+			<ul class="dropdown-menu" style="padding: 10px;">
 				<li><a tabindex="-1" href="">Create label</a></li>
 				<li><input class="input-label" placeholder="Enter label name"
-					ng-blur="saveLabel(label)"></li>
-				<li>
-					<div ng-repeat="label in labels"
-						class="dropdown-submenu-item checkbox">
-						<label> <input type="checkbox"
+					data-ng-click="saveLabel(labelNew)" data-ng-model="labelNew.labelName">
+				</li>
+				
+				<li ng-repeat="label in labels">
+						<label> 
+							<input type="checkbox" 
 							ng-click="toggleLabelOfNote(note,label); updateNote(note);">
 							{{label.labelName}}
 						</label>
-					</div>
 				</li>
-				<li style="cursor: pointer; background: rgba(0, 0, 0, .2)"
-					ng-if="label" ng-click="saveLabel(label)">
-					<div>
-						Create <b>"{{label.labelName}}"</b>
-					</div>
-				</li>
-			</ul></li>
+				<li> <button data-ng-click="saveLabel(labelNew)">Create {{labelNew.labelName}} </button></li>
+			</ul>
+		</li>
 
 
 		<li><a ng-click="copy(note)">Make a Copy</a></li>

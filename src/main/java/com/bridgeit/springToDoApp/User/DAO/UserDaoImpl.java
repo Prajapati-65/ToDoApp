@@ -1,9 +1,13 @@
 package com.bridgeit.springToDoApp.User.DAO;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -91,5 +95,16 @@ public class UserDaoImpl implements UserDao {
 		session.close();
 		return user;
 	}
+
+	@Override
+	public List<User> getUserEmailId() {
+		Session  session = factory.openSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.setProjection(Projections.property("email"));
+		List<User> userList = criteria.list();
+		return userList;
+	}
+	
+	
 
 }

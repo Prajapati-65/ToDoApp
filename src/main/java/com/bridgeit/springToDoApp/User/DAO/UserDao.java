@@ -1,5 +1,7 @@
 package com.bridgeit.springToDoApp.User.DAO;
 
+import java.util.List;
+
 import com.bridgeit.springToDoApp.User.Model.User;
 
 public interface UserDao {
@@ -13,4 +15,6 @@ public interface UserDao {
 	boolean updateUser(User user);
 	
 	public User emailValidation(String email);
+	
+	public List<User> getUserEmailId();
 }

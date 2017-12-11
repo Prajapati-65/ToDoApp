@@ -5,10 +5,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					document.getElementById("noteContainer").style.marginLeft = "250px";
 					
 					
-					
 			/*---------------------------------get valid token-----------------------------------*/
     	
-
 						var gettingToken = function() {
 							var token =  localStorage.getItem('token');
 							if(token==null){
@@ -34,7 +32,27 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}, function(response) {
 								
 							});
-						}	
+						}
+						
+						
+		/*---------------------------------get all user email----------------------------------*/
+							
+						$scope.emailList="";
+							
+						$scope.getAllUserEmail =	function getAllUserEmail() {
+								var token =  gettingToken();
+								var method = "GET";
+								var url = 'listOfUserEmail';
+								var a = homeService.service(url,method,token);
+								
+								a.then(function(response) {
+									$scope.emailList=response.data;
+									console.log($scope.emailList);
+			
+								}, function(response) {
+									
+								});
+							}
 			/*--------------------------------Labels------------------------------------*/
 						var path = $location.path();
 						var labelName = path.substr(path.lastIndexOf("/") + 1);
@@ -125,8 +143,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*-----------------------------URL With Image--------------------------------*/		
 						
 						var urls=[];
-						 $scope.checkUrl=function(note){
-							console.log(note)
+						 $scope.checkUrl=function(note) {
 							var urlPattern=/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
 							var url=note.description.match(urlPattern);
 							var link=[];
@@ -198,6 +215,11 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							}
 						});
 						
+						$scope.removeImg=function(note){
+							note.image=null;
+							$scope.updateNote(note);
+						}
+						
 						
 						$scope.changeProfile=function(user){
 							var token = gettingToken();
@@ -213,10 +235,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						}
 						
-						$scope.removeReminder=function(note){
-							note.reminderStatus=null;
-							$scope.updateNote(note);
-						}
+						
 			/*---------------------------------Social Share-----------------------------------------*/
 						
 						// SOCIAL SHARE
@@ -247,6 +266,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						};
 			/*---------------------------------------------------------------------------------*/
+						$scope.removeReminder=function(note){
+							note.reminderStatus=null;
+							$scope.updateNote(note);
+						}
+						
+						
 						$scope.AddReminder='';
 						
 						$scope.AddReminder='';
@@ -276,48 +301,34 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						
-						/*set tomorrows reminder*/
+						
 						$scope.tomorrowsReminder=function(note){
 							var currentTime=$filter('date')(new Date().getTime() + 24 * 60 * 60 * 1000,'MM/dd/yyyy');
-							notes.reminderStatus=currentTime+" 8:00 AM";
+							note.reminderStatus=currentTime+" 8:00 AM";
 							$scope.updateNote(note);
 						}
 						
-						/*set next week reminder*/
+						
 						$scope.NextweekReminder=function(note){
 							$scope.currentTime=$filter('date')(new Date().getTime() + 7 * 24 * 60 * 60 * 1000,'MM/dd/yyyy');
-							notes.reminderStatus=$scope.currentTime+" 8:00 AM";
+							note.reminderStatus=$scope.currentTime+" 8:00 AM";
 							$scope.updateNote(note);
 						}
 						
-						/*set later todays reminder*/
+						
 						$scope.todaysReminder=function(note){
 							$scope.currentTime=$filter('date')(new Date(), 'MM/dd/yyyy');
 							var currentHour=new Date().getHours();
 							if(currentHour >= 7){
-								notes.reminderStatus=$scope.currentTime+" 8:00 PM";	
+								note.reminderStatus=$scope.currentTime+" 8:00 PM";	
 							}
 							if(currentHour < 7){
-								notes.reminderStatus=$scope.currentTime+" 8:00 AM";
+								note.reminderStatus=$scope.currentTime+" 8:00 AM";
 							}
 							
 							$scope.updateNote(note);
 						}
-						
 
-						$scope.TodaylaterReminder=true;
-						
-						/*check weather to display later todays reminder or not*/
-						function checktime(){
-							var currentDate=new Date().getHours();
-							if(currentDate > 19){
-								$scope.TodaylaterReminder=false;
-							}
-							if(currentDate > 1){
-								$scope.TodaylaterReminder=true;
-							}
-						}
-						
 						
 			/*---------------------------------Colaburator------------------------------*/
 
