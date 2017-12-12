@@ -713,57 +713,19 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					}
 		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
-					
-					$scope.pinStatus =false;
-					
-					$scope.pinUnpin = function() {
-							if($scope.pinStatus == false){
-							$scope.pinStatus = true;
-						}
-						else {
-							$scope.pinStatus=false;
-						}
+			
+					$scope.pinFunction=function(note , pinStatus){
+						note.pinStatus=pinStatus;
+						$scope.update(note);
 					}
-		
-/*---------------------------------archive notes--------------------------------------------*/
+		/*---------------------------------archive notes--------------------------------------------*/
 					
-					$scope.archiveNote=function(note){
-						note.noteStatus="false";
-						note.archiveStatus="true";
-						note.pin="false";
-						
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
-						
-						var a = homeService.service(url,method,token,note);
-						
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
+					$scope.archiveNote=function(note ,archiveStatus){
+						note.archiveStatus=archiveStatus;
+			
+						$scope.update(note);
 					}
 					
-
-		/*------------------------------------unarchive notes--------------------------------------------*/
-
-					$scope.unarchiveNote=function(note){
-						note.noteStatus="true";
-						note.archiveStatus="false";
-						note.pin="false";
-						
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
-						
-						var a = homeService.service(url,method,token,note);
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
-					}
-					
-
 
 		/*------------------------------------ restore note----------------------------------------------*/
 

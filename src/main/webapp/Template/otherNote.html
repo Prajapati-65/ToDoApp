@@ -11,7 +11,7 @@
 				<div ng-click="open(note)">
 					<div class="pinCss1">
 						<span class="pinCss2" id="hide-Options"
-							ng-click="note.pin='true'; updateNote(note)"> <img
+							ng-click="pinFunction(note,'true')"> <img
 							alt="pin" src="image/pin.svg">
 						</span> 
 						<img ng-src="{{note.image}}" style="width: 100%" />
@@ -39,20 +39,20 @@
 
 
 				<div class="note-icons card-margin" id="hide-Options">
-					<reminder class="icons-margin"></reminder>
+					<reminder class="margin"></reminder>
 
 					<img alt="colaburator" src="image/colaburator.png" height="23px"
 						ng-click="openColaburator(note,UserDetails,$index)"
-						class="icons-margin">
+						class="margin">
 
-					<color-pallet class="icons-margin"></color-pallet>
+					<color-pallet class="margin"></color-pallet>
 
 					<span ng-click="openImageUploader(note)" class="btn"> <img
 						alt="image" src="image/image.svg" height="20px"
-						class="icons-margin">
-					</span> <span ng-click="archiveNote(note)" class="btn"> <img
+						class="margin">
+					</span> <span ng-click="archiveNote(note,'true')" class="btn"> <img
 						alt="archive" src="image/archive.svg" height="20px"
-						class="icons-margin">
+						class="margin">
 					</span>
 
 					<drap-down></drap-down>
