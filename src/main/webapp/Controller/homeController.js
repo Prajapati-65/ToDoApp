@@ -556,7 +556,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								$scope.navBarHeading="Archive";
 							}
 							else if($state.current.name=="trash"){
-								$scope.topBarColor= "#636363";
+								$scope.topBarColor= "#00b3b3";
 								$scope.navBarHeading="Trash";
 							}
 							else if($state.current.name=="reminders"){

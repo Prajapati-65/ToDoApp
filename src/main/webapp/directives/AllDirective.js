@@ -30,9 +30,9 @@ toDoApp.directive("otherNote", function() {
 	};
 });
 
-toDoApp.directive("drapDown", function() {
+toDoApp.directive("dropdown", function() {
 	return {
-		templateUrl : 'Template/drapdown.html'
+		templateUrl : 'Template/dropdown.html'
 	};
 });
 

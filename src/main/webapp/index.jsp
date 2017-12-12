@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	
+<script src="bower_components/angular-img-cropper/dist/angular-img-cropper.min.js"></script>
 	
 <script type="text/javascript" src="Script/app.js"></script>
 <script type="text/javascript" src="Script/SideBarNavShow.js"></script>

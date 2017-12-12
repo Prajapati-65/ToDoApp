@@ -15,7 +15,7 @@
 
 				<div class="card col-sm-4"
 					style="background-color: {{note.noteColor}}"
-					ng-repeat="note in allGetNotes | filter : searchText ">
+					ng-repeat="note in allGetNotes | filter : searchText">
 
 					<div ng-click="open(note)">
 						<div class="pinCss1">
@@ -55,7 +55,7 @@
 							alt="archive" src="image/archive.svg" height="20px"
 							class="margin">
 						</span>
-						<drap-down></drap-down>
+						<drop-down></drop-down>
 					</div>
 					<url-image></url-image>
 
