@@ -1,7 +1,9 @@
 <span ng-init="checkUrl(note)">
 	<div ng-repeat="urlData in note.link">
+
 		<div ng-if="urlData.title">
 			<a ng-href="{{urlData.url}}" target="_blank">
+				
 				<div class="row"
 					style="background-color: #ffccff; margin-right: 0px; margin-left: 0px; border: 1px solid grey">
 					
@@ -10,6 +12,7 @@
 					</div>
 					
 					<div class="col-sm-8 col-md-8 col-xs-8">
+					
 						<div ng-bind="urlData.title"
 							style="font-size: 14px; color: black;"></div>
 						<div ng-bind="urlData.description"
