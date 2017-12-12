@@ -30,7 +30,7 @@ toDoApp.directive("otherNote", function() {
 	};
 });
 
-toDoApp.directive("dropdown", function() {
+toDoApp.directive("dropDown", function() {
 	return {
 		templateUrl : 'Template/dropdown.html'
 	};

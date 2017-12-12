@@ -8,30 +8,16 @@ toDoApp.controller('resetController', function($scope, forgotpasswordService,
 		var httpSendLink = forgotpasswordService.sendLinkToEmail($scope.user);
 
 		httpSendLink.then(function(response) {
-
-			if (response.data.status == 5) {
-				$scope.response = 'User not found :';
-			} else if (response.data.status == -2) {
-				$scope.response = 'Mail could not be sent';
-			} else if (response.data.status == 2) {
-				$location.path('');
-			}
+			$location.path('resetpassword');
 		});
 	}
 
 	$scope.resetPassword = function() {
 
-		var httpReset = forgotpasswordService.resetPassword($scope.user);
+		var httpReset = forgotpasswordService.resetPassword($scope.user,$scope.token);
 		
 		httpReset.then(function(response) {
-
-			if (response.data.status == 5) {
-				$scope.response = 'Invalid OTP or email address';
-			} else if (response.data.status == 5) {
-				$scope.response = 'Password could not be updated';
-			} else if (response.data.status == 2) {
 				$location.path('login');
-			}
 		});
 	}
 });

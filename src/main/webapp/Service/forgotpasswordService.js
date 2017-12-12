@@ -11,12 +11,14 @@ toDoApp.factory('forgotpasswordService', function($http, $location) {
 		})
 	}
 
-	reset.resetPassword = function(user) {
-		console.log(user);
+	reset.resetPassword = function(user,token) {
 		return $http({
 			method : "PUT",
 			url : 'resetpassword',
-			data : user
+			data : user,
+			headers:{
+				token:token
+			}
 		})
 	}
 	return reset;

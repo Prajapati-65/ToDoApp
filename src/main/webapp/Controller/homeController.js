@@ -896,6 +896,5 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 					}
 					
-					
 	});
 				

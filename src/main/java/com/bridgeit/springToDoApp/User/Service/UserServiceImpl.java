@@ -64,9 +64,10 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			return false;
 		}
-		String generateOTP = GenerateJWT.generate(user.getId());
+		
+		String token = GenerateJWT.generate(user.getId());
 		String url = UrlTemplate.urlTemplate(request);
-		JmsMessageSendingService.sendMessage(user.getEmail() ,url + " //Token--> " + generateOTP);
+		JmsMessageSendingService.sendMessage(user.getEmail() ,url + "Token is  " + token);
 		return true;
 	}
 
