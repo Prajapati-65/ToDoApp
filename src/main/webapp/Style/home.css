@@ -15,9 +15,9 @@
 	 box-shadow: 2px 2px 1px 1px #53c68c;
 }
  
-/* .card:hover #hide-Options{
+.card:hover #hide-Options{
 	visibility:visible;
-} */
+}
 
 .note-icons > img{
 	height: 27px;
@@ -41,6 +41,7 @@
 .card li{
 	background-color: white;
 	cursor: pointer;
+	width: 100px;
 }
 
 .card ul{
@@ -56,11 +57,11 @@ body {
 	display: inline-block;
 }
 
-/*  
+ 
 #hide-Options{
 	visibility: hidden;
 }
- */
+
 
 .dropdown-submenu {
     position: relative;

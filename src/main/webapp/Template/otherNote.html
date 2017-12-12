@@ -4,14 +4,15 @@
 			<br> <br>
 
 			<h4 ng-show="pinnedNotes.length && otherNotes.length">Others</h4>
+			
 			<div class="card col-sm-4" style="background-color: {{note.noteColor}}"
 				ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
-
+				
 					
 				<div ng-click="open(note)">
 					<div class="pinCss1">
 						<span class="pinCss2" id="hide-Options"
-							ng-click="pinFunction(note,'true')"> <img
+							ng-click="note.pin='true'; updateNote(note)"> <img
 							alt="pin" src="image/pin.svg">
 						</span> 
 						<img ng-src="{{note.image}}" style="width: 100%" />
@@ -39,18 +40,21 @@
 
 
 				<div class="note-icons card-margin" id="hide-Options">
+				
 					<reminder class="margin"></reminder>
-
+					
+					<!-- <div ng-include="../reminderOption.html" class="margin"></div> -->
+					
 					<img alt="colaburator" src="image/colaburator.png" height="23px"
 						ng-click="openColaburator(note,UserDetails,$index)"
 						class="margin">
 
-					<color-pallet class="margin"></color-pallet>
+					<color class="margin"></color>
 
 					<span ng-click="openImageUploader(note)" class="btn"> <img
 						alt="image" src="image/image.svg" height="20px"
 						class="margin">
-					</span> <span ng-click="archiveNote(note,'true')" class="btn"> <img
+					</span> <span ng-click="archiveNote(note)" class="btn"> <img
 						alt="archive" src="image/archive.svg" height="20px"
 						class="margin">
 					</span>

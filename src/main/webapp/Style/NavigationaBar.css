@@ -8,6 +8,7 @@
 	overflow-x: hidden;
 	transition: 0.3s;
 	padding-top: 7%;
+	background-color: #ffffff;
 	
 }
 
@@ -26,36 +27,16 @@
 }
 
 
-.topNav .navbar-default {
-	background-color: #ff9900;
-	margin-bottom: 0%;
-}
-
 .topNav .navbar-default .navbar-brand {
 	color: #000000;
 	margin-left: 20px;
 }
 
- 
- 
-#topNavigation li {
-	margin-right: 20px;
-}
-
-#topNavigation input {
-	length: 100px;
-}
-
-
 #main {
     transition: margin-left .5s;
-    padding: 16px;
-    cursor: pointer;
-}
-
-.search-bar{
-	padding-right: 350px;
-	margin-top: 18px;
+    padding-top: 14px;
+    padding-left: 38px;
+    
 }
 
 .toggle-button {
@@ -67,6 +48,13 @@
 	display: inline-block;
 }
 
+#top-mar {
+    margin: 15px;	
+}
+
+#search-bar{
+	margin-top: 5px;	
+}
 
 .span-a {
 	font-size: 25px;
@@ -79,11 +67,10 @@
 }
 
 input[type=text] {
-    width: 550px;
+    width: 100%;
     box-sizing: border-box;
     border-radius: 4px;
     background-color: #ffffff;
-   /*  background-image: url('searchicon.png'); */
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;

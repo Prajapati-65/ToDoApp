@@ -15,7 +15,7 @@
 						
 						<div ng-click="open(note)">
 							<div class="pinCss1">
-								<span class="pinCss2" ng-click="pinFunction(note,'true')">
+								<span class="pinCss2" id="moreOptions" ng-click="note.pin='true'; updateNote(note)">
 									<img alt="pin" src="image/pin.svg">
 								</span>
 	

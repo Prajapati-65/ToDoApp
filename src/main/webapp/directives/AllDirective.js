@@ -48,13 +48,11 @@ toDoApp.directive("reminder", function() {
 	};
 });
 
-toDoApp.directive("colorPallet", function() {
+toDoApp.directive("color", function() {
 	return {
 		templateUrl : 'Template/colorPallet.html'
 	};
 });
-
-
 
 
 
@@ -89,7 +87,7 @@ toDoApp.directive('contenteditable', [ '$sce', function($sce) {
 			}
 		}
 	};
-} ]);
+}]);
 
 toDoApp.directive("ngFileSelect", function(fileReader, $timeout) {
 	return {

@@ -10,7 +10,7 @@
 				<div ng-click="open(note)">
 					<div class="pinCss1">
 						<span class="pinCss2" id="moreOptions"
-							ng-click="pinFunction(note,'false')"> <img
+							ng-click="note.pin='false'; updateNote(note)"> <img
 							alt="pin" src="image/bluepin.svg">
 						</span> <img ng-src="{{note.image}}" style="width: 100%" />
 					</div>
@@ -36,7 +36,7 @@
 						ng-click="openColaburator(note,UserDetails,$index)"
 						class="margin">
 
-					<color-pallet class="margin"></color-pallet>
+					<color class="margin"></color>
 
 					<span ng-click="openImageUploader(note)" class="btn"> <img
 						alt="image" src="image/image.svg" height="20px"
@@ -48,7 +48,7 @@
 
 					<drap-down></drap-down>
 				</div>
-				{{note.title}}
+	
 				<url-image></url-image>
 
 			</div>

@@ -14,13 +14,13 @@
 				<br> <br>
 
 				<div class="card col-sm-4"
-					style="background-color: {{note.noteColor"
+					style="background-color: {{note.noteColor}}"
 					ng-repeat="note in allGetNotes | filter : searchText ">
 
 					<div ng-click="open(note)">
 						<div class="pinCss1">
 							<span class="glyphicon glyphicon-pushpin pinCss2"
-								id="moreOptions" ng-click="pinFunction(note,'true')"></span>
+								id="moreOptions" ng-click="note.pin='true'; updateNote(note)"></span>
 							<img ng-src="{{note.image}}" style="width: 100%" />
 						</div>
 						<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
@@ -46,10 +46,11 @@
 							ng-click="openColaburator(note,UserDetails,$index)"
 							class="margin">
 
-						<color-pallet class="margin"></color-pallet>
+						<color class="margin"></color>
+						
 						<span ng-click="openImageUploader(note)" class="btn"> <img
 							alt="image" src="image/image.svg" height="20px"
-							class="icons-margin">
+							class="margin">
 						</span> <span ng-click="archiveNote(note)" class="btn"> <img
 							alt="archive" src="image/archive.svg" height="20px"
 							class="margin">
