@@ -12,19 +12,17 @@
 		<div class="row">
 			<div class="col-12">
 				<br> <br>
-				<h2>Search</h2>
-				
-				<div class="card {{widthOfCard}}" 
+
+				<div class="card {{widthOfCard}}" ng-show="AllNotes.length && searchText.length > 1"
 					style="background-color: {{note.noteColor}}"
-					ng-repeat="note in allGetNotes | filter : searchText ">
-					
+					ng-repeat="note in allGetNotes | filter : searchText as AllNotes">
+
 					<div ng-click="open(note)">
 						<div class="pinCss1">
 							<span class="pinCss2" id="hide-Options"
 								ng-click="note.pin='true'; updateNote(note)"> <img
 								alt="pin" src="image/pin.svg">
-							</span> 
-							<img ng-src="{{note.image}}" style="width: 100%" />
+							</span> <img ng-src="{{note.image}}" style="width: 100%" />
 						</div>
 						<div class="col-sm-12" style="padding: 10px;">
 							<div ng-bind-html="note.title"></div>
@@ -33,7 +31,7 @@
 							<br>
 						</div>
 					</div>
-					
+
 
 					<div id="reminder" ng-if="note.reminderStatus!=null">
 						{{note.reminderStatus}}<span class="closebtn"
@@ -43,24 +41,24 @@
 					<div class="note-icons card-margin" id="hide-Options">
 
 						<reminder></reminder>
-						
+
 						<img alt="colaburator" src="image/colaburator.png" height="23px"
 							ng-click="openColaburator(note,UserDetails,$index)">
-						
+
 
 						<color></color>
-						
+
 						<span ng-click="openImageUploader(note)" class="btn"> <img
 							alt="image" src="image/image.svg" height="20px">
-							
+
 						</span> <span ng-click="archiveNote(note)" class="btn"> <img
 							alt="archive" src="image/archive.svg" height="20px">
-							
+
 						</span>
 						<drop-down></drop-down>
 					</div>
 					<url-image></url-image>
-				
+
 				</div>
 			</div>
 		</div>

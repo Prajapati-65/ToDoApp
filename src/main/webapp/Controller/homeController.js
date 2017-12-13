@@ -162,8 +162,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 									addlabel.then(function(response) {
 										
 										var responseData=response.data;
-										if(responseData.title.length>30){
-											responseData.title=responseData.title.substr(0,30)+'..';
+										if(responseData.title.length>25){
+											responseData.title=responseData.title.substr(0,25)+'..';
 										}
 										link[note.size]={
 												title:responseData.title,

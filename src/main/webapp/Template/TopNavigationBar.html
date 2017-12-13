@@ -1,37 +1,41 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-
-	<div class="col-sm-12 col-md-12 col-lg-12"
-		ng-style="{'background-color': topBarColor}">
-		<div class="row">
-			<div class="nav navbar-nav col-lg-10" >
-			<div class="row">
-				<div id="main" class="col-lg-1">
-					<span onclick="toogleNav()" class="span-a">&#9776;</span>
+ <div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-style="{'background-color': topBarColor}">
+		
+			<div class="nav navbar-nav col-sm-3">
+				<div class="row">
+					<div id="main" class="col-sm-2">
+						<span onclick="toogleNav()" class="span-a">&#9776;</span>
+					</div>
+					<div class="col-sm-10">
+						<h3 id="top-mar" ng-bind="navBarHeading"></h3>
+					</div>
 				</div>
-				<div class="col-lg-3"><h3 id="top-mar" ng-bind="navBarHeading"></h3></div>
-				<div class="col-lg-5 col-md-5">
+			</div>
+			
+			<div class="nav navbar-nav col-md-6">
+				<div class="row">
 					<input type="text" name="search" id="search-bar" placeholder="Search.."
 						ng-model="searchText" ui-sref="search">
 				</div>
-				</div>
 			</div>
-
-			<div class="nav navbar-nav col-lg-2">
+			
+			
+			<div class="nav navbar-nav col-lg-3">
 				<div class="row">
-					<div class="col-sm-2" style="margin-top: 10px;">
+					<div class="col-lg-2"></div>
+					<div class="col-lg-2"></div>
+					
+					<div class="col-lg-2" style="margin-top: 10px;">
 						<img ng-src="{{imageView}}" width="30" height="30"
 							ng-click="changeview()" class="profile-pic">
 					</div>
 					
-					<div class="col-lg-5"></div>
-					
-					
-					<div class="imagedropdown col-lg-5">
+					<div class="imagedropdown col-lg-6">
 						<span class="btn dropdown-toggle" id="menu1" type="button"
 							data-toggle="dropdown" style="float: right;"> 
-							
-						<img alt="userProfile" ng-src="{{UserDetails.profileImage}}"
-							width="40px" height="40px" class="img-circle">
+							<img alt="userProfile" ng-src="{{UserDetails.profileImage}}"
+								width="40px" height="40px" class="img-circle">
 						</span>
 						
 						<ul class="dropdown-menu" role="menu" aria-labelledby="menu1"
@@ -39,11 +43,9 @@
 							<div style="padding: 40px;">
 								
 								<div class="">
-									<img alt="userProfile" ng-src="{{UserDetails.profileImage}}"
-										ng-click="openImageUploader('user')" height="100px"
-										class="img-circle">
-								</div>
+									<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" ng-click="openImageUploader('user')" height="100px" class="img-circle">
 								
+								</div>
 								<div class="" style="float: right;">
 									{{UserDetails.firstName}} {{UserDetails.lastName}} <br>
 									{{UserDetails.email}} <br> <br> <input
@@ -56,8 +58,11 @@
 								</div>
 							</div>
 					</div>
+					
+					
 				</div>
 			</div>
+			
 		</div>
 	</div>
 </nav>

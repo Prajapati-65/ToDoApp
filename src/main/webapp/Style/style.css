@@ -27,3 +27,10 @@
 	position: relative; 
 	margin: -10px;
 }
+
+.imgCrop {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
