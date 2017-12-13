@@ -3,7 +3,7 @@
 		<div class="col-12">
 			<br> <br>
 			<h4 ng-show="pinnedNotes.length">Pinned</h4>
-			<div class="card col-sm-4 {{widthOfCard}}" ng-click="showModal(note)"
+			<div class="card {{widthOfCard}}" ng-click="showModal(note)"
 				style="background-color: {{note.noteColor}}"
 				ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'true', archiveStatus:'false' , noteStatus:'true' , deleteStatus:'false'} as pinnedNotes">
 

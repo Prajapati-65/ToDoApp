@@ -12,26 +12,28 @@
 		<div class="row">
 			<div class="col-12">
 				<br> <br>
-
-				<div class="card col-sm-4 {{widthOfCard}}"
+				<h2>Search</h2>
+				
+				<div class="card {{widthOfCard}}" 
 					style="background-color: {{note.noteColor}}"
-					ng-repeat="note in allGetNotes | filter : searchText">
-
+					ng-repeat="note in allGetNotes | filter : searchText ">
+					
 					<div ng-click="open(note)">
 						<div class="pinCss1">
-							<span class="glyphicon glyphicon-pushpin pinCss2"
-								id="moreOptions" ng-click="note.pin='true'; updateNote(note)"></span>
+							<span class="pinCss2" id="hide-Options"
+								ng-click="note.pin='true'; updateNote(note)"> <img
+								alt="pin" src="image/pin.svg">
+							</span> 
 							<img ng-src="{{note.image}}" style="width: 100%" />
 						</div>
-						<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
-
-
+						<div class="col-sm-12" style="padding: 10px;">
 							<div ng-bind-html="note.title"></div>
 							<br>
-							<div ng-bind-html="note.description"></div>
+							<div ng-bind-html="note.description | parseUrlFilter"></div>
 							<br>
 						</div>
 					</div>
+					
 
 					<div id="reminder" ng-if="note.reminderStatus!=null">
 						{{note.reminderStatus}}<span class="closebtn"
@@ -58,7 +60,7 @@
 						<drop-down></drop-down>
 					</div>
 					<url-image></url-image>
-
+				
 				</div>
 			</div>
 		</div>
