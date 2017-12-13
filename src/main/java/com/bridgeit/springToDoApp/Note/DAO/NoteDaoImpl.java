@@ -1,9 +1,7 @@
 package com.bridgeit.springToDoApp.Note.DAO;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -20,11 +18,16 @@ import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
 
 
+/**
+ * @author Om Prajapti
+ *
+ */
 public class NoteDaoImpl implements NoteDao {
 
 	@Autowired
 	SessionFactory factory;
 
+	
 	public int createNote(Note note) {
 		int noteId = 0;
 		Session session = factory.openSession();
@@ -40,6 +43,7 @@ public class NoteDaoImpl implements NoteDao {
 		return noteId;
 	}
 
+	
 	public boolean updateNote(Note note) {
 		Session session = factory.openSession();
 		Transaction transaction = null;
@@ -54,6 +58,7 @@ public class NoteDaoImpl implements NoteDao {
 		return true;
 	}
 
+	
 	public Note getNoteById(int noteId) {
 		Session session = factory.openSession();
 		Note note = session.get(Note.class, noteId);
@@ -74,6 +79,7 @@ public class NoteDaoImpl implements NoteDao {
 		return true;
 	}
 
+	
 	public List<Note> getAllNotes(User user) {
 		Session session = factory.openSession();
 		@SuppressWarnings("deprecation")
@@ -86,6 +92,7 @@ public class NoteDaoImpl implements NoteDao {
 		return notes;
 	}
 
+	
 	
 	
 	public int saveCollborator(Collaborater collborate) {
@@ -104,6 +111,7 @@ public class NoteDaoImpl implements NoteDao {
 		return collboratorId;
 	}
 
+	
 	public List<User> getListOfUser(int noteId) {
 		Session session = factory.openSession();
 		Query querycollab = session.createQuery("select c.shareId from Collaborater c where c.noteId= " + noteId);
@@ -113,6 +121,7 @@ public class NoteDaoImpl implements NoteDao {
 		return listOfSharedCollaborators;	
 	}
 	
+	
 	public List<Note> getCollboratedNotes(int userId) {
 		Session session = factory.openSession();
 		Query query = session.createQuery("select c.noteId from Collaborater c where c.shareId= " + userId);
@@ -120,6 +129,7 @@ public class NoteDaoImpl implements NoteDao {
 		session.close();
 		return colllboratedNotes;
 	}
+	
 	
 	public int removeCollborator(int shareWith,int noteId) {
 		Session session = factory.openSession();
@@ -129,6 +139,7 @@ public class NoteDaoImpl implements NoteDao {
 		session.close();
 		return status;
 	}
+	
 	
 	public void deleteScheduleNote() {
 		Session session = factory.openSession();

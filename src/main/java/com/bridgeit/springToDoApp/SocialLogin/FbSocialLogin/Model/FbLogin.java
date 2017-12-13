@@ -11,9 +11,12 @@ import java.net.URLEncoder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Controller.FacebookController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class FbLogin {
 
 	static Logger logger = (Logger) LogManager.getLogger(FbLogin.class);
@@ -34,6 +37,11 @@ public class FbLogin {
 		return facebookUrl;
 	}
 
+	/**
+	 * @param  String code
+	 * @return String accessToken
+	 * @throws IOException
+	 */
 	public static String getFbAccessToken(String code) throws IOException {
 
 		String urlParameters = "client_id=" + APP_ID + "&redirect_uri=" + URLEncoder.encode(REDIRECT_URI)
@@ -59,6 +67,11 @@ public class FbLogin {
 		return fbAccessToken;
 	}
 
+	/**
+	 * @param  String fbAccessToken
+	 * @return String Profile date
+	 * @throws IOException
+	 */
 	public static String getProfileData(String fbAccessToken) throws IOException {
 		String profileUrl = "https://graph.facebook.com/v2.9/me?access_token="+fbAccessToken+BINDING;
 		URL url = new URL(profileUrl);

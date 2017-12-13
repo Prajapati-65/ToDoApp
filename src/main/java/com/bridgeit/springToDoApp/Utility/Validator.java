@@ -6,11 +6,19 @@ import com.bridgeit.springToDoApp.User.Model.User;
 import com.bridgeit.springToDoApp.User.Service.UserService;
 
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class Validator {
 
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * @param User object
+	 * @return String
+	 */
 	public String validateSaveUser(User user) {
 		
 		String result="false";
@@ -88,6 +96,10 @@ public class Validator {
 		}
 	}
 	
+	/**
+	 * @param String password
+	 * @return String
+	 */
 	public String validatePassword(String password) {
 		String passwordFormat="^[a-zA-Z0-9]{8,}$";
 		

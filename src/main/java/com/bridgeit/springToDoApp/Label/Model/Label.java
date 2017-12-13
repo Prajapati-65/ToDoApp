@@ -18,6 +18,10 @@ import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Entity
 @Table(name = "LABEL")
 public class Label {
@@ -40,7 +44,9 @@ public class Label {
 	@ManyToMany(mappedBy = "labels")
 	private Set<Note> noteId;
 	
-	
+	/**
+	 * generate getters and setters for all variables
+	 */
 	
 	public int getLabelId() {
 		return labelId;

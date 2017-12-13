@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.bridgeit.springToDoApp.Note.Model.Note;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class CustomResponse extends Response {
 
 	List<Note>  notes;

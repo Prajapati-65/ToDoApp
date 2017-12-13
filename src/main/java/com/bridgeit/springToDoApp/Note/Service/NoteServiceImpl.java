@@ -1,9 +1,7 @@
 package com.bridgeit.springToDoApp.Note.Service;
 
 import java.util.List;
-import java.util.Set;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,10 +9,12 @@ import com.bridgeit.springToDoApp.Note.DAO.NoteDao;
 import com.bridgeit.springToDoApp.Note.Model.Collaborater;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
-import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
-import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class NoteServiceImpl implements NoteService {
 
 	@Autowired

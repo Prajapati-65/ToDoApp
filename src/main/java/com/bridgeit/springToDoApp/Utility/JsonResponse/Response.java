@@ -1,5 +1,9 @@
 package com.bridgeit.springToDoApp.Utility.JsonResponse;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class Response {
 
 	String message;

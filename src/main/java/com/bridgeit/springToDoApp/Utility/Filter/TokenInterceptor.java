@@ -7,12 +7,16 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import com.bridgeit.springToDoApp.SocialLogin.FbSocialLogin.Controller.FacebookController;
 
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
 
+/**
+ * @author Om Prajapati
+ * 
+ * this class is use to check and varify the JWT token  
+ * and set the userId to the request  using setAttribute
+ *
+ */
 public class TokenInterceptor implements HandlerInterceptor {
 
 	private Logger logger = (Logger) LogManager.getLogger(TokenInterceptor.class);
@@ -30,6 +34,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 
 	}
 
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		

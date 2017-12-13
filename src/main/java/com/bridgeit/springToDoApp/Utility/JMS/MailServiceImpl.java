@@ -5,6 +5,10 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class MailServiceImpl implements MailService {
 
 	private MailSender email;

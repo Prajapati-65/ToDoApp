@@ -26,6 +26,10 @@ import com.bridgeit.springToDoApp.Utility.Validator;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @RestController
 public class UserController {
 
@@ -38,6 +42,11 @@ public class UserController {
 	@Autowired
 	Encryption encryption;
 	
+	/**
+	 * @param User object
+	 * @param request
+	 * @return User
+	 */
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public Response saveUser(@RequestBody User user, HttpServletRequest request) {
 		
@@ -63,6 +72,12 @@ public class UserController {
 		}
 	}
 						
+	/**
+	 * @param String activeToken
+	 * @param response
+	 * @return user
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "verifyMail/{activeToken:.+}", method = RequestMethod.GET)
 	public ResponseEntity<Response> verifyMail(@PathVariable("activeToken") String activeToken,
 			HttpServletResponse response) throws IOException 
@@ -96,6 +111,12 @@ public class UserController {
 	}
 
 	
+	/**
+	 * @param User object
+	 * @param session
+	 * @param request
+	 * @return integer
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public Response loginUser(@RequestBody User user, HttpSession session, HttpServletRequest request) {
 		
@@ -120,6 +141,10 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * @param session
+	 * @return custom
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ResponseEntity<Response> logout(HttpSession session) 
 	{
@@ -140,6 +165,12 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * @param user
+	 * @param request
+	 * @param session
+	 * @return boolean
+	 */
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
 	public Response forgotPassword(@RequestBody User user, HttpServletRequest request, HttpSession session) 
 	{
@@ -162,6 +193,11 @@ public class UserController {
 		return customResponse;
 	}
 	
+	/**
+	 * @param user
+	 * @param request
+	 * @return boolean
+	 */
 	@RequestMapping(value = "/resetpassword", method = RequestMethod.PUT)
 	public Response resetPassword(@RequestBody User user, HttpServletRequest request) {
 
@@ -187,6 +223,11 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * @param request
+	 * @return User
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/getUserDetails")
 	public ResponseEntity<User> currrentUser(HttpServletRequest request) throws IOException {
 		
@@ -196,6 +237,10 @@ public class UserController {
 	}
 	
 
+	/**
+	 * @param session
+	 * @return user
+	 */
 	@RequestMapping(value = "/social")
 	public ResponseEntity<Response> social(HttpSession session) {
 		System.out.println("session id2: " + session.getId());
@@ -205,6 +250,12 @@ public class UserController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
+	/**
+	 * @param user object
+	 * @param request
+	 * @return user
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/profileChange", method = RequestMethod.PUT)
 	public ResponseEntity<String> changeProfile(@RequestBody User user ,HttpServletRequest request) throws IOException {
 		
@@ -216,6 +267,10 @@ public class UserController {
 		return ResponseEntity.ok("");
 	}
 	
+	/**
+	 * @param request
+	 * @return List of users
+	 */
 	@RequestMapping(value = "/listOfUserEmail" , method =RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUserEmail(HttpServletRequest request) {
 		 

@@ -10,6 +10,10 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Service
 public class JmsMessageSendingServiceImplement implements JmsMessageSendingService {
 	

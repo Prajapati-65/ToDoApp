@@ -19,6 +19,10 @@ import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Controller
 public class FacebookController {
 
@@ -27,12 +31,24 @@ public class FacebookController {
 
 	private Logger logger = (Logger) LogManager.getLogger(FacebookController.class);
 
+	/**
+	 * @param response
+	 * @throws IOException
+	 * 
+	 * this method find the url data on the fb account
+	 */
 	@RequestMapping(value = "/facebookConnection", method = RequestMethod.GET)
 	public void beforeFbLogin(HttpServletResponse response) throws IOException {
 		String fbUrl = FbLogin.getFbLoginUrl();
 		response.sendRedirect(fbUrl);
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/facebookLogin", method = RequestMethod.GET)
 	public void afterFbLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws IOException {

@@ -235,6 +235,19 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							});
 						}
 						
+
+					$scope.imageCrop = function() {
+						$scope.cropper = {};
+						$scope.cropper.sourceImage = null;
+						$scope.cropper.croppedImage = null;
+						$scope.bounds = {};
+						$scope.bounds.left = 0;
+						$scope.bounds.right = 0;
+						$scope.bounds.top = 0;
+						$scope.bounds.bottom = 0;
+					}
+						
+						
 						
 			/*---------------------------------Social Share-----------------------------------------*/
 						
@@ -864,35 +877,29 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					}
 				
 			/*-------------------------------------List View and Gride View--------------------------------*/
-				
-					
-					
-					$scope.ListView=true;
-					$scope.ListViewToggle=function(){
-						if($scope.ListView==true){
-							$scope.ListView=false;
-							listGrideView();
-						}
-						else{
-						$scope.ListView=true;
-						listGrideView();
-						}
+
+
+					$scope.imageView = localStorage.getItem('card');
+
+					if ($scope.imageView == "image/grid.png") {
+
+						$scope.widthOfCard = "col-md-10 col-sm-10 col-xs-10 col-lg-10 list";
+					} else {
+						$scope.widthOfCard = "col-md-3 col-sm-4 col-xs-4 col-lg-3  grid";
 					}
-					
-					listGrideView();
-					
-					function listGrideView(){
-						if($scope.ListView){
-							var element = document.getElementsByClassName('card');
-							for(var i=0;i<element.length;i++){
-								element[i].style.width="900px";
-							}
-						}
-						else{
-							var element = document.getElementsByClassName('card');
-							for(var i=0;i<element.length;i++){
-								element[i].style.width="300px";
-							}
+
+					$scope.changeview = function() {
+						console.log("Grid and list view");
+						if ($scope.imageView == "image/list.png") {
+							console.log("list view");
+							$scope.imageView = "image/grid.png";
+							localStorage.setItem('card', "image/grid.png");
+							$scope.widthOfCard = "col-md-10 col-sm-5 col-xs-12 col-lg-10 list";
+						} else {
+							console.log("Grid view");
+							$scope.imageView = "image/list.png";
+							localStorage.setItem('card', "image/list.png");
+							$scope.widthOfCard = "col-md-3 col-sm-5 col-xs-12 col-lg-3  grid";
 						}
 					}
 					

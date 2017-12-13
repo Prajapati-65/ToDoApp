@@ -18,6 +18,10 @@ import com.bridgeit.springToDoApp.User.Service.UserService;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.JsonResponse.Response;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @RestController
 @RequestMapping(value = "/user")
 public class LabelController {
@@ -28,6 +32,11 @@ public class LabelController {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * @param label
+	 * @param request
+	 * @return this api return the custom response to add a label
+	 */
 	@RequestMapping(value = "/saveLabel", method = RequestMethod.POST)
 	public Response saveLabel(@RequestBody Label label, HttpServletRequest request) {
 		CustomResponse customResponse = new CustomResponse();
@@ -58,6 +67,11 @@ public class LabelController {
 		}
 	}
 
+	/**
+	 * @param label
+	 * @param request
+	 * @return this api returns the all label in a particular user 
+	 */
 	@RequestMapping(value = "getLabelNotes/{label}", method = RequestMethod.GET)
 	public List<Label> getLabels(@PathVariable("label") String label, HttpServletRequest request) {
 		int id = (int) request.getAttribute("userId");
@@ -68,6 +82,11 @@ public class LabelController {
 		return allNotes;
 	}
 
+	
+	/**
+	 * @param id
+	 * @return this api delete a label
+	 */
 	@RequestMapping(value = "/deleteLabels/{id}", method = RequestMethod.DELETE)
 	public Response deleteLabel(@PathVariable int id) {
 
@@ -84,6 +103,11 @@ public class LabelController {
 		}
 	}
 
+	/**
+	 * @param label
+	 * @param request
+	 * @return this api is use to update in a label and it returns a label
+ 	 */
 	@RequestMapping(value = "/editLabel", method = RequestMethod.PUT)
 	public Response editNotes(@RequestBody Label label, HttpServletRequest request) {
 

@@ -1,13 +1,15 @@
 package com.bridgeit.springToDoApp.Note.Service;
 
 import java.util.List;
-import java.util.Set;
 
 import com.bridgeit.springToDoApp.Note.Model.Collaborater;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
-import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public interface NoteService {
 
 	int createNote(Note note);

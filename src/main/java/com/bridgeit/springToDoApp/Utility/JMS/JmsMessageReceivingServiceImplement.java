@@ -5,6 +5,10 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Service
 public class JmsMessageReceivingServiceImplement implements JmsMessageReceivingService {
 	

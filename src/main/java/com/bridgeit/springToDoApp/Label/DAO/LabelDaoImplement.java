@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 
+/**
+ * @author OM Prajapati
+ *
+ */
 public class LabelDaoImplement implements LabelDao {
 
 	@Autowired
@@ -20,6 +24,7 @@ public class LabelDaoImplement implements LabelDao {
 	
 	Transaction transaction;
 	
+
 	@Override
 	public void saveLabel(Label label) {
 		Session session = sessionFactory.openSession();
@@ -34,6 +39,7 @@ public class LabelDaoImplement implements LabelDao {
 		}
 	}
 
+	
 	@Override
 	public void deleteById(int id) {
 		Session session = sessionFactory.openSession();
@@ -52,6 +58,7 @@ public class LabelDaoImplement implements LabelDao {
 		}
 	}
 
+	
 	@Override
 	public List<Label> getLabels(User user) {
 		Session session = sessionFactory.openSession();
@@ -62,6 +69,7 @@ public class LabelDaoImplement implements LabelDao {
 		return labels;
 	}
 
+	
 	@Override
 	public Label getLabelById(final int labelId) {
 		Label objLabel = null;

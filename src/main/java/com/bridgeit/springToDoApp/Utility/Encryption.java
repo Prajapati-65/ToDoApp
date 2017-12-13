@@ -4,9 +4,17 @@ import java.security.MessageDigest;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Component
 public class Encryption {
 	
+	/**
+	 * @param String password
+	 * @return String
+	 */
 	public String encryptPassword(String password) {
 		
 		String generatedPassword = null;

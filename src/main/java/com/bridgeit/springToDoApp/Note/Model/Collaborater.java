@@ -11,6 +11,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.bridgeit.springToDoApp.User.Model.User;
 
+/**
+ * @author Om Prajapati
+ *
+ */
+
 @Entity
 @Table(name="COLLABORATER")
 public class Collaborater {
@@ -32,6 +37,13 @@ public class Collaborater {
 	@JoinColumn
 	private Note noteId;
 
+	
+	/**
+	 * generate getters and setters
+	 *
+	 */
+	
+	
 	public int getCollaboratorId() {
 		return collaboratorId;
 	}

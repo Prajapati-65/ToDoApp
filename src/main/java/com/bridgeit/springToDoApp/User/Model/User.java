@@ -19,6 +19,10 @@ import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @Entity
 @Table(name = "USER")
 public class User {
@@ -51,7 +55,7 @@ public class User {
 	@Column(name = "PROFILE_IMAGE", columnDefinition = "LONGBLOB")
 	private String profileImage;
 
-	//@JsonIgnore
+	
 	@OneToMany(mappedBy = "userLabel", fetch = FetchType.EAGER)
 	private Set<Label> labels;
 
@@ -59,6 +63,13 @@ public class User {
 	@JsonIgnore
 	private Set<Note> note = new HashSet<Note>();
 
+	
+	/**
+	 * generate getters and setters for all variables
+	 *
+	 */
+	
+	
 	public int getId() {
 		return id;
 	}

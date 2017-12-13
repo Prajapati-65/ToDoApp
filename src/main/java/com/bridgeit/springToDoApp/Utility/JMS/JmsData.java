@@ -2,6 +2,10 @@ package com.bridgeit.springToDoApp.Utility.JMS;
 
 import java.io.Serializable;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class JmsData implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

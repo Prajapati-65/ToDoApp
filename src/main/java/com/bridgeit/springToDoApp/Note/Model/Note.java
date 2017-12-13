@@ -1,7 +1,6 @@
 package com.bridgeit.springToDoApp.Note.Model;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,6 +21,11 @@ import org.hibernate.annotations.GenericGenerator;
 import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * @author Om Prajapati
+ *
+ */
 
 @Entity
 @Table(name = "NOTE")
@@ -77,6 +81,11 @@ public class Note {
 	@JoinColumn(name = "USER_ID")
 	private User user;
 
+	/**
+	 * generate getters and setters
+	 *
+	 * and here we use encapsulation concept of java
+	 */
 	public void setPin(String pin) {
 		if (pin.equals("true") || pin.equals("false")) {
 			this.pin = pin;

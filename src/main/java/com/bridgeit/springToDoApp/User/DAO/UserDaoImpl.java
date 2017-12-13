@@ -6,7 +6,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bridgeit.springToDoApp.Utility.Encryption;
 import com.bridgeit.springToDoApp.User.Model.User;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
@@ -45,6 +48,7 @@ public class UserDaoImpl implements UserDao {
 		return 0;
 	}
 
+	
 	public User loginUser(User user) {
 		Session session = factory.openSession();
 		@SuppressWarnings("deprecation")
@@ -61,6 +65,7 @@ public class UserDaoImpl implements UserDao {
 		return finalUser;
 	}
 
+	
 	@Override
 	public User getUserById(int id) {
 		Session session = factory.openSession();
@@ -70,6 +75,7 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	
 	@Override
 	public boolean updateUser(User user) {
 		Session session = factory.openSession();
@@ -85,6 +91,7 @@ public class UserDaoImpl implements UserDao {
 		return true;
 	}
 
+	
 	public User emailValidation(String email) {
 
 		Session session = factory.openSession();

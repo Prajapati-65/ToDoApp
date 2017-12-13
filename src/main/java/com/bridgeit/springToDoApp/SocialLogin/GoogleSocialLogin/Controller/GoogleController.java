@@ -20,6 +20,10 @@ import com.bridgeit.springToDoApp.Utility.JsonResponse.CustomResponse;
 import com.bridgeit.springToDoApp.Utility.token.GenerateJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Om Prjapati
+ *
+ */
 @RestController
 public class GoogleController {
 
@@ -28,12 +32,22 @@ public class GoogleController {
 
 	private Logger logger = (Logger) LogManager.getLogger(GoogleController.class);
 
+	/**
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/googleConnection", method = RequestMethod.GET)
 	public void beforeGoogle(HttpServletResponse response) throws IOException {
 		String googleLoginPageUrl = GoogleLogin.generateLoginUrl();
 		response.sendRedirect(googleLoginPageUrl);
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/googleLogin", method = RequestMethod.GET)
 	public void afterLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws IOException {

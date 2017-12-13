@@ -1,5 +1,9 @@
 package com.bridgeit.springToDoApp.Utility.Jsoup;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class UrlData {
 
 	private String title;

@@ -8,8 +8,8 @@
 			<div class="col-12">
 				<br> <br>
 
-				<div class="card col-sm-4"
-					style="background-color: {{note.noteColor"
+				<div class="card col-sm-4 {{widthOfCard}}"
+					style="background-color: {{note.noteColor}}"
 					ng-if="note.reminderStatus!=null"
 					ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'}">
 
@@ -37,20 +37,20 @@
 					</div>
 
 					<div class="note-icons card-margin" id="hide-Options">
-						<reminder class="margin"></reminder>
+						<reminder></reminder>
 
 						<img alt="colaburator" src="image/colaburator.png" height="23px"
-							ng-click="openColaburator(note,UserDetails,$index)"
-							class="margin">
+							ng-click="openColaburator(note,UserDetails,$index)">
+							
 
-						<color class="margin"></color>
+						<color></color>
 
 						<span ng-click="openImageUploader(note)" class="btn"> <img
-							alt="image" src="image/image.svg" height="20px"
-							class="margin">
+							alt="image" src="image/image.svg" height="20px">
+							
 						</span> <span ng-click="archiveNote(note)" class="btn"> <img
-							alt="archive" src="image/archive.svg" height="20px"
-							class="margin">
+							alt="archive" src="image/archive.svg" height="20px">
+							
 						</span>
 
 						<drop-down></drop-down>

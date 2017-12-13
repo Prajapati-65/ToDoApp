@@ -10,6 +10,10 @@ import com.bridgeit.springToDoApp.Label.DAO.LabelDao;
 import com.bridgeit.springToDoApp.Label.Model.Label;
 import com.bridgeit.springToDoApp.User.Model.User;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class LabelServiceImplementation implements LabelService {
 
 	@Autowired

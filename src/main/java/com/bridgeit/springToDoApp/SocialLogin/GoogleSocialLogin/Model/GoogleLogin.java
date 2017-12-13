@@ -15,6 +15,10 @@ import java.net.URLConnection;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 public class GoogleLogin {
 
 	static Logger logger = (Logger) LogManager.getLogger(GoogleLogin.class);
@@ -39,6 +43,11 @@ public class GoogleLogin {
 		return googleLoginUrl;
 	}
 
+	/**
+	 * @param String code
+	 * @return String accessToken
+	 * @throws IOException
+	 */
 	public static String getAccessToken(String code) throws IOException {
 
 		String urlParameters = "code=" + code + "&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET
@@ -61,6 +70,11 @@ public class GoogleLogin {
 		return googleAccessToken;
 	}
 
+	/**
+	 * @param  String googleAccessToken
+	 * @return String profile data
+	 * @throws IOException
+	 */
 	public static String getProfileData(String googleAccessToken) throws IOException {
 		
 		String profileUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + googleAccessToken ;

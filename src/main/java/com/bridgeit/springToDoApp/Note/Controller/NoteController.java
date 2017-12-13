@@ -28,6 +28,10 @@ import com.bridgeit.springToDoApp.Utility.Jsoup.LinkScrapper;
 import com.bridgeit.springToDoApp.Utility.Jsoup.UrlData;
 import com.bridgeit.springToDoApp.Utility.token.VerifiedJWT;
 
+/**
+ * @author Om Prajapati
+ *
+ */
 @RestController
 @RequestMapping(value = "/user")
 public class NoteController {
@@ -38,6 +42,15 @@ public class NoteController {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * @param note
+	 * @param request
+	 * 
+	 * using request get the userID and then find the User and the and then set the set the user
+	 * and create the Date object the and set the created date and modifiedDate in a note
+	 *  
+	 * @return integer object a note
+	 */
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
 	public ResponseEntity<Response> createNote(@RequestBody Note note, HttpServletRequest request) {
 
@@ -58,6 +71,10 @@ public class NoteController {
 		return new ResponseEntity<Response>(customResponse, HttpStatus.CONFLICT);
 	}
 
+	/**
+	 * @param int noteId
+	 * @return this method return boolean object
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
 		Note note = new Note();
@@ -79,6 +96,17 @@ public class NoteController {
 		}
 	}
 
+	/**
+	 * @param Note objcet 
+	 * 
+	 * using Note object we get the note id  
+	 * and then using note id we create other Note object and then
+	 * using New Note object we get createdDate object of Date  and then set the new object of createdDate
+	 * and using that new note find the User then set the user of that note
+	 * and then find the new modifiedDate object and then set the modifiedDate
+	 *  
+	 * @return this api return the boolean value
+	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<Response> update(@RequestBody Note note) {
 
@@ -111,6 +139,11 @@ public class NoteController {
 		}
 	}
 
+	/**
+	 * @param Note note
+	 * @param User user
+	 * @return this api return boolean value
+	 */
 	@RequestMapping(value = "/changeColor", method = RequestMethod.POST)
 	public ResponseEntity<Response> updateColor(@RequestBody Note note, @RequestAttribute("loginedUser") User user) {
 		CustomResponse customResponse = new CustomResponse();
@@ -121,6 +154,10 @@ public class NoteController {
 		return ResponseEntity.ok(customResponse);
 	}
 
+	/**
+	 * @param HttpServletRequest request
+	 * @return List of AllNotes
+	 */
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
 	public ResponseEntity<List> getAllNotes(HttpServletRequest request) {
 
@@ -147,6 +184,17 @@ public class NoteController {
 
 	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/
 
+	/**
+	 * @param collborator
+	 * @param request
+	 * 
+	 * Create collaborator object then find Note and shareUser and ownerUser 
+	 * using shareUser we check the validate email and
+	 * using token find the userId and the verify the User object and 
+	 * then check the shareUser and owner is valid and set the Note, shareUser and owner object to collaborator object
+	 * 
+	 * @return List of User
+	 */
 	@RequestMapping(value = "/collaborate", method = RequestMethod.POST)
 	public ResponseEntity<List<User>> getNotes(@RequestBody Collaborater collborator, HttpServletRequest request) {
 		List<User> userList = new ArrayList<User>();
@@ -190,6 +238,15 @@ public class NoteController {
 		return ResponseEntity.ok(userList);
 	}
 
+	/**
+	 * @param Note note
+	 * @param request 
+	 * using Note object find the get the noteId 
+	 * and then that id find the New Note object and
+	 * using new note object the getUser object
+	 * 
+	 * @return User object
+	 */
 	@RequestMapping(value = "/getOwner", method = RequestMethod.POST)
 	public ResponseEntity<User> getOwner(@RequestBody Note note, HttpServletRequest request) {
 
@@ -206,6 +263,11 @@ public class NoteController {
 		}
 	}
 
+	/**
+	 * @param collborator
+	 * @param request
+	 * @return User object
+	 */
 	@RequestMapping(value = "/removeCollborator", method = RequestMethod.POST)
 	public ResponseEntity<Response> removeCollborator(@RequestBody Collaborater collborator,
 			HttpServletRequest request) {
@@ -243,6 +305,10 @@ public class NoteController {
 	}
 
 	/*-----------------------------------------Jsoup UrlData----------------------------------*/
+	/**
+	 * @param request
+	 * @return UrlData 
+	 */
 	@RequestMapping(value = "/getUrlData", method = RequestMethod.POST)
 	public ResponseEntity<?> getUrlData(HttpServletRequest request){
 		
