@@ -186,7 +186,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 			/*--------------------------------Image Upload--------------------------------*/
 						$scope.imageSrc = "";
-
+						$scope.imgCrop = "";
+						
 						$scope.$on("fileProgress", function(e, progress) {
 							$scope.progress = progress.loaded / progress.total;
 						});
@@ -202,11 +203,11 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						$scope.$watch('imageSrc', function(newimg, oldimg) {
 							if ($scope.imageSrc != '') {
 								if ($scope.type === 'input') {
-									$scope.addimg = $scope.imageSrc;
+									$scope.adding = $scope.imageSrc;
 								} 
 								else if($scope.type === 'user'){
-									$scope.UserDetails.profileImage=$scope.imageSrc;
-									$scope.changeProfile($scope.UserDetails);
+									$scope.imgCrop = $scope.imageSrc;
+									$scope.imageCropPic();
 								}
 								else {
 									$scope.type.image = $scope.imageSrc;
@@ -214,6 +215,22 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								}
 							}
 						});
+						
+	
+						$scope.imageCropPic = function() {
+							modalInstance = $uibModal.open
+							({
+								templateUrl : 'Template/ImgCropper.html',
+								scope : $scope
+							});
+						}
+	
+						$scope.profileUpdate = function(croppedImg) {
+							
+							$scope.UserDetails.profileImage=croppedImg;
+							$scope.changeProfile($scope.UserDetails);
+							modalInstance.close();
+						}
 						
 						$scope.removeImg=function(note){
 							note.image=null;
@@ -234,8 +251,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								
 							});
 						}
-						
-
 						
 			/*---------------------------------Social Share-----------------------------------------*/
 						
@@ -725,7 +740,15 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.pinStatus=false;
 						}
 					}
-		
+					
+					
+					$scope.pin = function(note , noteStatus) {
+						$scope.noteStatus =noteStatus;
+						$scope.note=note;
+						$scope.updateNote(note);
+					}
+					
+					
 /*---------------------------------archive notes--------------------------------------------*/
 					
 					$scope.archiveNote=function(note){

@@ -1,11 +1,11 @@
-
 <div class="container">
 	<div class="row">
 	
 		<div class="col-sm-5" id="addForm"
 			style="background-color: {{AddNoteColor}}">
 			<div class="form-group">
-
+				 
+				<img ng-if="adding!=''" ng-src="{{adding}}" width="100%" />
 				<div ng-show="AddNoteBox" data-text="Title" contentEditable="true"
 					id="notetitle"></div>
 				<br>
@@ -20,9 +20,9 @@
 							ng-click="openColaburator(note,UserDetails,$index)">
 
 						<color></color>
-
-						<span ng-click="openImageUploader(note)" class="btn"> <img
-							alt="image" src="image/image.svg" height="20px">
+						
+						<span ng-click="openImageUploader('input')" class="btn"> 
+						<img alt="image" src="image/image.svg" height="20px">
 							
 						</span> <span ng-click="archiveNote(note)" class="btn"> <img
 							alt="archive" src="image/archive.svg" height="20px">

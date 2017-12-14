@@ -43,14 +43,15 @@
 							<div style="padding: 40px;">
 								
 								<div class="">
-									<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" ng-click="openImageUploader('user')" height="100px" class="img-circle">
-								
+									<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" ng-click="openImageUploader('user')" height="100px" width="80%" class="img-circle">
 								</div>
 								<div class="" style="float: right;">
 									{{UserDetails.firstName}} {{UserDetails.lastName}} <br>
-									{{UserDetails.email}} <br> <br> <input
-										id="imageuploader" ng-show="false" type="file"
-										ng-file-select="onFileSelect($files)" ng-model="imageSrc">
+									{{UserDetails.email}} <br> <br> 
+									
+									
+									<input id="imageuploader" ng-show="false" type="file"
+										ng-file-select="onFileSelect($files)" ng-model="imageSrc" >
 		
 									<button type="button" class="btn " style="float: right">
 										<li ng-click="logout()">Logout</li>

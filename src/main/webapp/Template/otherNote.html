@@ -8,12 +8,10 @@
 			<div class="card {{widthOfCard}}" style="background-color: {{note.noteColor}}" 
 				ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{pin:'false',archiveStatus:'false' , noteStatus: 'true' , deleteStatus:'false'} as otherNotes">
 				
-					
 				<div ng-click="open(note)">
 					<div class="pinCss1">
-						<span class="pinCss2" id="hide-Options"
-							ng-click="note.pin='true'; updateNote(note)"> <img
-							alt="pin" src="image/pin.svg">
+						<span class="pinCss2" id="hide-Options" ng-click="pin(note,'true')"> 
+							<img alt="pin" src="image/pin.svg">
 						</span> 
 						<img ng-src="{{note.image}}" style="width: 100%" />
 					</div>
@@ -51,6 +49,7 @@
 
 					<span ng-click="openImageUploader(note)" class="btn"> <img
 						alt="image" src="image/image.svg" height="20px">
+						
 					</span> <span ng-click="archiveNote(note)" class="btn"> <img
 						alt="archive" src="image/archive.svg" height="20px">
 					</span>

@@ -15,15 +15,12 @@
 
 					<div ng-click="open(note)">
 						<div class="pinCss1">
-							<span class="pinCss2" id="moreOptions"
-								ng-click="note.pin='true'; updateNote(note)"> <img
-								alt="pin" src="image/pin.svg">
-							</span> <a> <img ng-src="{{note.image}}" style="width: 100%" />
-							</a>
-
+							<span class="pinCss2" id="hide-Options" ng-click="pin(note,'true')"> 
+								<img alt="pin" src="image/pin.svg">
+							</span> 
+							<img ng-src="{{note.image}}" style="width: 100%" />
 						</div>
-						<div class="col-sm-12" style="padding: 10px;" id="moreOptions">
-
+						<div class="col-sm-12" style="padding: 10px;">
 							<div ng-bind-html="note.title"></div>
 							<br>
 							<div ng-bind-html="note.description | parseUrlFilter"></div>
