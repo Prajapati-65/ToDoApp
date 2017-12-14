@@ -234,11 +234,13 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						
 						$scope.removeImg=function(note){
 							note.image=null;
+							toastr.success('Image removed','successful');
 							$scope.updateNote(note);
 						}
 						
 						
-						$scope.changeProfile=function(user){
+						$scope.changeProfile=function(user) {
+							toastr.success('Profile change','successful');
 							var token = gettingToken();
 							var method = 'PUT';
 							var url = 'profileChange';
@@ -284,6 +286,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*---------------------------------------------------------------------------------*/
 						$scope.removeReminder=function(note){
 							note.reminderStatus=null;
+							toastr.success('Reminder remove','successful');
 							$scope.updateNote(note);
 						}
 						
@@ -439,7 +442,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 			/*---------------------------------Change color----------------------------------------*/
 						
 						$scope.changeColor=function(note){
-		
+							toastr.success('Color change','successful');
 							var url = 'user/update';
 							var method = 'POST';
 							var token = gettingToken();
@@ -547,13 +550,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								note.description = document.getElementById("modifieddescreption").innerHTML;
 								note.noteColor=$scope.AddNoteColor;
 								if(note.archiveStatus=="false"){
-								note.archiveStatus="true";
-								note.noteStatus="false";
-								note.pin="false";
-								$scope.updateNote(note);
-								$scope.modalInstance.close('resetmodel');
-								}
-								else{
+									note.archiveStatus="true";
+									note.noteStatus="false";
+									note.pin="false";
+									$scope.updateNote(note);
+									$scope.modalInstance.close('resetmodel');
+								}else{
 									note.archiveStatus="false";
 									note.noteStatus="true";
 									$scope.updateNote(note);
@@ -726,15 +728,13 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
-				
-					
 					$scope.pin = function(note , noteStatus , archiveStatus) {
 						$scope.noteStatus =noteStatus;
 						$scope.archiveStatus =archiveStatus;
 						$scope.note=note;
+						
 						$scope.updateNote(note);
 					}
-					
 					
 /*---------------------------------archive notes--------------------------------------------*/
 					
@@ -744,16 +744,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						note.archiveStatus =archiveStatus;
 						note.noteStatus =noteStatus;
 						note.pin=pin;
-						
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
-						
-						var a = homeService.service(url,method,token,note);
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
+						$scope.updateNote(note);
+		
 					}
 					
 				
@@ -765,16 +757,16 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						note.pin="false";
 						note.deleteStatus="true";
 						note.reminderStatus="false";
-
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
+						$scope.updateNote(note);
 						
-						var a = homeService.service(url,method,token,note);
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
+					}
+					
+					$scope.restoreNote=function(note){
+						note.pin="false";
+						note.deleteStatus="false";
+						note.noteStatus="true";
+						toastr.success('Note restore','successful');
+						$scope.updateNote(note);
 					}
 					
 					
@@ -824,6 +816,7 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						note.deleteStatus="false";
 						note.pin = "false";
 						
+						toastr.success('Copy Note','successful');
 						var url = 'user/createNote';
 						var method = 'POST';
 						var token = gettingToken();
@@ -849,14 +842,14 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					}
 
 					$scope.changeview = function() {
-						console.log("Grid and list view");
+						
 						if ($scope.imageView == "image/list.png") {
-							console.log("list view");
+							toastr.success('List View','successful');
 							$scope.imageView = "image/grid.png";
 							localStorage.setItem('card', "image/grid.png");
 							$scope.widthOfCard = "col-md-10 col-sm-5 col-xs-12 col-lg-10 list";
 						} else {
-							console.log("Grid view");
+							toastr.success('Gride View','successful');
 							$scope.imageView = "image/list.png";
 							localStorage.setItem('card', "image/list.png");
 							$scope.widthOfCard = "col-md-3 col-sm-5 col-xs-12 col-lg-3  grid";
