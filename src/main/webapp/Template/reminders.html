@@ -15,7 +15,7 @@
 
 					<div ng-click="open(note)">
 						<div class="pinCss1">
-							<span class="pinCss2" id="hide-Options" ng-click="pin(note,'true')"> 
+							<span class="pinCss2" id="hide-Options" ng-click="pin(note,'true','false')"> 
 								<img alt="pin" src="image/pin.svg">
 							</span> 
 							<img ng-src="{{note.image}}" style="width: 100%" />
@@ -45,7 +45,7 @@
 						<span ng-click="openImageUploader(note)" class="btn"> <img
 							alt="image" src="image/image.svg" height="20px">
 							
-						</span> <span ng-click="archiveNote(note)" class="btn"> <img
+						</span> <span ng-click="archiveFunction(note,'true','false','false')" class="btn"> <img
 							alt="archive" src="image/archive.svg" height="20px">
 							
 						</span>

@@ -595,13 +595,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							$scope.note.description = document.getElementById("noteDescription").innerHTML;
 
 							if ($scope.note.title == ""&& $scope.note.description == "") {
-								$scope.pinStatus = false;
 								$scope.AddReminder = '';
 								$scope.AddNoteColor = "#ffffff";
 								$scope.AddNoteBox = false;
 
 							} else if ($scope.note.title != ""|| $scope.note.description != ""|| $scope.note.image != "") {
-								$scope.note.pin = $scope.pinStatus;
+								$scope.note.pin = "false";
 								$scope.note.noteStatus = "true";
 								$scope.note.reminderStatus = $scope.AddReminder;
 								$scope.note.archiveStatus = "false";
@@ -620,7 +619,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 								a.then(function(response) {
 								document.getElementById("notetitle").innerHTML = "";
 								document.getElementById("noteDescription").innerHTML = "";
-								$scope.pinStatus = false;
 								$scope.AddReminder = '';
 								$scope.AddNoteColor = "#ffffff";
 								toastr.success('Note added','successfully');
@@ -638,7 +636,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						$scope.note.description = document.getElementById("noteDescription").innerHTML;
 						if ($scope.note.title == ""
 								&& $scope.note.description == "") {
-							$scope.pinStatus = false;
 							$scope.AddNoteColor = "#ffffff";
 							$scope.AddNoteBox = false;
 						} else if ($scope.note.title != ""
@@ -658,7 +655,6 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							a.then(function(response) {
 							document.getElementById("notetitle").innerHTML = "";
 							document.getElementById("noteDescription").innerHTML = "";
-							$scope.pinStatus = false;
 							$scope.AddNoteColor = "#ffffff";
 							$scope.AddReminder = '';
 								getAllNotes();
@@ -730,20 +726,11 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
-					$scope.pinStatus =false;
+				
 					
-					$scope.pinUnpin = function() {
-							if($scope.pinStatus == false){
-							$scope.pinStatus = true;
-						}
-						else {
-							$scope.pinStatus=false;
-						}
-					}
-					
-					
-					$scope.pin = function(note , noteStatus) {
+					$scope.pin = function(note , noteStatus , archiveStatus) {
 						$scope.noteStatus =noteStatus;
+						$scope.archiveStatus =archiveStatus;
 						$scope.note=note;
 						$scope.updateNote(note);
 					}
@@ -751,51 +738,13 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 					
 /*---------------------------------archive notes--------------------------------------------*/
 					
-					$scope.archiveNote=function(note){
-						note.noteStatus="false";
-						note.archiveStatus="true";
-						note.pin="false";
+				
+					$scope.archiveFunction = function(note ,archiveStatus ,noteStatus ,pin) {
 						
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
+						note.archiveStatus =archiveStatus;
+						note.noteStatus =noteStatus;
+						note.pin=pin;
 						
-						var a = homeService.service(url,method,token,note);
-						
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
-					}
-					
-
-		/*------------------------------------unarchive notes--------------------------------------------*/
-
-					$scope.unarchiveNote=function(note){
-						note.noteStatus="true";
-						note.archiveStatus="false";
-						note.pin="false";
-						
-						var url = 'user/update';
-						var method = 'POST';
-						var token = gettingToken();
-						
-						var a = homeService.service(url,method,token,note);
-						a.then(function(response) {
-							getAllNotes();
-						}, function(response) {
-						});
-					}
-					
-
-
-		/*------------------------------------ restore note----------------------------------------------*/
-
-					/*restore note*/ 
-					$scope.restoreNote=function(note){
-						note.pin="false";
-						note.deleteStatus="false";
-
 						var url = 'user/update';
 						var method = 'POST';
 						var token = gettingToken();
