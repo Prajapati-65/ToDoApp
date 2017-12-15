@@ -728,11 +728,9 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
-					$scope.pin = function(note , pin , archiveStatus) {
-						$scope.pin =pin;
-						$scope.archiveStatus =archiveStatus;
-						$scope.note=note;
-						
+					$scope.pinFunction = function(note , pin , archiveStatus) {
+						note.pin =pin;
+						note.archiveStatus =archiveStatus;
 						$scope.updateNote(note);
 					}
 					

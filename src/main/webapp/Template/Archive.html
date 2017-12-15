@@ -8,20 +8,21 @@
 			ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{archiveStatus:'true',noteStatus:'false'}">
 
 			
-			<div ng-click="open(note)">
-					<div class="pinCss1">
-						<span class="pinCss2" id="hide-Options" ng-click="pin(note,'true','false')"> 
-							<img alt="pin" src="image/pin.svg">
-						</span> 
-						<img ng-src="{{note.image}}" style="width: 100%" />
-					</div>
-					<div class="col-sm-12" style="padding: 10px;">
-						<div ng-bind-html="note.title"></div>
-						<br>
-						<div ng-bind-html="note.description | parseUrlFilter"></div>
-						<br>
-					</div>
+			<div class="pinCss1">
+				<span class="pinCss2 btn" id="hide-Options" ng-click="pinFunction(note,'true','false')"> 
+					<img alt="pin" src="image/pin.svg">
+				</span> 
+				<div ng-click="open(note)">
+					<img ng-src="{{note.image}}" style="width: 100%" />
 				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12 col-xs-12 col-xs-12" style="padding: 10px;" ng-click="open(note)">
+				<div ng-bind-html="note.title"></div>
+				<br>
+				<div ng-bind-html="note.description | parseUrlFilter"></div>
+				<br>
+			</div>
 			
 			<div id="reminder" ng-if="note.reminderStatus!=null">
 						{{note.reminderStatus}}<span class="closebtn"
