@@ -28,26 +28,34 @@
 						</div>
 					</div>
 
-					<div id="reminder">
+					<div id="reminder" ng-if="note.reminderStatus!=null">
 						{{note.reminderStatus}}<span class="closebtn"
 							ng-click="removeReminder(note)">&#x274C;</span>
 					</div>
+		
+					<div ng-repeat="label in note.labels">
+						<div id="label" ng-if="label.labelName!=null">
+								{{label.labelName}} <span class="closebtn"
+									ng-click="removeLabel(note,label)">&#x274C;</span>
+						</div>
+					</div>
 
-					<div class="note-icons card-margin" id="hide-Options">
+					<div id="hide-Options">
+
 						<reminder></reminder>
 
-						<img alt="colaburator" src="image/colaburator.png" height="23px"
-							ng-click="openColaburator(note,UserDetails,$index)">
-							
-
+						<span ng-click="openColaburator(note,UserDetails,$index)" class="btn">
+							<img alt="colaburator" src="image/colaburator.png" height="28px">
+						</span>
+						
 						<color></color>
 
-						<span ng-click="openImageUploader(note)" class="btn"> <img
-							alt="image" src="image/image.svg" height="20px">
-							
-						</span> <span ng-click="archiveFunction(note,'true','false','false')" class="btn"> <img
-							alt="archive" src="image/archive.svg" height="20px">
-							
+						<span ng-click="openImageUploader(note)" class="btn"> 
+						  <img alt="image" src="image/image.svg" height="20px">
+						</span> 
+						
+						<span ng-click="archiveFunction(note,'true','false','false')" class="btn"> 
+							<img alt="archive" src="image/archive.svg" height="20px">
 						</span>
 
 						<drop-down></drop-down>

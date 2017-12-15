@@ -4,7 +4,7 @@
 	<br> <br> <br> <br> <br> <br>
 	<div ng-click="AddNoteColor='#ffffff'">
 
-		<div class="card col-sm-4 {{widthOfCard}}" style="background-color: {{note.noteColor}}"
+		<div class="card {{widthOfCard}}" style="background-color: {{note.noteColor}}"
 			ng-repeat="note in allGetNotes | orderBy : '-modifiedDate' | filter :{archiveStatus:'true',noteStatus:'false'}">
 
 			
@@ -22,27 +22,37 @@
 						<br>
 					</div>
 				</div>
-
-
+			
 			<div id="reminder" ng-if="note.reminderStatus!=null">
-				{{note.reminderStatus}}<span class="closebtn"
-					ng-click="removeReminder(note)">&#x274C;</span>
+						{{note.reminderStatus}}<span class="closebtn"
+							ng-click="removeReminder(note)">&#x274C;</span>
 			</div>
 
-			<div class="note-icons card-margin" id="hide-Options">
+			<div ng-repeat="label in note.labels">
+				<div id="label" ng-if="label.labelName!=null">
+						{{label.labelName}} <span class="closebtn"
+							ng-click="removeLabel(note,label)">&#x274C;</span>
+				</div>
+			</div>
+			
+			<div id="hide-Options">
 
 				<reminder></reminder>
-				<img alt="colaburator" src="image/colaburator.png" height="23px"
-					ng-click="openColaburator(note,UserDetails,$index)">
-					
+				
+				<span ng-click="openColaburator(note,UserDetails,$index)" class="btn">
+					<img alt="colaburator" src="image/colaburator.png" height="23px">
+				</span>	
 
-				<color class="margin"></color>
-				<span ng-click="openImageUploader(note)" class="btn"> <img
-					alt="image" src="image/image.svg" height="20px">
-					
-				</span> <span ng-click="archiveFunction(note,'false','true','false')" class="btn"> <img
-					alt="archive" src="image/unarchive.png" height="20px">
+				<color></color>
+				
+				<span ng-click="openImageUploader(note)" class="btn"> 
+					<img alt="image" src="image/image.svg" height="20px">
+				</span> 
+				
+				<span ng-click="archiveFunction(note,'false','true','false')" class="btn">
+				 	<img alt="archive" src="image/unarchive.png" height="18px">
 				</span>
+				
 				<drop-down></drop-down>
 			</div>
 			<url-image></url-image>

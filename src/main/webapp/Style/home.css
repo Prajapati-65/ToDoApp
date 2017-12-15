@@ -19,19 +19,25 @@
 	visibility:visible;
 }
 
-.note-icons > img{
-	height: 27px;
-	width:22px;
-}
-
-.card-margin{
-	padding-left:11px;
-	padding-right:10px;
-	padding-bottom: 5px;
-}
-
 #noteContainer{
-		transition: 0.3s;
+	transition: 0.3s;
+	margin-left: 300px;
+}
+
+@media only screen and (max-width: 1000px) {
+	.sideNav{
+		width : 0;
+		z-index: 1110;
+	}
+	
+	#noteContainer{
+		margin-left: 0px;
+	}
+}
+
+
+.btn {
+	   padding: 11px;
 }
 
 .card li{

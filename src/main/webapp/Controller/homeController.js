@@ -2,7 +2,7 @@ var toDoApp = angular.module('toDoApp');
 
 toDoApp.controller('homeController', function($scope, homeService, $uibModal, $location, toastr, $state ,fileReader ,$filter ) {
 		
-					document.getElementById("noteContainer").style.marginLeft = "250px";
+					
 					
 					
 			/*---------------------------------get valid token-----------------------------------*/
@@ -728,8 +728,8 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 		
 		/*----------------------------pin unpin the notes ---------------------------------------*/
 					
-					$scope.pin = function(note , noteStatus , archiveStatus) {
-						$scope.noteStatus =noteStatus;
+					$scope.pin = function(note , pin , archiveStatus) {
+						$scope.pin =pin;
 						$scope.archiveStatus =archiveStatus;
 						$scope.note=note;
 						
@@ -836,9 +836,9 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 
 					if ($scope.imageView == "image/grid.png") {
 
-						$scope.widthOfCard = "col-md-10 col-sm-10 col-xs-10 col-lg-10 list";
+						$scope.widthOfCard = "col-md-9 col-sm-9 col-xs-9 col-lg-9 list";
 					} else {
-						$scope.widthOfCard = "col-md-3 col-sm-4 col-xs-4 col-lg-3  grid";
+						$scope.widthOfCard = "col-md-5 col-sm-5 col-xs-7 col-lg-3  grid";
 					}
 
 					$scope.changeview = function() {
@@ -847,12 +847,12 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							toastr.success('List View','successful');
 							$scope.imageView = "image/grid.png";
 							localStorage.setItem('card', "image/grid.png");
-							$scope.widthOfCard = "col-md-10 col-sm-5 col-xs-12 col-lg-10 list";
+							$scope.widthOfCard = "col-md-9 col-sm-9 col-xs-9 col-lg-9 list";
 						} else {
 							toastr.success('Gride View','successful');
 							$scope.imageView = "image/list.png";
 							localStorage.setItem('card', "image/list.png");
-							$scope.widthOfCard = "col-md-3 col-sm-5 col-xs-12 col-lg-3  grid";
+							$scope.widthOfCard = "col-md-5 col-sm-5 col-xs-7 col-lg-3  grid";
 						}
 					}
 					

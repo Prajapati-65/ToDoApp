@@ -8,8 +8,12 @@ function toogleNav() {
 }
 
 function openNav() {
-	document.getElementById("sideNavContent").style.width = "250px";
-	document.getElementById("noteContainer").style.marginLeft = "250px";
+	
+	if(screen.width>1000){
+		document.getElementById("sideNavContent").style.width = "300px";
+		document.getElementById("noteContainer").style.marginLeft = "300px";
+	} else
+		document.getElementById("sideNavContent").style.width = "300px";
 }
 
 function closeNav() {

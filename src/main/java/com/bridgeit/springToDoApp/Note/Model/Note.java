@@ -93,6 +93,7 @@ public class Note {
 	}
 
 	public void setArchiveStatus(String archiveStatus) {
+		
 		if (archiveStatus.equals("true") || archiveStatus.equals("false")) {
 			this.archiveStatus = archiveStatus;
 		}

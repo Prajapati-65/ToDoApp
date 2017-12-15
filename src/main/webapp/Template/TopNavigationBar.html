@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
  <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-style="{'background-color': topBarColor}">
-		
+			
 			<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" id="main">
 				<span onclick="toogleNav()" class="span-a">&#9776;</span>
 			</div>
@@ -14,16 +14,16 @@
 					ng-model="searchText" ui-sref="search">
 			</div>
 			
-			<div class="hidden-xs col-sm-1 col-md-2 col-lg-2" style="margin-top: 10px;">
+			<div class="hidden-xs col-sm-4 col-md-2 col-lg-2" style="margin-top: 10px; margin-right: 100px;">
 					<img ng-src="{{imageView}}" width="30" height="30"
 							ng-click="changeview()" class="profile-pic">
 			</div>
 			
-			<div class="col-xs-1 col-sm-1 col-md-2 col-lg-3">
+			<div class="col-xs-1 col-sm-1 col-md-1 col-lg-2">
 			
 					<div class="imagedropdown">
 							<span class="btn dropdown-toggle" id="menu1" type="button"
-								data-toggle="dropdown" style="float: right;"> 
+								data-toggle="dropdown" style="float: right; margin-right: -110px;"> 
 								<img alt="userProfile" ng-src="{{UserDetails.profileImage}}"
 									width="40px" height="40px" class="img-circle">
 							</span>
@@ -32,7 +32,7 @@
 								style="right: 0; left: auto;">
 								<div style="padding: 40px;">
 									<div class="">
-										<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" ng-click="openImageUploader('user')" height="100px" width="80%" class="img-circle">
+										<img alt="userProfile" ng-src="{{UserDetails.profileImage}}" ng-click="openImageUploader('user')" height="100px" class="img-circle">
 									</div>
 									<div class="" style="float: right;">
 										{{UserDetails.firstName}} {{UserDetails.lastName}} <br>
@@ -51,9 +51,6 @@
 						</div>
 						
 					</div>
-					
-					
-					
 					
 				</div>
 			</div>
