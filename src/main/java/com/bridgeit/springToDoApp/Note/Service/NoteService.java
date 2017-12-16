@@ -3,6 +3,7 @@ package com.bridgeit.springToDoApp.Note.Service;
 import java.util.List;
 
 import com.bridgeit.springToDoApp.Note.Model.Collaborater;
+import com.bridgeit.springToDoApp.Note.Model.Log;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
 
@@ -34,4 +35,9 @@ public interface NoteService {
 	
 	
 	public void deleteScheduleNote();
+	
+	
+	public void activity(Log log);
+	
+	public List<Log> getAllLog(User user);
 }

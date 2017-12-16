@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bridgeit.springToDoApp.Note.Model.Collaborater;
+import com.bridgeit.springToDoApp.Note.Model.Log;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.User.Model.User;
 
@@ -160,5 +161,21 @@ public class NoteDaoImpl implements NoteDao {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void activity(Log log) {
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(log);
+		session.close();
+	}
 	
+	public List<Log> getAllLog(User user) {
+		Session session = factory.openSession();
+		Criteria criteria = session.createCriteria(Log.class);
+		criteria.add(Restrictions.eq("logUser", user));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Log> logs = criteria.list();
+		return logs;
+	}
 }

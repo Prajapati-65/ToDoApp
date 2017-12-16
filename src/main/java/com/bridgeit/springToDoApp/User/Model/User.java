@@ -62,7 +62,6 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<Note> note = new HashSet<Note>();
-
 	
 	/**
 	 * generate getters and setters for all variables

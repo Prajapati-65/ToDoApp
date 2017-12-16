@@ -35,6 +35,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						
+		/*-----------------------------------------------------------------------*/
+						
+						
+						
 		/*---------------------------------get all user email----------------------------------*/
 							
 						$scope.emailList="";

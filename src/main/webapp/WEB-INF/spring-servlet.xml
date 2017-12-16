@@ -48,6 +48,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 				<value>com.bridgeit.springToDoApp.Note.Model.Note</value>
 				<value>com.bridgeit.springToDoApp.Note.Model.Collaborater</value>
 				<value>com.bridgeit.springToDoApp.Label.Model.Label</value>
+				<value>com.bridgeit.springToDoApp.Note.Model.Log</value>
 				
 			</list>
 		</property>

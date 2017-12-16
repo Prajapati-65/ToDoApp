@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.springToDoApp.Note.Model.Collaborater;
+import com.bridgeit.springToDoApp.Note.Model.Log;
 import com.bridgeit.springToDoApp.Note.Model.Note;
 import com.bridgeit.springToDoApp.Note.Service.NoteService;
 import com.bridgeit.springToDoApp.User.Model.User;
@@ -46,9 +47,10 @@ public class NoteController {
 	 * @param note
 	 * @param request
 	 * 
-	 * using request get the userID and then find the User and the and then set the set the user
-	 * and create the Date object the and set the created date and modifiedDate in a note
-	 *  
+	 *            using request get the userID and then find the User and the
+	 *            and then set the set the user and create the Date object the
+	 *            and set the created date and modifiedDate in a note
+	 * 
 	 * @return integer object a note
 	 */
 	@RequestMapping(value = "/createNote", method = RequestMethod.POST)
@@ -72,13 +74,28 @@ public class NoteController {
 	}
 
 	/**
-	 * @param int noteId
+	 * @param int
+	 *            noteId
 	 * @return this method return boolean object
 	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId) {
+	public ResponseEntity<Response> deleteNote(@PathVariable("id") int noteId ,HttpServletRequest request ) {
+		int id = (int) request.getAttribute("userId");
+		User user = userService.getUserById(id);
+		
 		Note note = new Note();
 		note.setNoteId(noteId);
+		
+		Log log = new Log();
+		log.setAction("Delete");
+		Date currentDate = new Date();
+		log.setActionTime(currentDate);
+		note.setNoteId(note.getNoteId());
+		
+		log.setLogUser(user);
+		log.setReferenceId(note);
+		
+		noteService.activity(log);
 
 		boolean delete = noteService.deleteNote(note);
 
@@ -97,21 +114,23 @@ public class NoteController {
 	}
 
 	/**
-	 * @param Note objcet 
+	 * @param Note
+	 *            objcet
 	 * 
-	 * using Note object we get the note id  
-	 * and then using note id we create other Note object and then
-	 * using New Note object we get createdDate object of Date  and then set the new object of createdDate
-	 * and using that new note find the User then set the user of that note
-	 * and then find the new modifiedDate object and then set the modifiedDate
-	 *  
+	 *            using Note object we get the note id and then using note id we
+	 *            create other Note object and then using New Note object we get
+	 *            createdDate object of Date and then set the new object of
+	 *            createdDate and using that new note find the User then set the
+	 *            user of that note and then find the new modifiedDate object
+	 *            and then set the modifiedDate
+	 * 
 	 * @return this api return the boolean value
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ResponseEntity<Response> update(@RequestBody Note note) {
 
 		int noteid = note.getNoteId();
-		
+
 		Note noteById = noteService.getNoteById(noteid);
 
 		Date createDate = noteById.getCreatedDate();
@@ -122,11 +141,15 @@ public class NoteController {
 
 		Date modifiedDate = new Date();
 		note.setModifiedDate(modifiedDate);
+		
+		
+		
+		
 
 		boolean isUpdated = noteService.updateNote(note);
 
 		CustomResponse customResponse = new CustomResponse();
-		
+
 		if (isUpdated != true) {
 
 			customResponse.setMessage("Note could not be updated...");
@@ -140,8 +163,10 @@ public class NoteController {
 	}
 
 	/**
-	 * @param Note note
-	 * @param User user
+	 * @param Note
+	 *            note
+	 * @param User
+	 *            user
 	 * @return this api return boolean value
 	 */
 	@RequestMapping(value = "/changeColor", method = RequestMethod.POST)
@@ -155,7 +180,8 @@ public class NoteController {
 	}
 
 	/**
-	 * @param HttpServletRequest request
+	 * @param HttpServletRequest
+	 *            request
 	 * @return List of AllNotes
 	 */
 	@RequestMapping(value = "/getallnotes", method = RequestMethod.GET)
@@ -182,16 +208,33 @@ public class NoteController {
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
 
+	@RequestMapping(value = "/getAllLog", method = RequestMethod.GET)
+	public List<Log> getAllLog(HttpServletRequest request) {
+
+		int userId = (int) request.getAttribute("userId");
+		CustomResponse customResponse = new CustomResponse();
+		
+		User user = userService.getUserById(userId);
+		
+		List<Log> allLog = noteService.getAllLog(user);
+		
+		customResponse.setMessage("Log found");
+		customResponse.setStatus(2);
+		return allLog;
+
+	}
+
 	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/
 
 	/**
 	 * @param collborator
 	 * @param request
 	 * 
-	 * Create collaborator object then find Note and shareUser and ownerUser 
-	 * using shareUser we check the validate email and
-	 * using token find the userId and the verify the User object and 
-	 * then check the shareUser and owner is valid and set the Note, shareUser and owner object to collaborator object
+	 *            Create collaborator object then find Note and shareUser and
+	 *            ownerUser using shareUser we check the validate email and
+	 *            using token find the userId and the verify the User object and
+	 *            then check the shareUser and owner is valid and set the Note,
+	 *            shareUser and owner object to collaborator object
 	 * 
 	 * @return List of User
 	 */
@@ -239,11 +282,12 @@ public class NoteController {
 	}
 
 	/**
-	 * @param Note note
-	 * @param request 
-	 * using Note object find the get the noteId 
-	 * and then that id find the New Note object and
-	 * using new note object the getUser object
+	 * @param Note
+	 *            note
+	 * @param request
+	 *            using Note object find the get the noteId and then that id
+	 *            find the New Note object and using new note object the getUser
+	 *            object
 	 * 
 	 * @return User object
 	 */
@@ -307,27 +351,24 @@ public class NoteController {
 	/*-----------------------------------------Jsoup UrlData----------------------------------*/
 	/**
 	 * @param request
-	 * @return UrlData 
+	 * @return UrlData
 	 */
 	@RequestMapping(value = "/getUrlData", method = RequestMethod.POST)
-	public ResponseEntity<?> getUrlData(HttpServletRequest request){
-		
-		String urlmap=request.getHeader("url");
-		LinkScrapper link=new LinkScrapper();
-		
-		UrlData urlData=null;
-		
+	public ResponseEntity<?> getUrlData(HttpServletRequest request) {
+
+		String urlmap = request.getHeader("url");
+		LinkScrapper link = new LinkScrapper();
+
+		UrlData urlData = null;
+
 		try {
 			urlData = link.getUrlMetaData(urlmap);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return ResponseEntity.ok(urlData);
 	}
-	
-	
-	
 
 }
