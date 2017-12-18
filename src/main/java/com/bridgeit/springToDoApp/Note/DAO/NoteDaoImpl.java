@@ -63,6 +63,7 @@ public class NoteDaoImpl implements NoteDao {
 	public Note getNoteById(int noteId) {
 		Session session = factory.openSession();
 		Note note = session.get(Note.class, noteId);
+		session.close();
 		return note;
 	}
 
@@ -73,6 +74,7 @@ public class NoteDaoImpl implements NoteDao {
 			transaction = session.beginTransaction();
 			session.delete(note);
 			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

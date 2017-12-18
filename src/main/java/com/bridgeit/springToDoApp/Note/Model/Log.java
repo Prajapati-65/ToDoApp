@@ -41,10 +41,17 @@ public class Log {
 	@ManyToOne
 	@JsonIgnore
 	private User logUser;
-	
-	/*@Column(name = "TITLE")
-	private String title;*/
-	
+
+	@Column(name = "TITLE")
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public int getLogId() {
 		return logId;
@@ -89,7 +96,7 @@ public class Log {
 	@Override
 	public String toString() {
 		return "Log [logId=" + logId + ", actionTime=" + actionTime + ", action=" + action + ", referenceId="
-				+ referenceId + ", logUser=" + logUser + "]";
+				+ referenceId + ", logUser=" + logUser + ", title=" + title + "]";
 	}
 
 }

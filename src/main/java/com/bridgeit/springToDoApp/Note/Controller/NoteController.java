@@ -83,15 +83,18 @@ public class NoteController {
 		int id = (int) request.getAttribute("userId");
 		User user = userService.getUserById(id);
 		
-		Note note = new Note();
+		Note note = noteService.getNoteById(noteId);
+		if (note.getUser().getId() != id) {
+			return new ResponseEntity<Response>(HttpStatus.UNAUTHORIZED);
+		}
+		
 		note.setNoteId(noteId);
 		
 		Log log = new Log();
 		log.setAction("Delete");
 		Date currentDate = new Date();
 		log.setActionTime(currentDate);
-		note.setNoteId(note.getNoteId());
-		
+		log.setTitle(note.getTitle());
 		log.setLogUser(user);
 		log.setReferenceId(note);
 		
@@ -208,22 +211,7 @@ public class NoteController {
 		return ResponseEntity.ok(customResponse.getNotes());
 	}
 
-	@RequestMapping(value = "/getAllLog", method = RequestMethod.GET)
-	public List<Log> getAllLog(HttpServletRequest request) {
-
-		int userId = (int) request.getAttribute("userId");
-		CustomResponse customResponse = new CustomResponse();
-		
-		User user = userService.getUserById(userId);
-		
-		List<Log> allLog = noteService.getAllLog(user);
-		
-		customResponse.setMessage("Log found");
-		customResponse.setStatus(2);
-		return allLog;
-
-	}
-
+	
 	/*-------------------------------------------------Collaborator Start-----------------------------------------------*/
 
 	/**
@@ -369,6 +357,25 @@ public class NoteController {
 		}
 
 		return ResponseEntity.ok(urlData);
+	}
+
+	
+	/*--------------------------------------GetAllLog-----------------------------*/
+	
+	@RequestMapping(value = "/getAllLog", method = RequestMethod.GET)
+	public List<Log> getAllLog(HttpServletRequest request) {
+
+		int userId = (int) request.getAttribute("userId");
+		CustomResponse customResponse = new CustomResponse();
+		
+		User user = userService.getUserById(userId);
+		
+		List<Log> allLog = noteService.getAllLog(user);
+		
+		customResponse.setMessage("Log found");
+		customResponse.setStatus(2);
+		return allLog;
+
 	}
 
 }

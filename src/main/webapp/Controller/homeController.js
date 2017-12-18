@@ -35,8 +35,20 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 						}
 						
 						
-		/*-----------------------------------------------------------------------*/
-						
+		/*--------------------------------GetAllLog-------------------------------*/
+						getAllLog();
+						function getAllLog() {
+							var token =  gettingToken();
+							var method = "GET";
+							var url = 'user/getAllLog';
+							var a = homeService.service(url,method,token);
+							
+							a.then(function(response) {
+								$scope.AllLog = response.data;
+								console.log("All Log are :-> "+response.data);
+							})
+							
+						}
 						
 						
 		/*---------------------------------get all user email----------------------------------*/
@@ -588,6 +600,10 @@ toDoApp.controller('homeController', function($scope, homeService, $uibModal, $l
 							else if($state.current.name=="search"){
 								$scope.topBarColor= "#1a8cff";
 								$scope.navBarHeading="Google Keep";
+							}
+							else if($state.current.name=="LogInfo"){
+								$scope.topBarColor= "#cc66ff";
+								$scope.navBarHeading="Activity Log";
 							}
 							
 						

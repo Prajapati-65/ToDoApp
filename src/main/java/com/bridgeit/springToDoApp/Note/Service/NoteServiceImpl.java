@@ -25,6 +25,7 @@ public class NoteServiceImpl implements NoteService {
 		Log log = new Log();
 		log.setAction("Create");
 		log.setActionTime(note.getCreatedDate());
+		log.setTitle(note.getTitle());
 		int id = noteDao.createNote(note);
 		note.setNoteId(id);
 		log.setReferenceId(note);
@@ -42,6 +43,7 @@ public class NoteServiceImpl implements NoteService {
 		log.setActionTime(note.getModifiedDate());
 		note.setNoteId(note.getNoteId());
 		log.setReferenceId(note);
+		log.setTitle(note.getTitle());
 		
 		User user =note.getUser();
 		log.setLogUser(user);

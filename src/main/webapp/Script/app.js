@@ -59,6 +59,11 @@ toDoApp.config(function($stateProvider, $urlRouterProvider) {
 		url : '/labels/:id',
 		templateUrl : 'Template/home.html',
 		controller: 'homeController'
+	})
+	.state('LogInfo',{
+		url : '/LogInfo',
+		templateUrl : 'Template/Log.html',
+		controller: 'homeController'
 	});
 	
 	$urlRouterProvider.otherwise('login');
