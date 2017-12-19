@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class FbLogin {
 
-	static Logger logger = (Logger) LogManager.getLogger(FbLogin.class);
 
 	private static final String APP_ID = "1845582508804612";
 	private static final String APP_SECRET = "3e8b7173d07b4ce5857a466c3ba86b3b";

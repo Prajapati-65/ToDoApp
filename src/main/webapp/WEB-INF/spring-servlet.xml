@@ -26,6 +26,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<mvc:resources location="/image/" mapping="/image/**" />
 	<mvc:resources location="/bower_components/" mapping="/bower_components/**" />
 
+	<context:property-placeholder location="classpath:email.properties"/>
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
@@ -49,7 +51,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 				<value>com.bridgeit.springToDoApp.Note.Model.Collaborater</value>
 				<value>com.bridgeit.springToDoApp.Label.Model.Label</value>
 				<value>com.bridgeit.springToDoApp.Note.Model.Log</value>
-				
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -62,6 +63,21 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	</bean>
 
 	<bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}" />
+		<property name="port" value="${email.port}" />
+		<property name="username" value="${email.username}" />
+		<property name="password" value="${email.password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${email.auth}</prop>
+				<prop key="mail.smtp.starttls.enable">${email.starttls}</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+
+	<!-- <bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="om4java@gmail.com" />
@@ -72,7 +88,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 				<prop key="mail.smtp.starttls.enable">true</prop>
 			</props>
 		</property>
-	</bean>
+	</bean> -->
 
 	<mvc:interceptors>
 		<mvc:interceptor>

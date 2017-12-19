@@ -3,8 +3,6 @@ package com.bridgeit.springToDoApp.SocialLogin.GoogleSocialLogin.Model;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class GoogleLogin {
 
-	static Logger logger = (Logger) LogManager.getLogger(GoogleLogin.class);
 	
 	private static final String CLIENT_ID = "626052471611-25puhd88m0cefvvfc3pjj1g8ihnibhbf.apps.googleusercontent.com";
 	private static final String CLIENT_SECRET = "kbqL-iIN8RwVmc59mc6sl7F3";
