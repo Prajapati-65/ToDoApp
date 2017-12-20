@@ -1,0 +1,30 @@
+<div class="dropdown inline">
+	<span class="btn dropdown-toggle" id="menu1" data-toggle="dropdown">
+		<span class="glyphicon glyphicon-option-vertical"></span>
+	</span>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+		<li><a ng-click="deleteNote(note)">Delete</a></li>
+
+		<li class="dropdown-submenu"><a tabindex="-1" href="">Add Label</a>
+			<ul class="dropdown-menu" style="padding: 10px;">
+				<li><a tabindex="-1" href="">Create label</a></li>
+				<li><input class="input-label" placeholder="Enter label name"
+					data-ng-click="saveLabel(labelNew)" data-ng-model="labelNew.labelName">
+				</li>
+				
+				<li ng-repeat="label in labels">
+						<label> 
+							<input type="checkbox" 
+							ng-click="toggleLabelOfNote(note,label); updateNote(note);">
+							{{label.labelName}}
+						</label>
+				</li>
+				<li> <button data-ng-click="saveLabel(labelNew)">Create {{labelNew.labelName}} </button></li>
+			</ul>
+		</li>
+
+
+		<li><a ng-click="copy(note)">Make a Copy</a></li>
+		<li><a ng-click="fbAsyncSocialShare(note)">Social Share</a></li>
+	</ul>
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-7 col-sm-7 col-xs-7 col-lg-7" id="addForm"
+			style="background-color: {{AddNoteColor}}">
+			<div>
+				 
+				<img ng-if="adding!=''" ng-src="{{adding}}" width="100%" />
+				<div ng-show="AddNoteBox" data-text="Title" contentEditable="true"
+					id="notetitle"></div>
+				<br>
+				<div contentEditable="true" data-text="Take a note..."
+					ng-click="ShowAddNote()" id="noteDescription"></div>
+				<br>
+				<div ng-show="AddNoteBox">
+					<div>
+						<reminder></reminder>
+						
+						<span ng-click="openColaburator(note,UserDetails,$index)" class="btn">
+							<img alt="colaburator" src="image/colaburator.png" height="23px">
+						</span>
+						
+						<color></color>
+						
+						<span ng-click="openImageUploader('input')" class="btn"> 
+							<img alt="image" src="image/image.svg" height="20px">
+						</span>
+						
+						 <span ng-click="archiveFunction(note,'true','false','false')" class="btn"> <img
+							alt="archive" src="image/archive.svg" height="20px">
+						</span>
+
+						<drop-down></drop-down>
+
+						<div style="float: right">
+							<div id="edit">
+								<button type="button" class="btn btn-default"
+									ng-click="addNote()">DONE</button>
+							</div>
+						</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

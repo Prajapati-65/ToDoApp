@@ -1,0 +1,80 @@
+.sideNav {
+	height: 100%;
+	width: 300px;
+	position: fixed;
+	z-index: 0;
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	transition: 0.3s;
+	padding-top: 7%;
+	/* background-color: #ffffff; */
+}
+
+.sideNav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #20201F;
+	display: block;
+	transition: 0.3s;
+	
+}
+
+.sideNav a:hover {
+	color: #babdb6;
+}
+
+
+.topNav .navbar-default .navbar-brand {
+	color: #000000;
+	margin-left: 20px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding-top: 14px;
+    padding-left: 38px;
+    
+}
+
+.toggle-button {
+	background-color: black;
+}
+
+.navbar-toggle {
+	background-color: transparent;
+	display: inline-block;
+}
+
+#top-mar {
+    margin: 15px;	
+}
+
+#search-bar{
+	margin-top: 5px;	
+}
+
+.span-a {
+	font-size: 25px;
+	cursor: pointer
+}
+
+.xyz{
+	background-color: white;
+	 padding-left: 10px;
+}
+
+input[type=text] {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #ffffff;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    transition: width 0.4s ease-in-out;
+}
+
+
+

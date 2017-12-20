@@ -1,0 +1,53 @@
+<div class="container" id="registration-abc">
+	<div class="col-xs-12 col-sm-12 col-md-12">
+		<h2>Create an Account</h2>
+		<form name="registerForm">
+		
+			<h3 ng-bind="customResponse" id="errorInfo"></h3>
+			
+			<div class="form-group">
+				<label class="control-label" for="firstName">Enter the first name</label>
+				 <input id="fName" name="fName" type="text" class="form-control" required ng-minlength="2" ng-model="user.firstName"> 
+				 <span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.required">Required</span>
+				 <span ng-show="registerForm.fName.$dirty && registerForm.fName.$error.minlength">First name is too short</span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="firstName">Enter the last name</label> 
+				<input id="lName" name="lName" type="text" class="form-control"  required ng-minlength="2" ng-model="user.lastName"> 
+				<span ng-show="registerForm.lName.$dirty && registerForm.lName.$error.required">Required</span>
+				<span ng-show="registerForm.lName.$dirty && registerForm.lName.$error.minlength">Last name is too short</span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="email">Enter the email</label>
+				<input id="email" name="email" type="email"  class="form-control" ng-model="user.email" required> 
+				<span ng-show="registerForm.email.$dirty && registerForm.email.$error.required">Please enter a valid email</span> 
+				<span ng-show="registerForm.email.$dirty && registerForm.email.$error.email">Please fill a proper format </span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="password">Enter the password</label> 
+				<input id="password" name="password" type="password" class="form-control" ng-model="user.password" required ng-minlength="8"> 
+				<span ng-show="registerForm.password.$dirty && registerForm.password.$error.required">Required</span>
+				<span ng-show="registerForm.password.$dirty && registerForm.password.$error.minlength">Password is too short </span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="number">Enter mobile number</label> 
+				<input id="mobileNumber" name="mobileNumber" type="text"  class="form-control" ng-model="user.mobileNumber" required ng-minlength="10" ng-maxlength="10"> 
+				<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.required">Required</span>
+				<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.minlength">MobileNumber is too short </span> 
+				<span ng-show="registerForm.mobileNumber.$dirty && registerForm.mobileNumber.$error.maxlength">MobileNumber is too long </span>
+			</div>
+
+			<div class="form-group">
+				<button id="submit" type="submit" ng-click="registerUser()" class="btn btn-lg btn-danger btn-block">Create my Account</button>
+			</div>
+			<div>
+				<h3>Create an account? <a href="#!/login">Sign in</a></h3>
+			</div>
+		</form>
+	</div>
+</div>
+

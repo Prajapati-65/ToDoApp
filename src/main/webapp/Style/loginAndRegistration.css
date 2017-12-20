@@ -1,0 +1,27 @@
+#login-abc {
+	background-color: #ffffff;
+	padding-bottom: 40px;
+	margin-top: 40px;
+	max-width: 350px;
+}
+
+#registration-abc {
+	max-width: 450px;
+	background-color: #ffffff;
+	margin-top: 40px;
+	padding-bottom: 25px;
+}
+
+#forget {
+	background-color: #ccccff;
+	margin-top: 50px;
+	max-width: 550px;
+	padding-bottom: 50px;
+}
+
+#reset {
+	background-color: #ccccff;
+	margin-top: 50px;
+	max-width: 550px;
+	padding-bottom: 50px;
+}

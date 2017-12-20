@@ -1,0 +1,35 @@
+#edit {
+	float: right;
+}
+
+#editNoteModal {
+	padding: 15px;
+	position: absolute;
+	width: 100%;
+	margin-top: 20%;
+	border-color: 0;
+}
+
+#list-gride-View {
+	margin-top: 20px;
+}
+
+#reminder:hover .closebtn {
+	visibility: visible;
+}
+
+.pinCss2{
+	position: absolute;
+	right: 0; 
+}
+.pinCss1{
+	position: relative; 
+	margin: -10px;
+}
+
+.imgCrop {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
