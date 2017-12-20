@@ -8,8 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FbLogin {
 
 
+	@Value("${email.CLIENT_ID}")
 	private static final String APP_ID = "1845582508804612";
 	private static final String APP_SECRET = "3e8b7173d07b4ce5857a466c3ba86b3b";
 	private static final String REDIRECT_URI = "http://localhost:8080/ToDoApp/facebookLogin";

@@ -45,3 +45,4 @@ Thumbs.db
 *.orig
 build
 /target/
+bower_components
