@@ -41,7 +41,7 @@ Thumbs.db
 .metadata/
 .recommenders/
 *.*~
-.settings
+.settings/
 *.orig
 build
 
