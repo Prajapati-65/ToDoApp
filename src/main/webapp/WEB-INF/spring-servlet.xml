@@ -26,7 +26,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<mvc:resources location="/image/" mapping="/image/**" />
 	<mvc:resources location="/bower_components/" mapping="/bower_components/**" />
 
-	<context:property-placeholder location="classpath:email.properties"/>
+	<context:property-placeholder location="classpath:development.properties"/>
 	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -74,21 +74,16 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			</props>
 		</property>
 	</bean>
-	
 
+	<beans:beans profile="development">
+		<context:property-placeholder
+			ignore-resource-not-found="true" location="classpath*:/development.properties" />
+	</beans:beans>
 
-	<!-- <bean id="mail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="om4java@gmail.com" />
-		<property name="password" value="forgiveme" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-			</props>
-		</property>
-	</bean> -->
+	<!-- <beans:beans profile="production">
+		<context:property-placeholder
+			ignore-resource-not-found="true" location="classpath*:/production.properties" />
+	</beans:beans> -->
 
 	<mvc:interceptors>
 		<mvc:interceptor>
